@@ -1,8 +1,6 @@
 document.addEventListener(`DOMContentLoaded`, () => {
 
-    
     const gameContent = document.getElementById("gameContent");
-
 
     // a class to generate the position to create each block
     class Position {
@@ -21,13 +19,22 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let htmlContentForGameContent = "";
     //create a string with the html content with all the div
     for(position of positionsArray){
+        const post2x2y = document.getElementById(`post${position.x}x-${position.y}y`);
         htmlContentForGameContent = htmlContentForGameContent + `<div id="post${position.x}x-${position.y}y"></div>`
     }
     gameContent.innerHTML = htmlContentForGameContent;
-    console.log(positionsArray);
 
+    //put an image in a cordenate
     const post2x2y = document.getElementById("post2x-2y");
     post2x2y.innerHTML = `<img src="detective.png" alt="">`;
 
 
+    //character movement 
+
+    document.addEventListener(`keydown`, (key)=>{
+        switch(key.key){
+            case "ArrowDown":
+                console.log("cat")
+        }
+    });
 });
