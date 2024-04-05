@@ -1,6 +1,9 @@
 document.addEventListener(`DOMContentLoaded`, () => {
 
     const gameContent = document.getElementById("gameContent");
+    const mapContent = document.getElementById("map");
+    const inventoryContent = document.getElementById("inventory");
+
 
     let positionsArray = [];
 
@@ -29,6 +32,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
             positionsArray.push(new Position(e,i))
         }
     }
+    
     let htmlContentForGameContent = "";
     //create a string with the html content with all the div
     console.log(positionsArray)
@@ -38,8 +42,42 @@ document.addEventListener(`DOMContentLoaded`, () => {
     }
     gameContent.innerHTML = htmlContentForGameContent;
 
-    //put an image in a cordenate
-    const post2x2y = document.getElementById("post2x-2y");
+    // do the same for the map ---------------------------------
+
+    positionsArray = [];
+
+    for(let i = 3; i >= 1; i--) {
+        for(let e = 1; e <= 3; e++){
+            positionsArray.push(new Position(e,i))
+        }
+    }
+    console.log(positionsArray)
+    
+    let htmlContentForMapContent = "";
+    console.log(positionsArray)
+    for(position of positionsArray){
+        htmlContentForMapContent = htmlContentForMapContent + `<div id="mapPost${position.x}x-${position.y}y"></div>`
+    }
+    mapContent.innerHTML = htmlContentForMapContent;
+
+    // do the same for the inventory ---------------------------------
+
+    positionsArray = [];
+
+    for(let i = 4; i >= 1; i--) {
+        for(let e = 1; e <= 4; e++){
+            positionsArray.push(new Position(e,i))
+        }
+    }
+    console.log(positionsArray)
+    
+    let htmlContentForInventoryContent = "";
+    console.log(positionsArray)
+    for(position of positionsArray){
+        htmlContentForInventoryContent = htmlContentForInventoryContent + `<div id="inventoryPost${position.x}x-${position.y}y"></div>`
+    }
+    inventoryContent.innerHTML = htmlContentForInventoryContent;
+
 
     //Updates character postion and deletes the last character position
     function updateCharacterPostion (){
@@ -48,13 +86,16 @@ document.addEventListener(`DOMContentLoaded`, () => {
         lastPosition.x = characterPosition.x;
         lastPosition.y = characterPosition.y;
     }
+
     function wall (){
         console.log("thats a wall")
     }
+    function addInventory (id, item){
+        document.getElementById(`${id}`).innerHTML = `<img src="${item}" alt="">`
+    }
+    addInventory("inventoryPost1x-4y", "apple.png");
     //character movement 
     updateCharacterPostion();
-
-
     
     document.addEventListener(`keydown`, (key)=>{
         switch(key.key){
@@ -100,4 +141,18 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 break
             }
     });
+
+    //change to history/map inventory mode
+
+    let mode = map;
+
+    document.getElementById("button").addEventListener(`click`, ()=>{
+
+        document.getElementById("gameMap").classList.toggle("displayNone");
+        document.getElementById("gameInventory").classList.toggle("displayNone");
+        document.getElementById("gameTextInput").classList.toggle("displayNone");
+
+    });
+
+
 });
