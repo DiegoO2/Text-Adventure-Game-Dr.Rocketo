@@ -1,12 +1,18 @@
-*{
+
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap');
+
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-body{
+
+body {
     background-color: black;
     color: white;
+    font-family: "Reddit Mono", monospace;
 }
+
 main {
     width: 70%;
     margin: auto;
@@ -22,32 +28,36 @@ header {
 
 /* left side */
 
-#leftContent{
+#leftContent {
     flex-shrink: 0;
     display: flex;
     flex-flow: row wrap;
     width: 600px;
+    margin: auto;
 }
+
 #gameContent {
     border: 5px white solid;
-    box-sizing: content-box;
     display: flex;
     flex-flow: row wrap;
     width: 600px;
     height: 600px;
     margin: 0 auto;
 }
+
 #gameContent div {
     border: 1px solid rgb(146, 146, 146);
     width: 12.5%;
     height: 12.5%;
     background-color: rgb(0, 0, 0);
 }
-#gameContent div img{
+
+#gameContent div img {
     width: 100%;
     height: 100%;
 }
-#gameBar{
+
+#gameBar {
     margin-top: 1rem;
     box-sizing: content-box;
     border: 5px white solid;
@@ -56,11 +66,13 @@ header {
     align-self: flex-end;
     width: 100%;
 }
+
 #gameBar h2 {
     margin: 1rem;
     width: 100%;
     color: white;
 }
+
 #gameBar>div {
     margin: 0 1rem;
     margin-bottom: 1rem;
@@ -70,17 +82,20 @@ header {
     width: 100%;
 
 }
+
 #health {
     display: flex;
     align-items: center;
 }
+
 #health img {
     height: 32px;
     object-fit: cover;
     margin-right: 1rem;
     background-color: white;
 }
-#gameBar>div p{
+
+#gameBar>div p {
     display: flex;
     align-items: center;
     font-size: 1.4rem;
@@ -94,57 +109,68 @@ header {
     display: flex;
     flex-flow: column;
     align-items: center;
+    width: 300px;
 }
-#gameMap, #gameInventory, #gameTextInput {
+
+#gameMap,
+#gameInventory,
+#gameTextInput {
     display: flex;
     flex-flow: column;
     align-items: center;
     margin-bottom: 1rem;
 }
-#rightContent section h2{
+
+#rightContent section h2 {
     margin-bottom: 1rem;
 }
+
 #map {
-    box-sizing: content-box;
     display: flex;
     flex-flow: row wrap;
     border: 5px white solid;
     width: 300px;
     height: 300px;
 }
+
 #map div {
     border: 1px solid rgb(146, 146, 146);
     width: 33.333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333%;
     height: 33.33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333%;
     background-color: rgb(0, 0, 0);
 }
-#map div img{
+
+#map div img {
     width: 100%;
     height: 100%;
 }
+
 #inventory {
-    box-sizing: content-box;
     display: flex;
     flex-flow: row wrap;
     border: 5px white solid;
     width: 300px;
     height: 300px;
 }
+
 #inventory div {
     border: 1px solid rgb(146, 146, 146);
     background-color: rgb(0, 0, 0);
     width: 25%;
     height: 25%;
 }
-#inventory div img{
+
+#inventory div img {
     width: 100%;
     height: 100%;
 }
+
 #gameButton {
     display: flex;
     flex-flow: column;
     align-items: center;
 }
+
 #button {
     background-color: white;
     padding: .5rem;
@@ -152,18 +178,20 @@ header {
     color: black;
     text-decoration: none;
 }
+
 #history {
     display: flex;
-    box-sizing: content-box;
     border: 5px white solid;
     width: 300px;
     height: 600px;
 }
+
 #inputDiv {
     width: 100%;
     align-self: flex-end;
     display: flex;
 }
+
 #inputMoves {
     width: 85%;
     border: 0 solid white;
@@ -171,17 +199,19 @@ header {
     padding: .5rem;
     color: white;
 }
+
 #inputDiv button {
     flex-grow: 1;
     border: none;
     background-color: rgb(168, 168, 168);
     border-left: 2px rgb(0, 0, 0) solid;
 }
+
 #inputDiv button:active {
     background-color: rgb(50, 149, 49);
 }
 
-#inputMoves:focus{
+#inputMoves:focus {
     border: 0 none green;
     background-color: rgb(108, 108, 108);
     outline: none;
@@ -196,6 +226,138 @@ footer {
     background-color: rgb(12, 3, 81);
     padding: 2rem;
 }
+
 .displayNone {
-    display: none !important; 
+    display: none !important;
+}
+
+/* story */
+
+#start {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: block;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+#start h1 {
+    font-size: 5rem;
+    margin: 10rem 0;
+}
+
+#start div {
+    background-color: white;
+    text-decoration: none;
+    border-radius: 1rem;
+    font-size: 3rem;
+    width: 5rem;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 7rem;
+    width: 20rem;
+}
+
+#start a {
+    background: linear-gradient(to right, #050505 0, white 10%, #000000 20%);
+    background-position: 0;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s infinite linear;
+    animation-fill-mode: forwards;
+    -webkit-text-size-adjust: none;
+    white-space: nowrap;
+}
+
+@keyframes shine {
+
+    0% {
+        background-position: 0
+    }
+
+    60% {
+        background-position: 180px
+    }
+
+    100% {
+        background-position: 360px
+    }
+
+}
+
+@media only screen and (max-width: 1500px) {
+    main {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    main {
+        flex-flow: column nowrap;
+        width: 90%;
+    }
+
+    #rightContent {
+        margin: 0 auto;
+        margin-top: 1rem;
+        flex-flow: row wrap;
+        width: 100%;
+        justify-content: center;
+    }
+
+    #map {
+        margin-right: 20px;
+    }
+
+    #map,
+    #inventory {
+        height: 290px;
+        width: 290px;
+    }
+
+    #history {
+        width: 600px;
+    }
+
+    #gameButton {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    main {
+        flex-flow: column nowrap;
+        width: 100%;
+    }
+
+    #gameContent,
+    #map,
+    #inventory {
+        width: 300px;
+        height: 300px;
+    }
+
+    #map {
+        margin-right: 0;
+    }
+
+    #leftContent {
+        width: 300px;
+    }
+
+    #history {
+        width: 300px;
+    }
+
+    #rightContent {
+        flex-flow: column wrap;
+        width: 100%;
+    }
 }

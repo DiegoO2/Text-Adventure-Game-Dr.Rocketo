@@ -144,15 +144,60 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
     //change to history/map inventory mode
 
-    let mode = map;
+    let mode = map; //I dont know if we need this
+    let gameStart = false;
 
     document.getElementById("button").addEventListener(`click`, ()=>{
 
         document.getElementById("gameMap").classList.toggle("displayNone");
         document.getElementById("gameInventory").classList.toggle("displayNone");
         document.getElementById("gameTextInput").classList.toggle("displayNone");
-
+        gameStart = true;
     });
+
+    //start part
+
+    document.getElementById("header").classList.toggle("displayNone");
+    document.getElementById("main").classList.toggle("displayNone");
+
+
+    document.getElementById("startButton").addEventListener(`click`, ()=>{
+
+    document.getElementById("header").classList.toggle("displayNone");
+    document.getElementById("main").classList.toggle("displayNone");
+    document.getElementById("start").classList.toggle("displayNone");
+
+    
+    });
+
+
+    //History start
+    console.log(gameStart);
+ 
+
+    const waitUntil = (condition, checkInterval=100) => {
+        return new Promise(resolve => {
+            let interval = setInterval(() => {
+                if (!condition()) return;
+                clearInterval(interval);
+                resolve();
+            }, checkInterval)
+        })
+    }
+    // await waitUntil(() => gameStart === true)
+
+    console.log("cats");
+
+    
+
+    let name = "Diego";
+
+    let storyCar = [{who: "Narrator", text: "The sound of your alarm fills the room as you awake from your slumber."}, {who: name, text: ""},];
+
+
+ 
+
+    console.log();
 
 
 });
