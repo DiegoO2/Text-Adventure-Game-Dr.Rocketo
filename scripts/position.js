@@ -86,20 +86,28 @@ document.addEventListener(`DOMContentLoaded`, () => {
         lastPosition.x = characterPosition.x;
         lastPosition.y = characterPosition.y;
     }
-
+    function changeCharacterPostion(xCordinate, yCordinate){
+        characterPosition = { x: xCordinate, y: yCordinate }; 
+    }
     function wall() {
         console.log("thats a wall")
     }
     function addInventory(id, item) {
-        document.getElementById(`${id}`).innerHTML = `<img src="${item}" alt="">`
+        document.getElementById(`${id}`).innerHTML = `<img src="${item}" alt="${item}">`
     }
     addInventory("inventoryPost1x-4y", "apple.png");
     //character movement 
     updateCharacterPostion();
+    
+    let movementAllowed = false;
+
 
     document.addEventListener(`keydown`, (key) => {
         switch (key.key) {
             case "s":
+                if(movementAllowed == false){
+                    break
+                }
                 characterPosition.y = characterPosition.y - 1;
                 if (characterPosition.y == 0) {
                     characterPosition.y = characterPosition.y + 1;
@@ -110,6 +118,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 }
                 break
             case "w":
+                if(movementAllowed == false){
+                    break
+                }
                 characterPosition.y = characterPosition.y + 1;
                 if (characterPosition.y == 9) {
                     characterPosition.y = characterPosition.y - 1;
@@ -120,6 +131,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 }
                 break
             case "d":
+                if(movementAllowed == false){
+                    break
+                }
                 characterPosition.x = characterPosition.x + 1;
                 if (characterPosition.x == 9) {
                     characterPosition.x = characterPosition.x - 1;
@@ -130,6 +144,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 }
                 break
             case "a":
+                if(movementAllowed == false){
+                    break
+                }
                 characterPosition.x = characterPosition.x - 1;
                 if (characterPosition.x == 0) {
                     characterPosition.x = characterPosition.x + 1;
@@ -169,7 +186,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
 
         document.getElementById("textContent").classList.toggle("displayNone");
-        updateText(0);
+        updateText(0,story);
         startGame();
 
     });
@@ -192,166 +209,164 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let name = "Diego";
 
     let number = 0;
-    let storyCar = [{ who: "Narrator", text: "The sound of your alarm fills the room as you awake from your slumber." }, { who: "Narrator", text: "You attempt to stop your alarm failing to hit the button multiple times." }, { who: name, text: "If only I weren't blinded in that freak accident back in 1996." }, { who: "Your Phone", text: "Ring Ring." }, { who: name, text: "Hello, who is it?" }, { who: "Guy on the phone", text: "Hello. I am here to tell you about a case but to be sure you're really who you say you are, tell us your name." }, { who: name, text: "I’m your name you can proceed." }, { who: "Guy on the phone", text: "There's some suspicious activity in a mansion down south. We want you to go and be sure that all is okay." }, { who: name, text: "Sorry, I don't really like mansions, my grandma died there a few years ago." }, { who: "Ghost", text: "AAAwaAWWawAAAAA  awawwaaAaAaaAAaa, hellowooow." }, { who: name, text: "G-G-G-Grandma is that you?" }, { who: "Ghost Grandma", text: "OOOooOooOoOoo I am a ghoooooooost now." }, { option1: "AHHh A ghost *grab your axe and you attack your grandma.*", option2: "Grandma You’ve returned YESSSS.", code1: `addAxe`, code2: "" }, { who: "Grandma Ghost", text: "Don't be scared. I am here to help you. You need to accept the mission, that mansion, that mansion is where I died that day. HE IS THERE. YOU NEED TO GO." }, { who: name, text: "*You turn your attention back to the phone* Hello, are you still there?" }, { who: "Guy on the phone", text: "Yes sir, what is going on?" }, { who: name, text: "Nothing, nothing. I changed my mind, I am going there right now." }, { who: "Guy on the phone", text: "Good luck. Bye, bye." }, { who: name, text: "Bye, bye." }, { who: "Narrator", text: "You prepare yourself for the adventure, after talking with your grandma your enthusiasm increases and you want to get there as fast as you can. This is your most important mission in your life, you need to know what happened that day at the mansion." }, { who: name, text: "I should probably take something for my adventure ahead." }, { option1: "Cat food.", option2: "Flashlight.", code1: `addCatfood`, code2: "addFlashlight", ifAxe: true }, { who: "Grandma", text: "Wait, how do you plan to get there?" }, { option1: "I don't know. Do you have an idea?", option2: " I am going to take my car, come with me.", option3: "I am going to take the bus, come with me.", code1: `Horse`, code2: "Car", code3: "Fortuneteller" }];
+
+
+    let storyStart = [{ who: "Narrator", text: "The sound of your alarm fills the room as you awake from your slumber." }, { who: "Narrator", text: "You attempt to stop your alarm failing to hit the button multiple times." }, { who: name, text: "If only I weren't blinded in that freak accident back in 1996." }, { who: "Your Phone", text: "Ring Ring." }, { who: name, text: "Hello, who is it?" }, { who: "Guy on the phone", text: "Hello. I am here to tell you about a case but to be sure you're really who you say you are, tell us your name." }, { who: name, text: "I’m your name you can proceed." }, { who: "Guy on the phone", text: "There's some suspicious activity in a mansion down south. We want you to go and be sure that all is okay." }, { who: name, text: "Sorry, I don't really like mansions, my grandma died there a few years ago." }, { who: "Ghost", text: "AAAwaAWWawAAAAA  awawwaaAaAaaAAaa, hellowooow." }, { who: name, text: "G-G-G-Grandma is that you?" }, { who: "Ghost Grandma", text: "OOOooOooOoOoo I am a ghoooooooost now." }, { option1: "AHHh A ghost *grab your axe and you attack your grandma.*", option2: "Grandma You’ve returned YESSSS.", code1: `addAxe`, code2: "" }, { who: "Grandma Ghost", text: "Don't be scared. I am here to help you. You need to accept the mission, that mansion, that mansion is where I died that day. HE IS THERE. YOU NEED TO GO." }, { who: name, text: "*You turn your attention back to the phone* Hello, are you still there?" }, { who: "Guy on the phone", text: "Yes sir, what is going on?" }, { who: name, text: "Nothing, nothing. I changed my mind, I am going there right now." }, { who: "Guy on the phone", text: "Good luck. Bye, bye." }, { who: name, text: "Bye, bye." }, { who: "Narrator", text: "You prepare yourself for the adventure, after talking with your grandma your enthusiasm increases and you want to get there as fast as you can." }, { who: "Narrator", text: "This is your most important mission in your life, you need to know what happened that day at the mansion." }, { who: name, text: "I should probably take something for my adventure ahead.", ifAxe: true}, { option1: "Cat food.", option2: "Flashlight.", code1: `addCatfood`, code2: "addFlashlight"}, { who: "Grandma", text: "Wait, how do you plan to get there?" }, { option1: "*You ask your grandma if she has any idea.*", option2: "*You take the bus*", option3: "*You get to your car*", code1: `Horse`, code2: "Fortuneteller", code3: "Car" }];
+    let storyHorse = [{who: name, text: "I don't know. Do you have an idea? "}, {who: "Grandma", text: "*Suddenly turns into horse*."}, {who: name, text: "Wow, Great idea gran gran."}, {who: "Narrator", text: "You hop on your grandma’s equine form and head to the mansion."}, {who: "Narrator", text: "As your horse grandma pulls into the driveway of the mansion you arrive and immediately rush through the front door with confidence."}, {who: "Narrator", text: "To your surprise no one is there."}, {who:"Narrator", text: "You look around the room and see a small desk in the corner and a small bookshelf to the north as well as a door to the east."}, {who: "Grandma", text: "We have arrived, go search for any clues relating to… suspicious activity. I recommend you to start in the right room. "}, {pause: true}]    
+    let storyCar = [{who: name, text: " I am going to take my car, come with me."}, {who: "Narrator", text: "You grab your car keys and start driving hysterically."}, {who: name, text: "Man if only I wasn't blind. Why did I choose the car?"}, {who: "Narrator", text: "You say as you crash into the side of a building. BUMMM!"}, {who: name, text: "Oh no not again I CAN'T GO BACK TO PRISON."}, {who:" Narrator", text: "As you step out of your car you start to realize the room around you. You are in the mansion."}, {who: "Narrator", text: "You seem to be in a room used for storing various foods and supplies and also your car that crashed into the eastern wall."}, {who: "Grandma", text: "Ohoohhh you must find a way out of this room. Rocketo is near. I can feel it."}, {who: name, text: "But grandma, what should I do?"}, {who: "Grandma", text: "Keep going. Find the key to get to the next room. Good luck."}, {pause: true}]
+    let storyFortuneteller = [{who: "", text: ""}, {who: "", text: ""}]
+
+    let story = storyStart;
+
     let axe = false;
+
     function startGame() {
-
-
-
         document.getElementById("textRight").addEventListener(`click`, () => {
-            console.log(number);
             number = number + 1;
-            updateText(number);
-            console.log(number);
-
+            updateText(number, story);
         });
-
-
     };
 
 
-    function updateText(number) {
-
+    function updateText(number, story) {
         switch (true) {
-            case Object.keys(storyCar[number]).includes("who"):
+            case Object.keys(story[number]).includes("pause"):
+                document.getElementById("textContent").classList.toggle("displayNone");
+                movementAllowed = true;
+                switch(story){
+                    case storyHorse:
+                        changeCharacterPostion(3,3);
+                        updateCharacterPostion();
+                        break
+                    case storyCar: 
+                        changeCharacterPostion(3,3);
+                        updateCharacterPostion();
+                        break
+                    case storyFortuneteller:
+                        changeCharacterPostion(3,3);
+                        updateCharacterPostion();
+                        break
+                }
+                break
+            case Object.keys(story[number]).includes("ifAxe"):
+                console.log("cats")
+                if (axe == true) {
+                    number = number + 1;
+                    updateText(number);
+                }
+                else {
+                    document.getElementById("textContent").innerHTML = `                  
+                    <div id="textLeft">
+                      <img src="apple.png" alt="">
+                    </div>
+                    <div id="textRight">
+                      <h2>${story[number].who}</h2>
+                      <p>${story[number].text}</p>
+                    </div>`;
+                    startGame();
+                }
+                break
+            case Object.keys(story[number]).includes("who"):
                 document.getElementById("textContent").innerHTML = `                  
                 <div id="textLeft">
                   <img src="apple.png" alt="">
                 </div>
                 <div id="textRight">
-                  <h2>${storyCar[number].who}</h2>
-                  <p>${storyCar[number].text}</p>
+                  <h2>${story[number].who}</h2>
+                  <p>${story[number].text}</p>
                 </div>`;
                 startGame();
                 break
-            case Object.keys(storyCar[number]).includes("option3"):
+            case Object.keys(story[number]).includes("option3"):
                 document.getElementById("textContent").innerHTML = `  
                 <h2 id="optionH2">Choose one option:</h2>             
                 <div id="text1">
-                <p>${storyCar[number].option1}</p>
+                <p>${story[number].option1}</p>
     
                 </div>
                 <div id="text2">
-                <p>${storyCar[number].option2}</p>
+                <p>${story[number].option2}</p>
                 </div>
                 <div id="text3">
-                <p>${storyCar[number].option3}</p>
+                <p>${story[number].option3}</p>
                 </div>`;
-                optionLoader3(storyCar[number].code1, storyCar[number].code2, storyCar[number].code3);
+                optionLoader3(story[number].code1, story[number].code2, story[number].code3);
                 break
-
-            case Object.keys(storyCar[number]).includes("ifAxe"):
-                console.log("cats")
-                if (storyCar[number].ifAxe == true) {
-                    number = number + 1;
-                    updateText(number);
-                }
-                else {
-                    optionLoader(storyCar[number].code1, storyCar[number].code2);
-                }
-                break
-            case Object.keys(storyCar[number]).includes("option1"):
+            case Object.keys(story[number]).includes("option1"):
                 document.getElementById("textContent").innerHTML = `  
                 <h2 id="optionH2">Choose one option:</h2>             
                 <div id="textLeftO">
-                <p>${storyCar[number].option1}</p>
+                <p>${story[number].option1}</p>
     
                 </div>
                 <div id="textRightO">
-                <p>${storyCar[number].option2}</p>
+                <p>${story[number].option2}</p>
                 </div>`;
-                optionLoader2(storyCar[number].code1, storyCar[number].code2);
+                optionLoader2(story[number].code1, story[number].code2);
                 break
         }
-
-        // if(Object.keys(storyCar[number]).includes("who")){
-        //     document.getElementById("textContent").innerHTML = `                  
-        //     <div id="textLeft">
-        //       <img src="apple.png" alt="">
-        //     </div>
-        //   <div id="textRight">
-        //       <h2>${storyCar[number].who}</h2>
-        //       <p>${storyCar[number].text}</p>
-        //   </div>`;
-        //   startGame();
-        // }
-        // else if (Object.keys(storyCar[number]).includes("ifAxe")){
-        //     if(storyCar[number].ifAxe == true){
-        //         number = number + 1;
-        //         updateText(number);
-        //     }
-        //     else{
-        //         optionLoader(storyCar[number].code1, storyCar[number].code2);
-        //     }
-        // }
-        // else if(Object.keys(storyCar[number]).includes("option1")){
-        //     document.getElementById("textContent").innerHTML = `  
-        //     <h2 id="optionH2">Choose one option:</h2>             
-        //     <div id="textLeftO">
-        //     <p>${storyCar[number].option1}</p>
-
-        //     </div>
-        //   <div id="textRightO">
-        //   <p>${storyCar[number].option2}</p>
-        //   </div>`;
-        //   optionLoader(storyCar[number].code1, storyCar[number].code2);
-        // }
-
     };
     function optionLoader2(code1, code2) {
         document.getElementById("textLeftO").addEventListener(`click`, () => {
 
             if (code1 == "addAxe") {
-                console.log("code1")
+                console.log("addAxe")
                 axe = true;
             }
             else if (code1 == "addCatfood") {
                 console.log("catfood")
             }
             number = number + 1;
-            updateText(number);
+            updateText(number, story);
         });
         document.getElementById("textRightO").addEventListener(`click`, () => {
 
-            if (code1 == "addFlashlight") {
-                console.log("code1")
+            if (code2 == "addFlashlight") {
+                console.log("addFlashlight")
             }
             number = number + 1;
-            updateText(number);
+            updateText(number, story);
         });
 
     }
     function optionLoader3(code1, code2, code3) {
-        document.getElementById("textLeftO").addEventListener(`click`, () => {
+        document.getElementById("text1").addEventListener(`click`, () => {
 
-            if (code1 == "addAxe") {
+            if (code1 == "Horse") {
                 console.log("code1")
-                axe = true;
             }
-            else if (code1 == "addCatfood") {
-                console.log("catfood")
-            }
-            number = number + 1;
-            updateText(number);
+            number = 0;
+            story = storyHorse;
+            updateText(number, story);
         });
-        document.getElementById("textRightO").addEventListener(`click`, () => {
+        document.getElementById("text2").addEventListener(`click`, () => {
 
-            if (code1 == "addFlashlight") {
+            if (code2 == "Fortuneteller") {
                 console.log("code1")
             }
-            number = number + 1;
-            updateText(number);
+            number = 0;
+            story = storyFortuneteller;
+            updateText(number, story);
         });
-        document.getElementById("textRightO").addEventListener(`click`, () => {
+        document.getElementById("text3").addEventListener(`click`, () => {
 
-            if (code1 == "addFlashlight") {
+            if (code3 == "Car") {
                 console.log("code1")
             }
-            number = number + 1;
-            updateText(number);
+            number = 0;
+            story = storyCar;
+            updateText(number, story);
         });
 
     }
+
+
+
+    //mapping 
+
+
+
+
 
 });
 
