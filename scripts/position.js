@@ -81,6 +81,14 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
     //Updates character postion and deletes the last character position
     function updateCharacterPostion() {
+        for(){
+            
+        }
+        if(characterPosition.x ==){
+
+        }
+
+
         document.getElementById(`post${lastPosition.x}x-${lastPosition.y}y`).innerHTML = ``;
         document.getElementById(`post${characterPosition.x}x-${characterPosition.y}y`).innerHTML = `<img src="detective.png" alt="">`;
         lastPosition.x = characterPosition.x;
