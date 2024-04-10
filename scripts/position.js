@@ -81,11 +81,11 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
     //Updates character postion and deletes the last character position
     function updateCharacterPostion() {
-        for(){
-            
-        }
-        if(characterPosition.x ==){
+        for(item of Array){
+            if(characterPosition.x ==item.x){
 
+            }
+    
         }
 
 
