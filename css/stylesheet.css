@@ -287,6 +287,7 @@ footer {
     display: flex;
     flex-flow: row wrap;
     box-sizing: content-box;
+    align-items: center;
 
 }
 #textContent p {
@@ -315,7 +316,29 @@ footer {
     flex-grow: 1;
     height: 150px;
     border: none;
+    position: relative;
 }
+#gameContent #imgSpark {
+    position: absolute;
+    animation: fade .5s infinite 100ms;
+    transform: rotate(90deg);
+    width: 20px;
+    height: 20px;
+    right: 10px;
+    bottom: 10px;
+    color: white;
+    background-color: white;
+}
+
+@-webkit-keyframes fade {
+    100% {opacity: 1;}
+    100% {opacity: 0;}
+} 
+
+/* @keyframes fade {
+    from {opacity: 1;}
+    to {opacity: 0;}
+} */
 #textContent #textLeftO {
     width: 50%;
     height: 100px;
@@ -334,13 +357,18 @@ footer {
 }
 #textContent #textRightO p, #textContent #textLeftO p {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     padding: 1rem;
+    height: 100%;
 }
+#textContent #textRightO p:hover, #textContent #textLeftO p:hover {
+    background-color: #3c3c3c;
+}
+
 #optionH2{
     width: 100%;
-    height: 50px;
+    height: 30px;
     padding: 1rem;
 }
 #textContent #text1,#textContent #text2,#textContent #text3{
@@ -429,11 +457,17 @@ img.an270{
 }
 
 @media only screen and (max-width: 700px) {
+    h1{
+        width: 300px;
+        margin: auto;
+    }
     main {
         flex-flow: column nowrap;
         width: 100%;
     }
-
+    header {
+        margin: 2rem 0  ;
+    }
     #gameContent,
     #map,
     #inventory {
@@ -457,4 +491,46 @@ img.an270{
         flex-flow: column wrap;
         width: 100%;
     }
+    #gameContent #textContent {
+        width: 260px;
+        height: 130px;
+        margin-bottom: 10px;
+    
+    }
+    #textContent #textLeftO, #textContent #textRightO {
+        height: 91px;
+    }
+    #textContent #textLeft, #textContent #textRight {
+        height: 130px;
+    }
+    #textContent #textLeft {
+        width: 50px;
+        height: 50px;
+        margin: 0 10px;
+    }
+    #textContent p {
+        padding-right: .5rem;
+        font-size: .7rem;
+    }
+    #textContent h2 {
+        font-size: 1rem;
+    }
+    #optionH2{
+        height: 30px;
+        padding: 1rem;
+    }
+    #textContent #text1,#textContent #text2,#textContent #text3{
+        padding: .3rem;
+        height: 91px;
+    }
+    #start div {
+        font-size: 2rem;
+        height: 6rem;
+        width: 12rem;
+    }
+    #start h1{
+        font-size: 3rem;
+        margin: 5rem 1rem;
+    }
+    
 }

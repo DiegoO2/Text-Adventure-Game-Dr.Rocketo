@@ -49,7 +49,6 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 item.block = img;
                 item.empty = false;
                 item.rotation = rotation;
-                return 
             }
         }
     }
@@ -66,7 +65,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
             }
         }
         gameContent.innerHTML = htmlContentForGameContent;
-        
+        console.log(positionsArray);
     
     }
 
@@ -160,29 +159,26 @@ document.addEventListener(`DOMContentLoaded`, () => {
         inventoryContent.innerHTML = htmlContentForInventoryContent;
     
     }
-
-
     //Updates character postion and deletes the last character position
     function updateCharacterPostion() {
         for(block of positionsArray){
-            if(block.empty == false){
-                if(characterPosition.x == block.x && characterPosition.y == block.y){
-                    return wall();
+            if(characterPosition.x == block.x && characterPosition.y == block.y){
+                if(block.empty == false){
+                    characterPosition.x = lastPosition.x;
+                    characterPosition.y = lastPosition.y;
+                    document.getElementById(`post${characterPosition.x}x-${characterPosition.y}y`).innerHTML = `<img src="detective.png" alt="">`;
+                    break 
                 }
                 else{
                     document.getElementById(`post${lastPosition.x}x-${lastPosition.y}y`).innerHTML = ``;
                     document.getElementById(`post${characterPosition.x}x-${characterPosition.y}y`).innerHTML = `<img src="detective.png" alt="">`;
                     lastPosition.x = characterPosition.x;
                     lastPosition.y = characterPosition.y;
-            
                 }
             }
         }
-        // document.getElementById(`post${lastPosition.x}x-${lastPosition.y}y`).innerHTML = ``;
-        // document.getElementById(`post${characterPosition.x}x-${characterPosition.y}y`).innerHTML = `<img src="detective.png" alt="">`;
-        // lastPosition.x = characterPosition.x;
-        // lastPosition.y = characterPosition.y;
     }
+
     function changeCharacterPostion(xCordinate, yCordinate){
         characterPosition = { x: xCordinate, y: yCordinate }; 
     }
@@ -310,7 +306,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let storyCar = [{who: name, text: " I am going to take my car, come with me."}, {who: "Narrator", text: "You grab your car keys and start driving hysterically."}, {who: name, text: "Man if only I wasn't blind. Why did I choose the car?"}, {who: "Narrator", text: "You say as you crash into the side of a building. BUMMM!"}, {who: name, text: "Oh no not again I CAN'T GO BACK TO PRISON."}, {who:" Narrator", text: "As you step out of your car you start to realize the room around you. You are in the mansion."}, {who: "Narrator", text: "You seem to be in a room used for storing various foods and supplies and also your car that crashed into the eastern wall."}, {who: "Grandma", text: "Ohoohhh you must find a way out of this room. Rocketo is near. I can feel it."}, {who: name, text: "But grandma, what should I do?"}, {who: "Grandma", text: "Keep going. Find the key to get to the next room. Good luck."}, {pause: true}]
     let storyFortuneteller = [{who: name, text: "I am going to take the bus, come with me."}, {who: "Narrator", text: "You run out of your home. You get to the bus station and take the first bus. On the bus, a fortune teller talks with you."}, {who: "Fortune teller", text: `Hello, ${name}.`}, {who: name, text: "Wait, how do you know my detective name?"}, {who: "Fortune teller", text: "I know many things about you. When you venture to this mansion you must go to the back entrance through the garden."}, {who: name, text: "Ok wait who are you"}, {who: "Fortune teller", text: "Rocketo is in the mansion you must find him to complete your gran gran’s mission. He is the one that started all of this."}, {who: "Narrator", text: "You look down for a brief moment  as you look back up the fortune teller is gone."}, {who: "Narrator", text: "As you leave the bus you take the strange lady's advice and hop the fence in the back."}, {who: "Naractor", text: "As you enter the garden you see a large tree in the middle with a window leading into the mansion."}, {who: "Grandma", text: "Maybe you can find a way to break the window."}, {pause: true}]
 
-    let story = storyCar;
+    let story = storyStart;
 
     let axe = false;
 
@@ -359,6 +355,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     <div id="textRight">
                       <h2>${story[number].who}</h2>
                       <p>${story[number].text}</p>
+                      <img src="arrow.svg" alt="" id="imgSpark">             
                     </div>`;
                     startGame();
                 }
@@ -371,7 +368,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 <div id="textRight">
                   <h2>${story[number].who}</h2>
                   <p>${story[number].text}</p>
-                </div>`;
+                  <img src="arrow.svg" alt="" id="imgSpark">             
+                  </div>`;
                 startGame();
                 break
             case Object.keys(story[number]).includes("option3"):
