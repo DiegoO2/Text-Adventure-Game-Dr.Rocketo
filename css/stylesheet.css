@@ -251,6 +251,7 @@ footer {
 #start h1 {
     font-size: 5rem;
     margin: 10rem 0;
+    width: 100%;
 }
 
 #start div {
@@ -430,6 +431,9 @@ img.an270{
     main {
         width: 80%;
     }
+    #start h1 {
+        margin: 6rem 0;
+    }
 }
 
 @media only screen and (max-width: 1200px) {
@@ -539,7 +543,7 @@ img.an270{
     }
     #start h1{
         font-size: 3rem;
-        margin: 5rem 1rem;
+        margin: 5rem 0;
     }
     
 }

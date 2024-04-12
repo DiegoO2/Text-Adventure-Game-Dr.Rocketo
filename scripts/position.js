@@ -205,7 +205,34 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let room = [];
     let itemsOnRoomCar = [{ name: `Red Door`, dx: 2, dy: 8, haveKey: false, next: "" }, { name: `Normal Door`, dx: 1, dy: 2, haveKey: false, next: "" }, { name: `Hihidden bookshelf`, x: 1, y: 1, push: true, there: true, text: "You push the bookshelf and find a door behind it" }, { name: `Medical kit`, text: `You open the drawer and you find some Medical Equipment. Seems a little old, you keep it in your inventory.`, desc: `An old Medical Equipment that can be used to restore one point of health.`, x: 7, y: 5, img: "sprites/MedicalKit.png", there: true }, { name: `Soup`, text: `On the top of the table you see a soup. You grab it and keep it for later.`, desc: `A beef stew . You can use it to recover stamina.`, x: 2, y: 3, img: "sprites/Soup.png", there: true }, { name: `Small key`, text: `You open a box and inside of it you find a small key. It seems to unlock a cabinet.`, desc: `A small key that can fit inside a cabinet.`, x: 6, y: 7, img: "sprites/SmallKey.png", there: true, key: "Red Key" }, { name: `Apple`, text: `You see an apple in a basket. Maybe it can be useful later.`, desc: `An apple. You can use it to recover stamina.`, x: 5, y: 5, img: "sprites/Apple.png", there: true }, { name: `Apple`, text: `You see an apple in a basket. Maybe it can be useful later.`, desc: `An apple. You can use it to recover stamina.`, x: 7, y: 7, img: "sprites/Apple.png", there: true }, { name: `Red key`, text: `You use the small key to open the cabinet and you find another key. So useful :D. You keep the key in your inventory.`, textWithOutKey: `The key to open this cabinet should be somewhere in this room.`, desc: `A brightness red key. It seems to be big enough to work in a door.`, x: 4, y: 2, img: "sprites/RedKey.png", there: true, haveKey: false, key: "Red Door" }];
 
-
+    class ItemInRoom {
+        constructor(x, y, name, text, desc, img) {
+            this.name = name;
+            this.x = x;
+            this.y = y;
+            this.there = true;
+            this.text = text;
+            this.desc = desc;
+            this.img = img;
+        }
+    };
+    class DoorInRoom {
+        constructor(dx, dy, name, next) {
+            this.name = name;
+            this.dx = dx;
+            this.dy = dy;
+            this.haveKey = false;
+            this.next = next;
+        }
+    };
+    let itemOnRoomStatue = [
+        new DoorInRoom(3, 4,"", ""),
+        new ItemInRoom(3,5, "", "",""),
+        new ItemInRoom(3,5, "", "",""),
+        new ItemInRoom(3,5, "", "",""),
+        new ItemInRoom(3,5, "", "","")
+    ]
+    console.log(itemOnRoomStatue)
     function sparkItem() {
         for (item of room) {
             if (Object.keys(item).includes("x") && item.there == true) {
