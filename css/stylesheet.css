@@ -320,7 +320,7 @@ footer {
 }
 #gameContent #imgSpark {
     position: absolute;
-    animation: fade .5s infinite 100ms;
+    animation: textSpark .5s infinite 100ms;
     transform: rotate(90deg);
     width: 20px;
     height: 20px;
@@ -329,10 +329,19 @@ footer {
     color: white;
     background-color: white;
 }
-
-@-webkit-keyframes fade {
+[src="sprites/Spark.png"]{
+    animation: spark .4s infinite 100ms;
+}
+@-webkit-keyframes textSpark {
     100% {opacity: 1;}
-    100% {opacity: 0;}
+    50% {opacity: 0;}
+    0% {opacity: 0;}
+} 
+
+@-webkit-keyframes spark {
+    100% {opacity: 1;}
+    50% {opacity: .85;}
+    0% {opacity: .6;}
 } 
 
 /* @keyframes fade {
@@ -379,8 +388,10 @@ footer {
 }
 p.counter {
     position: absolute;
-    left: 48px;
+    right: 2px;
     bottom: 2px;
+    background-color: #ffffff;
+    color: black;
 }
 img.an90{
     transform: rotate(90deg);
@@ -391,8 +402,6 @@ img.an180{
 img.an270{
     transform: rotate(270deg);
 }
-
-
 
 
 

@@ -25,7 +25,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
             this.x = x;
             this.y = y;
             this.empty = true;
-            this.block ="";
+            this.block = "";
             this.rotation = "";
         }
     }
@@ -43,9 +43,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
         // const `post${position.x}-${position.y} = document.getElementById(`post${position.x}x-${position.y}y`);
         htmlContentForGameContent = htmlContentForGameContent + `<div id="post${position.x}x-${position.y}y"></div>`
     }
-    function addMap(img, x, y, rotation){
-        for(item of positionsArray){
-            if(item.x == x && item.y == y){
+    function addMap(img, x, y, rotation) {
+        for (item of positionsArray) {
+            if (item.x == x && item.y == y) {
                 item.block = img;
                 item.empty = false;
                 item.rotation = rotation;
@@ -55,7 +55,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
     function updateMap() {
         htmlContentForGameContent = "";
         for (position of positionsArray) {
-            if(position.empty == true){
+            if (position.empty == true) {
                 htmlContentForGameContent = htmlContentForGameContent + `<div id="post${position.x}x-${position.y}y"></div>`
             }
             else {
@@ -64,9 +64,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 // document.getElementById(`post${position.x}x-${position.y}y`).classList.add(position.rotation);
             }
         }
-        gameContent.innerHTML = htmlContentForGameContent;
-        console.log(positionsArray);
-    
+        gameContent.innerHTML = htmlContentForGameContent + `<div class="displayNone" id="textContent"> </div>`;
     }
 
     gameContent.innerHTML = htmlContentForGameContent + `<div class="displayNone" id="textContent"> </div>`;
@@ -103,43 +101,65 @@ document.addEventListener(`DOMContentLoaded`, () => {
     }
 
 
-    inventoryArray = [];
+    let inventoryArray = [];
+    const inventoryArrayCopy = [];
 
     for (let i = 4; i >= 1; i--) {
         for (let e = 1; e <= 4; e++) {
             inventoryArray.push(new Item(e, i))
+            inventoryArrayCopy.push(new Item(e, i))
         }
     }
-    console.log(inventoryArray);
+    console.log(inventoryArrayCopy) 
 
     let htmlContentForInventoryContent = "";
-    console.log(inventoryArray)
-    function deleteInventory(img){
-        for(item of inventoryArray){
-            if(item.img == img){
+    function deleteInventory(img) {
+        for (item of inventoryArray) {
+            if (item.img == img) {
                 item.times = item.times - 1;
-                if(item.times == 0){
+
+                if (item.times == 0) {
                     item.empty = true;
                     item.img = "";
+
+                    let inventoryArrayImages = [];
+                    for(i of inventoryArray){
+                        if(i.empty == false){
+                            inventoryArrayImages.push(i.img);
+                        }
+                    }
+                    console.log(inventoryArrayImages)
+                    console.log(inventoryArrayCopy) 
+
+                    inventoryArray = inventoryArrayCopy;
+                    inventoryArrayImages
+                    for(img of inventoryArrayImages){
+                        addInventory(img);
+                    }
+                     UpdateInventory();
+                }
+                else{
+                    UpdateInventory();
+                    return
                 }
                 return
             }
         }
     }
 
-    function addInventory(img){
-        for(item of inventoryArray){
-            if(item.img == img){
+    function addInventory(img) {
+        for (item of inventoryArray) {
+            if (item.img == img) {
                 item.times = item.times + 1;
                 return
             }
         }
-        for(item of inventoryArray){
-            if(item.empty == true){
+        for (item of inventoryArray) {
+            if (item.empty == true) {
                 item.img = img;
                 item.times = item.times + 1;
                 item.empty = false;
-                return 
+                return
             }
         }
     }
@@ -149,7 +169,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
         htmlContentForInventoryContent = "";
         // document.getElementById(`${id}`).innerHTML = `<img src="${item}" alt="${item}">`
         for (item of inventoryArray) {
-            if(item.empty == true){
+            if (item.empty == true) {
                 htmlContentForInventoryContent = htmlContentForInventoryContent + `<div id="inventoryPost${position.x}x-${position.y}y"></div>`;
             }
             else {
@@ -157,20 +177,23 @@ document.addEventListener(`DOMContentLoaded`, () => {
             }
         }
         inventoryContent.innerHTML = htmlContentForInventoryContent;
-    
+
     }
     //Updates character postion and deletes the last character position
     function updateCharacterPostion() {
-        for(block of positionsArray){
-            if(characterPosition.x == block.x && characterPosition.y == block.y){
-                if(block.empty == false){
+
+        for (block of positionsArray) {
+            if (characterPosition.x == block.x && characterPosition.y == block.y) {
+                if (block.empty == false) {
+                    enterDoor();
                     characterPosition.x = lastPosition.x;
                     characterPosition.y = lastPosition.y;
                     document.getElementById(`post${characterPosition.x}x-${characterPosition.y}y`).innerHTML = `<img src="detective.png" alt="">`;
-                    break 
+                    break
                 }
-                else{
+                else {
                     document.getElementById(`post${lastPosition.x}x-${lastPosition.y}y`).innerHTML = ``;
+                    sparkItem();
                     document.getElementById(`post${characterPosition.x}x-${characterPosition.y}y`).innerHTML = `<img src="detective.png" alt="">`;
                     lastPosition.x = characterPosition.x;
                     lastPosition.y = characterPosition.y;
@@ -179,8 +202,114 @@ document.addEventListener(`DOMContentLoaded`, () => {
         }
     }
 
-    function changeCharacterPostion(xCordinate, yCordinate){
-        characterPosition = { x: xCordinate, y: yCordinate }; 
+    let room = [];
+    let itemsOnRoomCar = [{ name: `Red Door`, dx: 2, dy: 8, haveKey: false, next: "" }, { name: `Normal Door`, dx: 1, dy: 2, haveKey: false, next: "" }, { name: `Hihidden bookshelf`, x: 1, y: 1, push: true, there: true, text: "You push the bookshelf and find a door behind it" }, { name: `Medical kit`, text: `You open the drawer and you find some Medical Equipment. Seems a little old, you keep it in your inventory.`, desc: `An old Medical Equipment that can be used to restore one point of health.`, x: 7, y: 5, img: "sprites/MedicalKit.png", there: true }, { name: `Soup`, text: `On the top of the table you see a soup. You grab it and keep it for later.`, desc: `A beef stew . You can use it to recover stamina.`, x: 2, y: 3, img: "sprites/Soup.png", there: true }, { name: `Small key`, text: `You open a box and inside of it you find a small key. It seems to unlock a cabinet.`, desc: `A small key that can fit inside a cabinet.`, x: 6, y: 7, img: "sprites/SmallKey.png", there: true, key: "Red Key" }, { name: `Apple`, text: `You see an apple in a basket. Maybe it can be useful later.`, desc: `An apple. You can use it to recover stamina.`, x: 5, y: 5, img: "sprites/Apple.png", there: true }, { name: `Apple`, text: `You see an apple in a basket. Maybe it can be useful later.`, desc: `An apple. You can use it to recover stamina.`, x: 7, y: 7, img: "sprites/Apple.png", there: true }, { name: `Red key`, text: `You use the small key to open the cabinet and you find another key. So useful :D. You keep the key in your inventory.`, textWithOutKey: `The key to open this cabinet should be somewhere in this room.`, desc: `A brightness red key. It seems to be big enough to work in a door.`, x: 4, y: 2, img: "sprites/RedKey.png", there: true, haveKey: false, key: "Red Door" }];
+
+
+    function sparkItem() {
+        for (item of room) {
+            if (Object.keys(item).includes("x") && item.there == true) {
+                document.getElementById(`post${item.x}x-${item.y}y`).innerHTML = `<img src="sprites/Spark.png" alt="">`;
+            }
+        }
+    }
+    function unlock(name) {
+        for (item of room) {
+            if (item.name[6] == name[6]) {
+                let index = room.indexOf(item);
+                room[index].haveKey = true;
+            }
+        }
+    }
+    function searchItems() {
+        for (item of room) {
+            if (characterPosition.x == item.x && characterPosition.y == item.y) {
+                let itemCopy = item;
+                let index = room.indexOf(item);
+                document.addEventListener(`keydown`, (key) => {
+                    if (key.key == "f" && itemCopy.there == true && characterPosition.x == itemCopy.x && characterPosition.y == itemCopy.y) {
+                        if (Object.keys(itemCopy).includes("haveKey") && itemCopy.haveKey == false) {
+                            document.getElementById("textContent").innerHTML = `                  
+                            <div id="textLeft">
+                              <img src="${itemCopy.img}" alt="">
+                            </div>
+                            <div id="textRight">
+                              <h2>Narrator</h2>
+                              <p>${itemCopy.textWithOutKey}</p>
+                              <img src="arrow.svg" alt="" id="imgSpark">             
+                            </div>`;
+                            document.getElementById("textContent").classList.toggle("displayNone");
+                            startGameForItem();
+                            return
+                        }
+                        if (Object.keys(itemCopy).includes("push")) {
+                            addMap("sprites/Bookshelf.png", 1, 4);
+                            itemsOnRoomCar[1].haveKey = true;
+                            addMap("sprites/NormalDoor.png", 1, 2);
+                            updateMap();
+                            updateCharacterPostion();
+                            document.getElementById("textContent").innerHTML = `                  
+                            <div id="textLeft">
+                              <img src="${itemCopy.img}" alt="">
+                            </div>
+                            <div id="textRight">
+                              <h2>Narrator</h2>
+                              <p>${itemCopy.text}</p>
+                              <img src="arrow.svg" alt="" id="imgSpark">             
+                            </div>`;
+                            document.getElementById("textContent").classList.toggle("displayNone");
+                            startGameForItem();
+                            room[index].there = false;
+                            return
+                        }
+                        if (Object.keys(itemCopy).includes("key")) {
+                            unlock(itemCopy.key);
+                        }
+                        addInventory(itemCopy.img);
+                        UpdateInventory();
+                        document.getElementById("textContent").innerHTML = `                  
+                        <div id="textLeft">
+                          <img src="${itemCopy.img}" alt="">
+                        </div>
+                        <div id="textRight">
+                          <h2>Narrator</h2>
+                          <p>${itemCopy.text}</p>
+                          <img src="arrow.svg" alt="" id="imgSpark">             
+                        </div>`;
+                        document.getElementById("textContent").classList.toggle("displayNone");
+                        room[index].there = false;
+                        startGameForItem();
+                    }
+                });
+            }
+        }
+    }
+
+    function enterDoor() {
+        console.log(itemsOnRoomCar[1].haveKey);
+        for (item of room) {
+            if (characterPosition.x == item.dx && characterPosition.y == item.dy) {
+                if (item.haveKey == true) {
+                    console.log("other door");
+                    // startGame(); continue here
+
+                    
+
+                }
+            }
+            else{
+
+            }
+        }
+    }
+    function startGameForItem() {
+        document.getElementById("textRight").addEventListener(`click`, () => {
+            document.getElementById("textContent").classList.toggle("displayNone");
+            itemsOnRoomCar = room;
+        });
+    };
+    function changeCharacterPostion(xCordinate, yCordinate) {
+        characterPosition = { x: xCordinate, y: yCordinate };
     }
     function wall() {
         console.log("thats a wall")
@@ -189,14 +318,14 @@ document.addEventListener(`DOMContentLoaded`, () => {
     UpdateInventory();
     //character movement 
     updateCharacterPostion();
-    
+
     let movementAllowed = false;
 
 
     document.addEventListener(`keydown`, (key) => {
         switch (key.key) {
             case "s":
-                if(movementAllowed == false){
+                if (movementAllowed == false) {
                     break
                 }
                 characterPosition.y = characterPosition.y - 1;
@@ -206,10 +335,11 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 }
                 else {
                     updateCharacterPostion();
+                    searchItems();
                 }
                 break
             case "w":
-                if(movementAllowed == false){
+                if (movementAllowed == false) {
                     break
                 }
                 characterPosition.y = characterPosition.y + 1;
@@ -219,10 +349,11 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 }
                 else {
                     updateCharacterPostion();
+                    searchItems();
                 }
                 break
             case "d":
-                if(movementAllowed == false){
+                if (movementAllowed == false) {
                     break
                 }
                 characterPosition.x = characterPosition.x + 1;
@@ -232,10 +363,11 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 }
                 else {
                     updateCharacterPostion();
+                    searchItems();
                 }
                 break
             case "a":
-                if(movementAllowed == false){
+                if (movementAllowed == false) {
                     break
                 }
                 characterPosition.x = characterPosition.x - 1;
@@ -245,22 +377,25 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 }
                 else {
                     updateCharacterPostion();
+                    searchItems();
                 }
                 break
+            case "p":{
+                console.log("cats")
+                deleteInventory("sprites/Apple.png");
+            }
         }
     });
 
     //change to history/map inventory mode
 
-    let mode = map; //I dont know if we need this
-    let gameStart = false;
+
 
     document.getElementById("button").addEventListener(`click`, () => {
 
         document.getElementById("gameMap").classList.toggle("displayNone");
         document.getElementById("gameInventory").classList.toggle("displayNone");
         document.getElementById("gameTextInput").classList.toggle("displayNone");
-        gameStart = true;
     });
 
     //start part
@@ -301,12 +436,12 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let number = 0;
 
 
-    let storyStart = [{ who: "Narrator", text: "The sound of your alarm fills the room as you awake from your slumber." }, { who: "Narrator", text: "You attempt to stop your alarm failing to hit the button multiple times." }, { who: name, text: "If only I weren't blinded in that freak accident back in 1996." }, { who: "Your Phone", text: "Ring Ring." }, { who: name, text: "Hello, who is it?" }, { who: "Guy on the phone", text: "Hello. I am here to tell you about a case but to be sure you're really who you say you are, tell us your name." }, { who: name, text: "I’m your name you can proceed." }, { who: "Guy on the phone", text: "There's some suspicious activity in a mansion down south. We want you to go and be sure that all is okay." }, { who: name, text: "Sorry, I don't really like mansions, my grandma died there a few years ago." }, { who: "Ghost", text: "AAAwaAWWawAAAAA  awawwaaAaAaaAAaa, hellowooow." }, { who: name, text: "G-G-G-Grandma is that you?" }, { who: "Ghost Grandma", text: "OOOooOooOoOoo I am a ghoooooooost now." }, { option1: "AHHh A ghost *grab your axe and you attack your grandma.*", option2: "Grandma You’ve returned YESSSS.", code1: `addAxe`, code2: "" }, { who: "Grandma Ghost", text: "Don't be scared. I am here to help you. You need to accept the mission, that mansion, that mansion is where I died that day. HE IS THERE. YOU NEED TO GO." }, { who: name, text: "*You turn your attention back to the phone* Hello, are you still there?" }, { who: "Guy on the phone", text: "Yes sir, what is going on?" }, { who: name, text: "Nothing, nothing. I changed my mind, I am going there right now." }, { who: "Guy on the phone", text: "Good luck. Bye, bye." }, { who: name, text: "Bye, bye." }, { who: "Narrator", text: "You prepare yourself for the adventure, after talking with your grandma your enthusiasm increases and you want to get there as fast as you can." }, { who: "Narrator", text: "This is your most important mission in your life, you need to know what happened that day at the mansion." }, { who: name, text: "I should probably take something for my adventure ahead.", ifAxe: true}, { option1: "Cat food.", option2: "Flashlight.", code1: `addCatfood`, code2: "addFlashlight"}, { who: "Grandma", text: "Wait, how do you plan to get there?" }, { option1: "*You ask your grandma if she has any idea.*", option2: "*You take the bus*", option3: "*You get to your car*", code1: `Horse`, code2: "Fortuneteller", code3: "Car" }];
-    let storyHorse = [{who: name, text: "I don't know. Do you have an idea? "}, {who: "Grandma", text: "*Suddenly turns into horse*."}, {who: name, text: "Wow, Great idea gran gran."}, {who: "Narrator", text: "You hop on your grandma’s equine form and head to the mansion."}, {who: "Narrator", text: "As your horse grandma pulls into the driveway of the mansion you arrive and immediately rush through the front door with confidence."}, {who: "Narrator", text: "To your surprise no one is there."}, {who:"Narrator", text: "You look around the room and see a small desk in the corner and a small bookshelf to the north as well as a door to the east."}, {who: "Grandma", text: "We have arrived, go search for any clues relating to… suspicious activity. I recommend you to start in the right room. "}, {pause: true}]    
-    let storyCar = [{who: name, text: " I am going to take my car, come with me."}, {who: "Narrator", text: "You grab your car keys and start driving hysterically."}, {who: name, text: "Man if only I wasn't blind. Why did I choose the car?"}, {who: "Narrator", text: "You say as you crash into the side of a building. BUMMM!"}, {who: name, text: "Oh no not again I CAN'T GO BACK TO PRISON."}, {who:" Narrator", text: "As you step out of your car you start to realize the room around you. You are in the mansion."}, {who: "Narrator", text: "You seem to be in a room used for storing various foods and supplies and also your car that crashed into the eastern wall."}, {who: "Grandma", text: "Ohoohhh you must find a way out of this room. Rocketo is near. I can feel it."}, {who: name, text: "But grandma, what should I do?"}, {who: "Grandma", text: "Keep going. Find the key to get to the next room. Good luck."}, {pause: true}]
-    let storyFortuneteller = [{who: name, text: "I am going to take the bus, come with me."}, {who: "Narrator", text: "You run out of your home. You get to the bus station and take the first bus. On the bus, a fortune teller talks with you."}, {who: "Fortune teller", text: `Hello, ${name}.`}, {who: name, text: "Wait, how do you know my detective name?"}, {who: "Fortune teller", text: "I know many things about you. When you venture to this mansion you must go to the back entrance through the garden."}, {who: name, text: "Ok wait who are you"}, {who: "Fortune teller", text: "Rocketo is in the mansion you must find him to complete your gran gran’s mission. He is the one that started all of this."}, {who: "Narrator", text: "You look down for a brief moment  as you look back up the fortune teller is gone."}, {who: "Narrator", text: "As you leave the bus you take the strange lady's advice and hop the fence in the back."}, {who: "Naractor", text: "As you enter the garden you see a large tree in the middle with a window leading into the mansion."}, {who: "Grandma", text: "Maybe you can find a way to break the window."}, {pause: true}]
+    let storyStart = [{ who: "Narrator", text: "The sound of your alarm fills the room as you awake from your slumber." }, { who: "Narrator", text: "You attempt to stop your alarm failing to hit the button multiple times." }, { who: name, text: "If only I weren't blinded in that freak accident back in 1996." }, { who: "Your Phone", text: "Ring Ring." }, { who: name, text: "Hello, who is it?" }, { who: "Guy on the phone", text: "Hello. I am here to tell you about a case but to be sure you're really who you say you are, tell us your name." }, { who: name, text: "I’m your name you can proceed." }, { who: "Guy on the phone", text: "There's some suspicious activity in a mansion down south. We want you to go and be sure that all is okay." }, { who: name, text: "Sorry, I don't really like mansions, my grandma died there a few years ago." }, { who: "Ghost", text: "AAAwaAWWawAAAAA  awawwaaAaAaaAAaa, hellowooow." }, { who: name, text: "G-G-G-Grandma is that you?" }, { who: "Ghost Grandma", text: "OOOooOooOoOoo I am a ghoooooooost now." }, { option1: "AHHh A ghost *grab your axe and you attack your grandma.*", option2: "Grandma You’ve returned YESSSS.", code1: `addAxe`, code2: "" }, { who: "Grandma Ghost", text: "Don't be scared. I am here to help you. You need to accept the mission, that mansion, that mansion is where I died that day. HE IS THERE. YOU NEED TO GO." }, { who: name, text: "*You turn your attention back to the phone* Hello, are you still there?" }, { who: "Guy on the phone", text: "Yes sir, what is going on?" }, { who: name, text: "Nothing, nothing. I changed my mind, I am going there right now." }, { who: "Guy on the phone", text: "Good luck. Bye, bye." }, { who: name, text: "Bye, bye." }, { who: "Narrator", text: "You prepare yourself for the adventure, after talking with your grandma your enthusiasm increases and you want to get there as fast as you can." }, { who: "Narrator", text: "This is your most important mission in your life, you need to know what happened that day at the mansion." }, { who: name, text: "I should probably take something for my adventure ahead.", ifAxe: true }, { option1: "Cat food.", option2: "Flashlight.", code1: `addCatfood`, code2: "addFlashlight" }, { who: "Grandma", text: "Wait, how do you plan to get there?" }, { option1: "*You ask your grandma if she has any idea.*", option2: "*You take the bus*", option3: "*You get to your car*", code1: `Horse`, code2: "Fortuneteller", code3: "Car" }];
+    let storyHorse = [{ who: name, text: "I don't know. Do you have an idea? " }, { who: "Grandma", text: "*Suddenly turns into horse*." }, { who: name, text: "Wow, Great idea gran gran." }, { who: "Narrator", text: "You hop on your grandma’s equine form and head to the mansion." }, { who: "Narrator", text: "As your horse grandma pulls into the driveway of the mansion you arrive and immediately rush through the front door with confidence." }, { who: "Narrator", text: "To your surprise no one is there." }, { who: "Narrator", text: "You look around the room and see a small desk in the corner and a small bookshelf to the north as well as a door to the east." }, { who: "Grandma", text: "We have arrived, go search for any clues relating to… suspicious activity. I recommend you to start in the right room. " }, { pause: true }]
+    let storyCar = [{ who: name, text: " I am going to take my car, come with me." }, { who: "Narrator", text: "You grab your car keys and start driving hysterically." }, { who: name, text: "Man if only I wasn't blind. Why did I choose the car?" }, { who: "Narrator", text: "You say as you crash into the side of a building. BUMMM!" }, { who: name, text: "Oh no not again I CAN'T GO BACK TO PRISON." }, { who: " Narrator", text: "As you step out of your car you start to realize the room around you. You are in the mansion." }, { who: "Narrator", text: "You seem to be in a room used for storing various foods and supplies and also your car that crashed into the eastern wall." }, { who: "Grandma", text: "Ohoohhh you must find a way out of this room. Rocketo is near. I can feel it." }, { who: name, text: "But grandma, what should I do?" }, { who: "Grandma", text: "Keep going. Find the key to get to the next room. Good luck." }, { pause: true }]
+    let storyFortuneteller = [{ who: name, text: "I am going to take the bus, come with me." }, { who: "Narrator", text: "You run out of your home. You get to the bus station and take the first bus. On the bus, a fortune teller talks with you." }, { who: "Fortune teller", text: `Hello, ${name}.` }, { who: name, text: "Wait, how do you know my detective name?" }, { who: "Fortune teller", text: "I know many things about you. When you venture to this mansion you must go to the back entrance through the garden." }, { who: name, text: "Ok wait who are you" }, { who: "Fortune teller", text: "Rocketo is in the mansion you must find him to complete your gran gran’s mission. He is the one that started all of this." }, { who: "Narrator", text: "You look down for a brief moment  as you look back up the fortune teller is gone." }, { who: "Narrator", text: "As you leave the bus you take the strange lady's advice and hop the fence in the back." }, { who: "Naractor", text: "As you enter the garden you see a large tree in the middle with a window leading into the mansion." }, { who: "Grandma", text: "Maybe you can find a way to break the window." }, { pause: true }]
 
-    let story = storyStart;
+    let story = storyCar;
 
     let axe = false;
 
@@ -317,6 +452,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
         });
     };
 
+
     console.log(storyStart)
     function updateText(number, story) {
         console.log(number)
@@ -324,19 +460,19 @@ document.addEventListener(`DOMContentLoaded`, () => {
             case Object.keys(story[number]).includes("pause"):
                 document.getElementById("textContent").classList.toggle("displayNone");
                 movementAllowed = true;
-                switch(story){
+                switch (story) {
                     case storyHorse:
-                        changeCharacterPostion(6,4);
+                        changeCharacterPostion(6, 4);
                         updateCharacterPostion();
                         break
-                    case storyCar: 
-                        changeCharacterPostion(6,4);
+                    case storyCar:
+                        changeCharacterPostion(6, 4);
                         storageRoom();
-                        updateCharacterPostion()
+                        updateCharacterPostion();
 
                         break
                     case storyFortuneteller:
-                        changeCharacterPostion(3,3);
+                        changeCharacterPostion(3, 3);
                         updateCharacterPostion();
                         break
                 }
@@ -421,7 +557,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
             if (code2 == "addFlashlight") {
                 addInventory("sprites/Flashlight.png");
-                UpdateInventory();            }
+                UpdateInventory();
+            }
             number = number + 1;
             updateText(number, story);
         });
@@ -429,14 +566,11 @@ document.addEventListener(`DOMContentLoaded`, () => {
     };
     function optionLoader3(code1, code2, code3) {
         document.getElementById("text1").addEventListener(`click`, () => {
-
-
             number = 0;
             story = storyHorse;
             updateText(number, story);
         });
         document.getElementById("text2").addEventListener(`click`, () => {
-
             number = 0;
             story = storyFortuneteller;
             updateText(number, story);
@@ -448,34 +582,37 @@ document.addEventListener(`DOMContentLoaded`, () => {
         });
     }
 
-
-
     //mapping 
-    function storageRoom(){
-        addMap("sprites/Fire.png", 7,4);
-        addMap("sprites/Fire.png", 5,3);
-        addMap("sprites/Fire.png", 5,2);
-        addMap("sprites/Drawer.png", 8,6 );
-        addMap("sprites/Drawer.png", 8,5);
-        addMap("sprites/Drawer.png", 8,4);
-        addMap("sprites/Bookshelf.png", 1,3);
-        addMap("sprites/Bookshelf.png", 1,2);
-        addMap("sprites/Drawer.png", 6,8);
-        addMap("sprites/Drawer.png", 7,8);
-        addMap("sprites/Drawer.png", 8,8);
-        addMap("box.png", 1,5);
-        addMap("box.png", 2,5);
-        addMap("box.png", 3,5);
-        addMap("box.png", 4,5);
-        addMap("box.png", 4,6);
-        addMap("box.png", 4,7);
-        addMap("box.png", 4,8);
-        addMap("sprites/NormalDoor.png", 1,7);
-        addMap("sprites/RedDoor.png", 2,8);
+    function storageRoom() {
+        addMap("sprites/Fire.png", 7, 4);
+        addMap("sprites/Fire.png", 5, 3);
+        addMap("sprites/Fire.png", 5, 2);
+        addMap("sprites/Fire.png", 5, 1);
+        addMap("sprites/Fire.png", 8, 1);
+        addMap("sprites/Fire.png", 8, 2);
+        addMap("sprites/Drawer.png", 8, 6);
+        addMap("sprites/Drawer.png", 8, 5);
+        addMap("sprites/Drawer.png", 8, 4);
+        addMap("sprites/Bookshelf.png", 1, 3);
+        addMap("sprites/Drawer.png", 6, 8);
+        addMap("sprites/Drawer.png", 7, 8);
+        addMap("sprites/Drawer.png", 8, 8);
+        addMap("sprites/Drawer.png", 4, 1);
+        addMap("box.png", 1, 5);
+        addMap("box.png", 2, 5);
+        addMap("box.png", 3, 5);
+        addMap("box.png", 4, 5);
+        addMap("box.png", 4, 6);
+        addMap("box.png", 4, 7);
+        addMap("box.png", 4, 8);
+        addMap("sprites/NormalDoor.png", 1, 7);
+        addMap("sprites/RedDoor.png", 2, 8);
+        addMap("sprites/Bookshelf.png", 1, 2);
         updateMap();
+        room = itemsOnRoomCar;
+        sparkItem();
+        console.log(positionsArray)
     }
-
-
 });
 
 
