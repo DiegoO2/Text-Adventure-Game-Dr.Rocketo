@@ -134,7 +134,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     inventoryArray = inventoryArrayCopy;
                     inventoryArrayImages
                     for(img of inventoryArrayImages){
-                        addInventory(img);
+                        addInventory(img, desc);
                     }
                      UpdateInventory();
                 }
@@ -147,7 +147,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
         }
     }
 
-    function addInventory(img) {
+    function addInventory(img, desc) {
         for (item of inventoryArray) {
             if (item.img == img) {
                 item.times = item.times + 1;
@@ -159,42 +159,42 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 item.img = img;
                 item.times = item.times + 1;
                 item.empty = false;
+                item.desc = desc;
                 return
             }
         }
     }
+    let ids = [];
 
     function UpdateInventory() {
-
+        ids = [];
         htmlContentForInventoryContent = "";
         // document.getElementById(`${id}`).innerHTML = `<img src="${item}" alt="${item}">`
         console.log(inventoryArray, inventoryContent.innerHTML);
-
         for (item of inventoryArray) {
             if (item.empty == true) {
-                htmlContentForInventoryContent = htmlContentForInventoryContent + `<div id="inventoryPost${position.x}x-${position.y}y"></div>`;
-                inventoryContent.innerHTML = htmlContentForInventoryContent;
+                htmlContentForInventoryContent = htmlContentForInventoryContent + `<div id="inventoryPost${item.x}x-${item.y}y"></div>`;
                 console.log("true");
 
             }
             else {
-                htmlContentForInventoryContent = htmlContentForInventoryContent + `<div id="inventoryPost${position.x}x-${position.y}y"><img src="${item.img}" alt="${item.img}"><p class="counter">x${item.times}</p></div>`;
-                inventoryContent.innerHTML = htmlContentForInventoryContent;
-                console.log(`${item.img}`);
+                htmlContentForInventoryContent = htmlContentForInventoryContent + `<div id="inventoryPost${item.x}x-${item.y}y"><img src="${item.img}" alt="${item.img}"><p class="counter">x${item.times}</p> <div class="itemDesc" id="itemDesc${item.x}-${item.y}"> </div></div>`;
+                console.log(`${item.img}`,`${item.x}`);
 
-                let ids = [];
-                ids.push(`inventoryPost${position.x}x-${position.y}y`);
-            }
-            for (id of ids) {
+                ids.push(item);
 
-                document.getElementById().addEventListener("mouseover", () => {
-                    console.log("cat");
-        
-        
-                });
             }
+            
         }
+        inventoryContent.innerHTML = htmlContentForInventoryContent;
+        console.log(ids)
+        for(item of ids){
+            document.getElementById(`inventoryPost${item.x}x-${item.y}y`).addEventListener("mouseover", () => {
+                document.getElementById(`itemDesc${item.x}-${item.y}`).innerHTML = `<p>${item.desc}</p>`
 
+            });
+
+        }
     }
     //Updates character postion and deletes the last character position
     function updateCharacterPostion() {
@@ -310,7 +310,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                         if (Object.keys(itemCopy).includes("key")) {
                             unlock(itemCopy.key);
                         }
-                        addInventory(itemCopy.img);
+                        addInventory(itemCopy.img, itemCopy.desc);
                         UpdateInventory();
                         document.getElementById("textContent").innerHTML = `                  
                         <div id="textLeft">
@@ -495,10 +495,11 @@ document.addEventListener(`DOMContentLoaded`, () => {
         document.getElementById("gameInventory").classList.toggle("displayNone");
         document.getElementById("gameTextInput").classList.toggle("displayNone");
         document.getElementById("button").preventDefault();
+    });
 
     //start part
 
-ment.getElementById("header").classList.toggle("displayNone");
+    document.getElementById("header").classList.toggle("displayNone");
     document.getElementById("main").classList.toggle("displayNone");
 
 
@@ -642,11 +643,11 @@ ment.getElementById("header").classList.toggle("displayNone");
 
             if (code1 == "addAxe") {
                 axe = true;
-                addInventory("sprites/Axe.png");
+                addInventory("sprites/Axe.png", "Description");
                 UpdateInventory();
             }
             else if (code1 == "addCatfood") {
-                addInventory("sprites/Catfood.png");
+                addInventory("sprites/Catfood.png", "Description");
                 UpdateInventory();
             }
             number = number + 1;
@@ -655,7 +656,7 @@ ment.getElementById("header").classList.toggle("displayNone");
         document.getElementById("textRightO").addEventListener(`click`, () => {
 
             if (code2 == "addFlashlight") {
-                addInventory("sprites/Flashlight.png");
+                addInventory("sprites/Flashlight.png", "Description");
                 UpdateInventory();
             }
             number = number + 1;
@@ -712,7 +713,7 @@ ment.getElementById("header").classList.toggle("displayNone");
         sparkItem();
         console.log(positionsArray)
     }
-});
 
+});
 
 
