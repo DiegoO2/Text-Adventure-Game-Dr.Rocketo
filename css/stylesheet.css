@@ -267,6 +267,14 @@ footer {
     height: 7rem;
     width: 20rem;
 }
+#start div.fire{
+    background-color: rgb(255, 0, 0) !important;
+
+}
+.fire{
+    background-color: rgb(255, 0, 0) !important;
+
+}
 
 #start a {
     background: linear-gradient(to right, #050505 0, white 10%, #000000 20%);

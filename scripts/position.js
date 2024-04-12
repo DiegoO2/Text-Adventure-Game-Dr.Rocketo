@@ -186,6 +186,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
             if (characterPosition.x == block.x && characterPosition.y == block.y) {
                 if (block.empty == false) {
                     enterDoor();
+                    touchFire();
                     characterPosition.x = lastPosition.x;
                     characterPosition.y = lastPosition.y;
                     document.getElementById(`post${characterPosition.x}x-${characterPosition.y}y`).innerHTML = `<img src="detective.png" alt="">`;
@@ -313,7 +314,6 @@ document.addEventListener(`DOMContentLoaded`, () => {
     }
 
     function enterDoor() {
-        console.log(itemsOnRoomCar[1].haveKey);
         for (item of room) {
             if (characterPosition.x == item.dx && characterPosition.y == item.dy) {
                 if (item.haveKey == true) {
@@ -329,6 +329,23 @@ document.addEventListener(`DOMContentLoaded`, () => {
             }
         }
     }
+    function touchFire() {
+        for (block of positionsArray) {
+            if (characterPosition.x == block.x && characterPosition.y == block.y) {
+                if (block.block == "sprites/Fire.png") {
+                    console.log("firee");
+                    document.getElementById("body").classList.add("fire");
+                    document.querySelectorAll("#start div").forEach((e) => e.classList.add("fire"));
+
+
+                }
+            }
+            else{
+
+            }
+        }
+    }
+
     function startGameForItem() {
         document.getElementById("textRight").addEventListener(`click`, () => {
             document.getElementById("textContent").classList.toggle("displayNone");
