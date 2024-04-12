@@ -168,15 +168,32 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
         htmlContentForInventoryContent = "";
         // document.getElementById(`${id}`).innerHTML = `<img src="${item}" alt="${item}">`
+        console.log(inventoryArray, inventoryContent.innerHTML);
+
         for (item of inventoryArray) {
             if (item.empty == true) {
                 htmlContentForInventoryContent = htmlContentForInventoryContent + `<div id="inventoryPost${position.x}x-${position.y}y"></div>`;
+                inventoryContent.innerHTML = htmlContentForInventoryContent;
+                console.log("true");
+
             }
             else {
                 htmlContentForInventoryContent = htmlContentForInventoryContent + `<div id="inventoryPost${position.x}x-${position.y}y"><img src="${item.img}" alt="${item.img}"><p class="counter">x${item.times}</p></div>`;
+                inventoryContent.innerHTML = htmlContentForInventoryContent;
+                console.log(`${item.img}`);
+
+                let ids = [];
+                ids.push(`inventoryPost${position.x}x-${position.y}y`);
+            }
+            for (id of ids) {
+
+                document.getElementById().addEventListener("mouseover", () => {
+                    console.log("cat");
+        
+        
+                });
             }
         }
-        inventoryContent.innerHTML = htmlContentForInventoryContent;
 
     }
     //Updates character postion and deletes the last character position
@@ -333,15 +350,15 @@ document.addEventListener(`DOMContentLoaded`, () => {
         for (block of positionsArray) {
             if (characterPosition.x == block.x && characterPosition.y == block.y) {
                 if (block.block == "sprites/Fire.png") {
-                    console.log("firee");
+                    damage();
+                    updateHealth();
                     document.getElementById("body").classList.add("fire");
-                    document.querySelectorAll("#start div").forEach((e) => e.classList.add("fire"));
-
-
+                    document.querySelectorAll("#gameContent div").forEach((e) => e.classList.add("fire"));
+                    setTimeout(() => {
+                        document.querySelectorAll("#gameContent div").forEach((e) => e.classList.remove("fire"));
+                        document.getElementById("body").classList.remove("fire");    
+                    }, 1000);
                 }
-            }
-            else{
-
             }
         }
     }
@@ -358,8 +375,40 @@ document.addEventListener(`DOMContentLoaded`, () => {
     function wall() {
         console.log("thats a wall")
     }
-
     UpdateInventory();
+
+
+    //health 
+
+    let health = [1, 2, 3]
+    updateHealth();
+
+    function damage(){
+        health.pop();
+        if(health.length == 0){
+            gameOver();
+        }
+    }
+    function healing(){
+        health.push(health.length + 1);
+    }
+    function updateHealth(){
+        document.getElementById("health").innerHTML = "";
+        for (heart of health) {
+            console.log("addhellt")
+            document.getElementById("health").innerHTML = document.getElementById("health").innerHTML + `<img src="e.png">`
+        }
+    }
+    //game over
+
+    function gameOver() {
+        document.getElementById("header").classList.toggle("displayNone");
+        document.getElementById("main").classList.toggle("displayNone");
+        document.getElementById("start").classList.toggle("displayNone");
+        movementAllowed = false;
+        document.getElementById("start").innerHTML = `<img src="Images/gameOver.png">`
+    }
+
     //character movement 
     updateCharacterPostion();
 
@@ -427,6 +476,12 @@ document.addEventListener(`DOMContentLoaded`, () => {
             case "p":{
                 console.log("cats")
                 deleteInventory("sprites/Apple.png");
+                break
+            }
+            case "o":{
+                healing();
+                updateHealth();
+                break
             }
         }
     });
@@ -436,15 +491,14 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
 
     document.getElementById("button").addEventListener(`click`, () => {
-
         document.getElementById("gameMap").classList.toggle("displayNone");
         document.getElementById("gameInventory").classList.toggle("displayNone");
         document.getElementById("gameTextInput").classList.toggle("displayNone");
-    });
+        document.getElementById("button").preventDefault();
 
     //start part
 
-    document.getElementById("header").classList.toggle("displayNone");
+ment.getElementById("header").classList.toggle("displayNone");
     document.getElementById("main").classList.toggle("displayNone");
 
 
@@ -456,6 +510,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
 
         document.getElementById("textContent").classList.toggle("displayNone");
+        updateHealth();
         updateText(0, story);
 
     });
