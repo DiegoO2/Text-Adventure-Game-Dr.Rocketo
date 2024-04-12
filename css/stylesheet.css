@@ -1,5 +1,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+
+
 
 * {
     box-sizing: border-box;
@@ -248,17 +251,15 @@ footer {
     text-align: center;
 }
 
-#start h1 {
-    font-size: 5rem;
-    margin: 10rem 0;
-    width: 100%;
+#start img {
+    width: 40%;
 }
 
 #start div {
     background-color: white;
     text-decoration: none;
     border-radius: 1rem;
-    font-size: 3rem;
+    font-size: 4rem;
     width: 5rem;
     margin: auto;
     display: flex;
@@ -266,6 +267,8 @@ footer {
     align-items: center;
     height: 7rem;
     width: 20rem;
+    font-family: "Pixelify Sans", sans-serif;
+
 }
 #start div.fire{
     background-color: rgb(255, 0, 0) !important;
@@ -475,7 +478,11 @@ img.an270{
     #gameButton {
         width: 100%;
     }
+    #start img {
+        width: 90%;
+    }    
 }
+
 
 @media only screen and (max-width: 700px) {
     h1{
@@ -549,9 +556,7 @@ img.an270{
         height: 6rem;
         width: 12rem;
     }
-    #start h1{
-        font-size: 3rem;
-        margin: 5rem 0;
-    }
-    
+    #start img {
+        width: 80%;
+    }    
 }
