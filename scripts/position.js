@@ -47,6 +47,14 @@ document.addEventListener(`DOMContentLoaded`, () => {
         // const `post${position.x}-${position.y} = document.getElementById(`post${position.x}x-${position.y}y`);
         htmlContentForGameContent = htmlContentForGameContent + `<div id="post${position.x}x-${position.y}y"></div>`
     }
+
+    function deleteMap (x, y){
+        for (item of positionsArray) {
+            if (item.x == x && item.y == y) {
+                item.empty = true;
+            }
+        }
+    }
     function addMap(img, x, y, rotation) {
         for (item of positionsArray) {
             if (item.x == x && item.y == y) {
@@ -74,23 +82,51 @@ document.addEventListener(`DOMContentLoaded`, () => {
     gameContent.innerHTML = htmlContentForGameContent + `<div class="displayNone" id="textContent"> </div>`;
 
     // do the same for the map ---------------------------------
+    let htmlContentForMapContent = "";
 
-    positionsArray2 = [];
+    let positionsArray2 = [];
+    function miniMapCreate(){
+        positionsArray2 = [];
+        mapContent.innerHTML = "";
+        htmlContentForMapContent = "";
+        console.log("cat")
+        for (let i = 3; i >= 1; i--) {
+            for (let e = 1; e <= 3; e++) {
+                positionsArray2.push(new Position(e, i))
+            }
+        }
+        for (position of positionsArray2) {
+            htmlContentForMapContent = htmlContentForMapContent + `<div id="mapPost${position.x}x-${position.y}y"></div>`
+        }
+        mapContent.innerHTML = htmlContentForMapContent;
+    
+    }
+    miniMapCreate();
 
-    for (let i = 3; i >= 1; i--) {
-        for (let e = 1; e <= 3; e++) {
-            positionsArray2.push(new Position(e, i))
+
+
+     //function for mini map
+
+     function miniMap(roomIn){
+        miniMapCreate();
+        switch(roomIn){
+            case "Storage":
+                document.getElementById(`mapPost3x-1y`).innerHTML = `<img src="detective.png" alt="">`;
+                break
+            case "Gallery":
+                document.getElementById(`mapPost2x-1y`).innerHTML = `<img src="detective.png" alt="">`;
+                break
+            case "Kitchen":
+                document.getElementById(`mapPost3x-2y`).innerHTML = `<img src="detective.png" alt="">`;
+                break
+            case "Dinning":
+                document.getElementById(`mapPost2x-2y`).innerHTML = `<img src="detective.png" alt="">`;
+                break
+            
+                //add more rooms
+    
         }
     }
-    console.log(positionsArray)
-
-    let htmlContentForMapContent = "";
-    console.log(positionsArray)
-    for (position of positionsArray2) {
-        htmlContentForMapContent = htmlContentForMapContent + `<div id="mapPost${position.x}x-${position.y}y"></div>`
-    }
-    mapContent.innerHTML = htmlContentForMapContent;
-
     // do the same for the inventory ---------------------------------
 
 
@@ -279,7 +315,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
     }
 
     let room = [];
-    let itemsOnRoomCar = [{ name: `Red Door`, dx: 2, dy: 8, haveKey: false, next: "Kitchen" }, { name: `Normal Door`, dx: 1, dy: 2, haveKey: false, next: "Gallery" }, { name: `Normal Door`, dx: 1, dy: 7, haveKey: true, next: "GalleryUp" },  { name: `Cat`, x: 2, y: 6, text: "You find a cat, it looks hungry. Do you want to feed him?", textWithCatFood: "You give the cat the cat food, he smiles and jumps into your back. Now he is your new friend.", textIgnore: "You ignore the hungry little cat.", textWithOutCatFood: "The cat attacks you, he doesn't like the food that you given it to him.", option1: "You feed the cat with Cat Food", option2: "You feed the cat with food", option3: "You ignore the cat"}, { name: `Hihidden bookshelf`, x: 1, y: 1, push: true, there: true, text: "You push the bookshelf and find a door behind it" }, { name: `Medical kit`, text: `You open the drawer and you find some Medical Equipment. Seems a little old, you keep it in your inventory.`, desc: `An old Medical Equipment that can be used to restore one point of health.`, x: 7, y: 5, img: "sprites/MedicalKit.png", there: true, use: "Healing" }, { name: `Soup`, text: `On the top of the table you see a soup. You grab it and keep it for later.`, desc: `A beef stew . You can use it to recover stamina.`, x: 2, y: 3, img: "sprites/Soup.png", there: true, use: "Eat" }, { name: `Small key`, text: `You open a box and inside of it you find a small key. It seems to unlock a cabinet.`, desc: `A small key that can fit inside a cabinet.`, x: 6, y: 7, img: "sprites/SmallKey.png", there: true, key: "Red Key" }, { name: `Apple`, text: `You see an apple in a basket. Maybe it can be useful later.`, desc: `An apple. You can use it to recover stamina.`, x: 5, y: 5, img: "sprites/Apple.png", there: true, use: "Eat" }, { name: `Apple`, text: `You see an apple in a basket. Maybe it can be useful later.`, desc: `An apple. You can use it to recover stamina.`, x: 7, y: 7, img: "sprites/Apple.png", there: true, use: "Eat" }, { name: `Red key`, text: `You use the small key to open the cabinet and you find another key. So useful :D. You keep the key in your inventory.`, textWithOutKey: `The key to open this cabinet should be somewhere in this room.`, desc: `A brightness red key. It seems to be big enough to work in a door.`, x: 4, y: 2, img: "sprites/RedKey.png", there: true, haveKey: false, key: "Red Door" }];
+    let roomIn = "";
+    let itemsOnRoomCar = [{ name: `Red Door`, dx: 2, dy: 8, haveKey: false, next: "Kitchen" }, { name: `Normal Door`, dx: 1, dy: 2, haveKey: false, next: "Gallery" }, { name: `Normal Door`, dx: 1, dy: 7, haveKey: true, next: "GalleryUp" },  { name: `Cat`, x: 2, y: 6, text: "You find a cat, it looks hungry. Do you want to feed him?", textWithCatFood: "You give the cat the cat food, he smiles and jumps into your back. Now he is your new friend.", textIgnore: "You ignore the hungry little cat.", textWithOutCatFood: "The cat attacks you, he doesn't like the food that you given it to him.", option1: "You feed the cat with Cat Food", option2: "You feed the cat with food", option3: "You ignore the cat", thereC: true}, { name: `Hihidden bookshelf`, x: 1, y: 1, push: true, there: true, text: "You push the bookshelf and find a door behind it" }, { name: `Medical kit`, text: `You open the drawer and you find some Medical Equipment. Seems a little old, you keep it in your inventory.`, desc: `An old Medical Equipment that can be used to restore one point of health.`, x: 7, y: 5, img: "sprites/MedicalKit.png", there: true, use: "Healing" }, { name: `Soup`, text: `On the top of the table you see a soup. You grab it and keep it for later.`, desc: `A beef stew . You can use it to recover stamina.`, x: 2, y: 3, img: "sprites/Soup.png", there: true, use: "Eat" }, { name: `Small key`, text: `You open a box and inside of it you find a small key. It seems to unlock a cabinet.`, desc: `A small key that can fit inside a cabinet.`, x: 6, y: 7, img: "sprites/SmallKey.png", there: true, key: "Red Key" }, { name: `Apple`, text: `You see an apple in a basket. Maybe it can be useful later.`, desc: `An apple. You can use it to recover stamina.`, x: 5, y: 5, img: "sprites/Apple.png", there: true, use: "Eat" }, { name: `Apple`, text: `You see an apple in a basket. Maybe it can be useful later.`, desc: `An apple. You can use it to recover stamina.`, x: 7, y: 7, img: "sprites/Apple.png", there: true, use: "Eat" }, { name: `Red key`, text: `You use the small key to open the cabinet and you find another key. So useful :D. You keep the key in your inventory.`, textWithOutKey: `The key to open this cabinet should be somewhere in this room.`, desc: `A brightness red key. It seems to be big enough to work in a door.`, x: 4, y: 2, img: "sprites/RedKey.png", there: true, haveKey: false, key: "Red Door" }];
 
     class ItemInRoom {
         constructor(x, y, name, text, desc, img, use) { //remeber all items is the place where the character is when we intereafcts
@@ -302,16 +339,22 @@ document.addEventListener(`DOMContentLoaded`, () => {
             this.next = next;
         }
     };
+    let itemOnRoomKitchen = [
+        new DoorInRoom(2, 1, "Red Door", "StorageDownUp", true),
+        new DoorInRoom(1, 2, "Blue Door", "Dinning", false),
+        new ItemInRoom(3,8, "Key in ice", "A key in ice, It might be a way to get the key.","In a box inside the freezer you find a Key inside ice. You try to break but it is impossible.", "sprites/KeyInIce.png"),
+        new ItemInRoom(8,1, "Gasoline container", "You open a box, inside you find a gasoline container with a flammable etiquette.","A gasoline container maybe can be used to turn on the oven.", "sprites/GasolineContainer.png"),
+        new ItemInRoom(7,6, "Soup", "On the top of the table you see a soup. You grab it and keep it for later.","A beef stew . You can use it to recover stamina.","sprites/Soup.png", "Eat"),
+        { name: `Oven`, ox: 7, oy: 5, gasoline: false, text: "You find a oven. You need some gasoline to make it work.", work: false}, //need to be 6th
+        new ItemInRoom(3,6, "Frozen soup", "In one part of the freezer you find a frozen soup you take thinking that probably will be useful.","A frozen soup. You can't eat it.","sprites/SoupInIce.png"),
+        // new ItemInRoom(3,5, "", "","",""),
+    ]
     let itemOnRoomStatue = [ //remeber all items is the place where the character is when we  interefer but forrr DOOR IS NOT LIKE THAT
         new DoorInRoom(8, 2, "Normal Door", "StorageDown", true),
-        new DoorInRoom(8, 7, "Normal Door", "StorageUp", true),
-
-        // new ItemInRoom(3,5, "", "",""),
-        // new ItemInRoom(3,5, "", "",""),
-        // new ItemInRoom(3,5, "", "",""),
-        // new ItemInRoom(3,5, "", "","")
+        new DoorInRoom(8, 7, "Normal Door", "StorageUp", true)
     ]
 
+    
 
     function sparkItem() {
         for (item of room) {
@@ -328,103 +371,221 @@ document.addEventListener(`DOMContentLoaded`, () => {
             }
         }
     }
+    let repForUseOven = true;
 
-    function catSearch(){
+    function useOven(){ //add rep
         for (item of room) {
-            if (characterPosition.x == item.x && characterPosition.y == item.y && item.name == "Cat" ) {
+            if (characterPosition.x == item.ox && characterPosition.y == item.oy && item.name == `Oven` && item.work == true) {
                 let itemCopy = item;
                 document.addEventListener(`keydown`, (key) => {
-                    if(key.key == "f"){
+                    if(key.key == "f" && characterPosition.x == itemCopy.ox && characterPosition.y == itemCopy.oy){
                         document.getElementById("textContent").classList.toggle("displayNone");
                         document.getElementById("textContent").innerHTML = `                  
                         <div id="textLeft">
-                          <img src="NarratorIMG" alt="">
+                          <img src="sprites/CatFood.png" alt="">
                         </div>
                         <div id="textRight">
                           <h2>Narrator</h2>
-                          <p>${itemCopy.text}</p>
+                          <p>What item you want melt.</p>
                           <img src="arrow.svg" alt="" id="imgSpark">             
                         </div>`;
                         document.getElementById("textRight").addEventListener(`click`, () => {
-                            document.getElementById("textContent").innerHTML = `  
-                            <h2 id="optionH2">Choose one option:</h2>             
-                            <div id="text1">
-                            <p>${itemCopy.option1}</p>
-                            </div>
-                            <div id="text2">
-                            <p>${itemCopy.option2}</p>
-                            </div>
-                            <div id="text3">
-                            <p>${itemCopy.option3}</p>
-                            </div>`;
-            
-                            document.getElementById("text1").addEventListener(`click`, () => {
-                                if(inventoryArray[0].img == "sprites/Cat.png"){
-                                    document.getElementById("textContent").innerHTML = `                  
-                                    <div id="textLeft">
-                                      <img src="NarratorIMG" alt="">
-                                    </div>
-                                    <div id="textRight">
-                                      <h2>Narrator</h2>
-                                      <p>${itemCopy.textWithCatFood}</p>
-                                      <img src="arrow.svg" alt="" id="imgSpark">             
-                                    </div>`;
-                                    deleteInventory("sprites/Cat.png"); 
-                                    startGameForItem();
-                                    room.splice(3, 1);
-                                    
-                                }
-                                else{
-                                    document.getElementById("textContent").innerHTML = `                  
-                                    <div id="textLeft">
-                                      <img src="NarratorIMG" alt="">
-                                    </div>
-                                    <div id="textRight">
-                                      <h2>Narrator</h2>
-                                      <p>Why did you give a cat cat food if you don't have any? DIE.</p>
-                                      <img src="arrow.svg" alt="" id="imgSpark">             
-                                    </div>`;
-                                    setTimeout(() => {
-                                        gameOver();
-                                    }, 5000);
-                                }
-  
-                            });
-                            document.getElementById("text2").addEventListener(`click`, () => {
-                                damage();
-                                damage();//is more than one
-
-                                document.getElementById("textContent").innerHTML = `                  
-                                <div id="textLeft">
-                                  <img src="NarratorIMG" alt="">
-                                </div>
-                                <div id="textRight">
-                                  <h2>Narrator</h2>
-                                  <p>${itemCopy.textWithOutCatFood}</p>
-                                  <img src="arrow.svg" alt="" id="imgSpark">             
-                                </div>`;   
-                                console.log("attack")
-                                startGameForItem();
-        
-                            });
-                            document.getElementById("text3").addEventListener(`click`, () => {
-                                document.getElementById("textContent").innerHTML = `                  
-                                <div id="textLeft">
-                                  <img src="NarratorIMG" alt="">
-                                </div>
-                                <div id="textRight">
-                                  <h2>Narrator</h2>
-                                  <p>${itemCopy.textIgnore}</p>
-                                  <img src="arrow.svg" alt="" id="imgSpark">             
-                                </div>`;
-                                startGameForItem();              
-                            });
+                            // document.getElementById("textContent").innerHTML = `  
+                            // <h2 id="optionH2">Choose one option:</h2>             
+                            // <div id="textLeftO">
+                            // <p>Use Gasoline Container</p>
+                
+                            // </div>
+                            // <div id="textRightO">
+                            // <p>Leave</p>
+                            // </div>`;
                         });
+
                     }
+
                 });
+
             }
         }
     }
+    let repForOven = true;
+
+    function oven(){
+        for (item of room) {
+            if (characterPosition.x == item.ox && characterPosition.y == item.oy && item.name == `Oven` && item.work == false) {
+                let itemCopy = item;
+                if(repForOven == true){
+                    repForOven = false;
+                    document.addEventListener(`keydown`, (key) => {
+                        if(key.key == "f" && characterPosition.x == itemCopy.ox && characterPosition.y == itemCopy.oy && itemCopy.work == false){    
+                            document.getElementById("textContent").classList.toggle("displayNone");
+                            document.getElementById("textContent").innerHTML = `                  
+                            <div id="textLeft">
+                              <img src="sprites/CatFood.png" alt="">
+                            </div>
+                            <div id="textRight">
+                              <h2>Narrator</h2>
+                              <p>${itemCopy.text}</p>
+                              <img src="arrow.svg" alt="" id="imgSpark">             
+                            </div>`;
+                            document.getElementById("textRight").addEventListener(`click`, () => {
+                                if(itemCopy.gasoline == true){
+                                    document.getElementById("textContent").innerHTML = `  
+                                    <h2 id="optionH2">Choose one option:</h2>             
+                                    <div id="textLeftO">
+                                    <p>Use Gasoline Container</p>
+                        
+                                    </div>
+                                    <div id="textRightO">
+                                    <p>Leave</p>
+                                    </div>`;
+                                    document.getElementById("textLeftO").addEventListener(`click`, () => {
+                                        deleteInventory("sprites/GasolineContainer.png");
+                                        UpdateInventory();
+                                        itemCopy.work = true;
+                                        document.getElementById("textContent").innerHTML = `                  
+                                        <div id="textLeft">
+                                          <img src="sprites/CatFood.png" alt="">
+                                        </div>
+                                        <div id="textRight">
+                                          <h2>Narrator</h2>
+                                          <p>Now the oven is working</p>
+                                          <img src="arrow.svg" alt="" id="imgSpark">             
+                                        </div>`;
+                                        document.getElementById("textRight").addEventListener(`click`, () => {
+                                            document.getElementById("textContent").classList.toggle("displayNone");
+                                        });
+    
+                                    });
+                                    document.getElementById("textRightO").addEventListener(`click`, () => {
+                                        document.getElementById("textContent").classList.toggle("displayNone");
+                                    });
+                                }
+                                else{
+                                    document.getElementById("textContent").classList.toggle("displayNone");
+                                }
+                            });
+    
+                        }
+                    });
+                    console.log(itemCopy.work);
+                    item.work = itemCopy.work;
+    
+    
+                }
+            }
+
+        }
+    }
+
+    repForCat = true;
+    function catSearch(){
+        for (item of room) {
+            if (characterPosition.x == item.x && characterPosition.y == item.y && item.name == "Cat" && item.thereC == true) {
+                let itemCopy = item;
+                if(repForCat == true){
+                    repForCat = false;
+                    document.addEventListener(`keydown`, (key) => {
+                        if(key.key == "f" && characterPosition.x == itemCopy.x && characterPosition.y == itemCopy.y){
+                            console.log("caca")
+                            document.getElementById("textContent").classList.toggle("displayNone");
+                            document.getElementById("textContent").innerHTML = `                  
+                            <div id="textLeft">
+                              <img src="sprites/CatFood.png" alt="">
+                            </div>
+                            <div id="textRight">
+                              <h2>Narrator</h2>
+                              <p>${itemCopy.text}</p>
+                              <img src="arrow.svg" alt="" id="imgSpark">             
+                            </div>`;
+                            document.getElementById("textRight").addEventListener(`click`, () => {
+                                document.getElementById("textContent").innerHTML = `  
+                                <h2 id="optionH2">Choose one option:</h2>             
+                                <div id="text1">
+                                <p>${itemCopy.option1}</p>
+                                </div>
+                                <div id="text2">
+                                <p>${itemCopy.option2}</p>
+                                </div>
+                                <div id="text3">
+                                <p>${itemCopy.option3}</p>
+                                </div>`;
+                
+                                document.getElementById("text1").addEventListener(`click`, () => {
+                                    console.log(inventoryArray, inventoryArray[0].img == 'sprites/Catfood.png', inventoryArray[0].img);
+                                    if(inventoryArray[0].img == 'sprites/Catfood.png'){
+    
+                                        deleteInventory("sprites/CatFood.png"); 
+                                        createHTMLForCat(itemCopy.textWithCatFood);
+                                        startGameForCat();
+                                        itemCopy.thereC = false;
+                                    }
+                                    else{
+                                        document.getElementById("textContent").innerHTML = `                  
+                                        <div id="textLeft">
+                                          <img src="sprites/CatFood.png" alt="">
+                                        </div>
+                                        <div id="textRight">
+                                          <h2>Narrator</h2>
+                                          <p>Why did you give a cat cat food if you don't have any? DIE.</p>
+                                          <img src="arrow.svg" alt="" id="imgSpark">             
+                                        </div>`;
+                                        setTimeout(() => {
+                                            gameOver();
+                                        }, 5000);   
+                                    }
+      
+                                });
+                                document.getElementById("text2").addEventListener(`click`, () => {
+                                    console.log("damage");
+                                    itemCopy.thereC = false;
+                                    document.getElementById("textContent").innerHTML = `                  
+                                    <div id="textLeft">
+                                      <img src="sprites/CatFood.png" alt="">
+                                    </div>
+                                    <div id="textRight">
+                                      <h2>Narrator</h2>
+                                      <p>${itemCopy.textWithOutCatFood}</p>
+                                      <img src="arrow.svg" alt="" id="imgSpark">             
+                                    </div>`;
+                                    startGameForCat();
+                                    damage();
+                                    damage();
+                                    updateHealth();
+            
+                                });
+                                document.getElementById("text3").addEventListener(`click`, () => {
+                                    createHTMLForCat(itemCopy.textIgnore);
+                                    startGameForItem();
+                                });
+                            });
+                        }
+                    });
+                    item.thereC = itemCopy.thereC;
+    
+                }
+
+            }
+        }
+    }
+    function callMap(){
+        deleteMap(3, 6);
+        updateMap();
+        updateCharacterPostion();
+    }
+    function createHTMLForCat(cat){
+        document.getElementById("textContent").innerHTML = `                  
+        <div id="textLeft">
+          <img src="sprites/CatFood.png" alt="">
+        </div>
+        <div id="textRight">
+          <h2>Narrator</h2>
+          <p>${cat}</p>
+          <img src="arrow.svg" alt="" id="imgSpark">             
+        </div>`;
+
+    }
+
 
     function searchItems() {
         for (item of room) {
@@ -433,6 +594,10 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 let index = room.indexOf(item);
                 document.addEventListener(`keydown`, (key) => {
                     if (key.key == "f" && itemCopy.there == true && characterPosition.x == itemCopy.x && characterPosition.y == itemCopy.y) {
+                        if(itemCopy.name == "Gasoline container"){
+                            room[5].gasoline = true; 
+                        }
+                        
                         if (Object.keys(itemCopy).includes("haveKey") && itemCopy.haveKey == false) {
                             document.getElementById("textContent").innerHTML = `                  
                             <div id="textLeft">
@@ -491,7 +656,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
     }
 
     let galleryRep = true;
-
+    let kitchenRep = true;
+    let StorageUpRep = true;
     function enterDoor() {
         for (item of room) {
             if (characterPosition.x == item.dx && characterPosition.y == item.dy) {
@@ -518,15 +684,37 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             storageRoom();
                             changeCharacterPostion(2, 2);
                             updateCharacterPostion();
+
                             break
                         case "StorageUp":
                             storageRoom();
                             changeCharacterPostion(2, 7);
                             updateCharacterPostion();
+                            if (StorageUpRep == true) {
+                                movementAllowed = false;
+                                number = number + 1;
+                                updateText(number, story);
+                                document.getElementById("textContent").classList.toggle("displayNone");
+                                StorageUpRep = false;
+                            }
                             break
                         case "Kitchen":
-                            console.log("kitchen")
+                            kitchenRoom();
+                            changeCharacterPostion(2, 2);
+                            updateCharacterPostion();
+                            if (kitchenRep == true) {
+                                movementAllowed = false;
+                                number = number + 1;
+                                updateText(number, story);
+                                document.getElementById("textContent").classList.toggle("displayNone");
+                                kitchenRep = false;
+                            }
                             break
+                        case "StorageDownUp":
+                            storageRoom();
+                            changeCharacterPostion(2, 7);
+                            updateCharacterPostion();
+
                     }
 
                 }
@@ -556,7 +744,23 @@ document.addEventListener(`DOMContentLoaded`, () => {
     function startGameForItem() {
         document.getElementById("textRight").addEventListener(`click`, () => {
             document.getElementById("textContent").classList.toggle("displayNone");
-            itemsOnRoomCar = room; //change depending in the actual room
+            switch(roomIn){
+                case "Storage":
+                    itemsOnRoomCar = room; 
+                    break
+                case "Gallery":
+                    itemOnRoomStatue = room;
+                break
+                case "Kitchen":
+                    itemOnRoomKitchen = room;
+                    break
+            }
+        });
+    };
+    function startGameForCat() {
+        document.getElementById("textRight").addEventListener(`click`, () => {
+            document.getElementById("textContent").classList.toggle("displayNone");
+            callMap();
         });
     };
     function changeCharacterPostion(xCordinate, yCordinate) {
@@ -632,6 +836,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     updateCharacterPostion();
                     searchItems();
                     catSearch();
+                    oven();
+                    useOven();
                 }
                 break
             case "w":
@@ -647,6 +853,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     updateCharacterPostion();
                     searchItems();
                     catSearch();
+                    oven();
+                    useOven();
                 }
                 break
             case "d":
@@ -662,6 +870,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     updateCharacterPostion();
                     searchItems();
                     catSearch();
+                    oven();
+                    useOven();
                 }
                 break
             case "a":
@@ -677,18 +887,25 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     updateCharacterPostion();
                     searchItems();
                     catSearch();
+                    oven();
+                    useOven();
                 }
                 break
-            case "p": {
+            case "p": 
                 console.log("cats")
                 deleteInventory("sprites/Apple.png");
                 break
-            }
-            case "o": {
+            
+            case "o": 
                 healing();
                 updateHealth();
                 break
-            }
+            
+            case "c":
+                addInventory("sprites/Catfood.png", "Description");// no use
+                UpdateInventory();
+                break
+            
         }
     });
 
@@ -744,7 +961,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
     let storyStart = [{ who: "Narrator", text: "The sound of your alarm fills the room as you awake from your slumber." }, { who: "Narrator", text: "You attempt to stop your alarm failing to hit the button multiple times." }, { who: name, text: "If only I weren't blinded in that freak accident back in 1996." }, { who: "Your Phone", text: "Ring Ring." }, { who: name, text: "Hello, who is it?" }, { who: "Guy on the phone", text: "Hello. I am here to tell you about a case but to be sure you're really who you say you are, tell us your name." }, { who: name, text: "I’m your name you can proceed." }, { who: "Guy on the phone", text: "There's some suspicious activity in a mansion down south. We want you to go and be sure that all is okay." }, { who: name, text: "Sorry, I don't really like mansions, my grandma died there a few years ago." }, { who: "Ghost", text: "AAAwaAWWawAAAAA  awawwaaAaAaaAAaa, hellowooow." }, { who: name, text: "G-G-G-Grandma is that you?" }, { who: "Ghost Grandma", text: "OOOooOooOoOoo I am a ghoooooooost now." }, { option1: "AHHh A ghost *grab your axe and you attack your grandma.*", option2: "Grandma You’ve returned YESSSS.", code1: `addAxe`, code2: "" }, { who: "Grandma Ghost", text: "Don't be scared. I am here to help you. You need to accept the mission, that mansion, that mansion is where I died that day. HE IS THERE. YOU NEED TO GO." }, { who: name, text: "*You turn your attention back to the phone* Hello, are you still there?" }, { who: "Guy on the phone", text: "Yes sir, what is going on?" }, { who: name, text: "Nothing, nothing. I changed my mind, I am going there right now." }, { who: "Guy on the phone", text: "Good luck. Bye, bye." }, { who: name, text: "Bye, bye." }, { who: "Narrator", text: "You prepare yourself for the adventure, after talking with your grandma your enthusiasm increases and you want to get there as fast as you can." }, { who: "Narrator", text: "This is your most important mission in your life, you need to know what happened that day at the mansion." }, { who: name, text: "I should probably take something for my adventure ahead.", ifAxe: true }, { option1: "Cat food.", option2: "Flashlight.", code1: `addCatfood`, code2: "addFlashlight" }, { who: "Grandma", text: "Wait, how do you plan to get there?" }, { option1: "*You ask your grandma if she has any idea.*", option2: "*You take the bus*", option3: "*You get to your car*", code1: `Horse`, code2: "Fortuneteller", code3: "Car" }];
     let storyHorse = [{ who: name, text: "I don't know. Do you have an idea? " }, { who: "Grandma", text: "*Suddenly turns into horse*." }, { who: name, text: "Wow, Great idea gran gran." }, { who: "Narrator", text: "You hop on your grandma’s equine form and head to the mansion." }, { who: "Narrator", text: "As your horse grandma pulls into the driveway of the mansion you arrive and immediately rush through the front door with confidence." }, { who: "Narrator", text: "To your surprise no one is there." }, { who: "Narrator", text: "You look around the room and see a small desk in the corner and a small bookshelf to the north as well as a door to the east." }, { who: "Grandma", text: "We have arrived, go search for any clues relating to… suspicious activity. I recommend you to start in the right room. " }, { pause: true }]
-    let storyCar = [{ who: name, text: " I am going to take my car, come with me." }, { who: "Narrator", text: "You grab your car keys and start driving hysterically." }, { who: name, text: "Man if only I wasn't blind. Why did I choose the car?" }, { who: "Narrator", text: "You say as you crash into the side of a building. BUMMM!" }, { who: name, text: "Oh no not again I CAN'T GO BACK TO PRISON." }, { who: " Narrator", text: "As you step out of your car you start to realize the room around you. You are in the mansion." }, { who: "Narrator", text: "You seem to be in a room used for storing various foods and supplies and also your car that crashed into the eastern wall." }, { who: "Grandma", text: "Ohoohhh you must find a way out of this room. Rocketo is near. I can feel it." }, { who: name, text: "But grandma, what should I do?" }, { who: "Grandma", text: "Keep going. Find the key to get to the next room. Good luck." }, { pause: true }, { who: "Narrator", text: "You enter a large room with a statue in the middle. There is a bookshelf to the west and three doors." }, { who: "Grandma", text: "Ohoohhh The statue… this is HIM Rocketoo he is the one who started all of this. You must defeat him." }, { who: "Narrator", text: "The statue in front of you is of a tall man with glasses and short black hair. He lovingly holds a chicken in his arms." }, { who: "Grandma", text: "You must find it in the back of the mansion. Keep going." }, { pause: true }, { who: " Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { pause: true }]
+    let storyCar = [{ who: name, text: " I am going to take my car, come with me." }, { who: "Narrator", text: "You grab your car keys and start driving hysterically." }, { who: name, text: "Man if only I wasn't blind. Why did I choose the car?" }, { who: "Narrator", text: "You say as you crash into the side of a building. BUMMM!" }, { who: name, text: "Oh no not again I CAN'T GO BACK TO PRISON." }, { who: " Narrator", text: "As you step out of your car you start to realize the room around you. You are in the mansion." }, { who: "Narrator", text: "You seem to be in a room used for storing various foods and supplies and also your car that crashed into the eastern wall." }, { who: "Grandma", text: "Ohoohhh you must find a way out of this room. Rocketo is near. I can feel it." }, { who: name, text: "But grandma, what should I do?" }, { who: "Grandma", text: "Keep going. Find the key to get to the next room. Good luck." }, { pause: true }, { who: "Narrator", text: "You enter a large room with a statue in the middle. There is a bookshelf to the west and three doors." }, { who: "Grandma", text: "Ohoohhh The statue… this is HIM Rocketoo he is the one who started all of this. You must defeat him." }, { who: "Narrator", text: "The statue in front of you is of a tall man with glasses and short black hair. He lovingly holds a chicken in his arms." }, { who: "Grandma", text: "You must find it in the back of the mansion. Keep going." }, { pause: true }, { who: " Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { pause: true }, { who: "Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { who: "Grandma", text: "Ohhoohh I sense it somewhere in this room. There is a key to Rocketo, you must find it." }, { pause: true }]
     let storyFortuneteller = [{ who: name, text: "I am going to take the bus, come with me." }, { who: "Narrator", text: "You run out of your home. You get to the bus station and take the first bus. On the bus, a fortune teller talks with you." }, { who: "Fortune teller", text: `Hello, ${name}.` }, { who: name, text: "Wait, how do you know my detective name?" }, { who: "Fortune teller", text: "I know many things about you. When you venture to this mansion you must go to the back entrance through the garden." }, { who: name, text: "Ok wait who are you" }, { who: "Fortune teller", text: "Rocketo is in the mansion you must find him to complete your gran gran’s mission. He is the one that started all of this." }, { who: "Narrator", text: "You look down for a brief moment  as you look back up the fortune teller is gone." }, { who: "Narrator", text: "As you leave the bus you take the strange lady's advice and hop the fence in the back." }, { who: "Naractor", text: "As you enter the garden you see a large tree in the middle with a window leading into the mansion." }, { who: "Grandma", text: "Maybe you can find a way to break the window." }, { pause: true }]
 
     let story = storyCar;
@@ -927,6 +1144,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
         updateMap();
         room = itemsOnRoomCar;
         sparkItem();
+        roomIn = "Storage"
+        miniMap(roomIn);
+
     }
     function galleryRoom() {
         positionsArray = [];
@@ -939,7 +1159,35 @@ document.addEventListener(`DOMContentLoaded`, () => {
         updateMap();
         room = itemOnRoomStatue;
         sparkItem();
+        roomIn = "Gallery"
+        miniMap(roomIn);
 
+
+    }
+    function kitchenRoom() {
+        positionsArray = [];
+        createPositionArray();
+        addMap("sprites/FrezerWalls.png", 4, 8);
+        addMap("sprites/FrezerWalls.png", 4, 7);
+        addMap("sprites/FrezerWalls.png", 4, 6);
+        addMap("sprites/FrezerWalls.png", 4, 5);
+        addMap("sprites/FrezerWalls.png", 4, 4);
+        addMap("sprites/FrezerWalls.png", 3, 4);
+        addMap("sprites/FrezerWalls.png", 1, 4);
+        addMap("sprites/RedDoor.png", 2, 1);
+        addMap("sprites/BlueDoor.png", 1, 2);
+        addMap("sprites/KitchenDrawer.png", 8, 6);
+        addMap("sprites/KitchenOven.png", 8, 5);
+        addMap("sprites/KitchenDrawer.png", 8, 4);
+        addMap("sprites/KitchenDrawer.png", 5, 1);
+        addMap("sprites/KitchenDrawer.png", 7, 1);
+        addMap("sprites/KitchenSink.png", 6, 1);
+        addMap("sprites/Window.png", 7, 8);
+        updateMap();
+        room = itemOnRoomKitchen;
+        sparkItem();
+        roomIn = "Kitchen"
+        miniMap(roomIn);
 
     }
 
