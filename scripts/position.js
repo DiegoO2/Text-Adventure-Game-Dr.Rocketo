@@ -339,6 +339,12 @@ document.addEventListener(`DOMContentLoaded`, () => {
             this.next = next;
         }
     };
+    let itemOnRoomDinning = [
+        new DoorInRoom(8, 2, "Blue Door", "KitchenLeft", true),
+
+
+    ]
+
     let itemOnRoomKitchen = [
         new DoorInRoom(2, 1, "Red Door", "StorageDownUp", true),
         new DoorInRoom(1, 2, "Blue Door", "Dinning", false),
@@ -376,36 +382,122 @@ document.addEventListener(`DOMContentLoaded`, () => {
     function useOven(){ //add rep
         for (item of room) {
             if (characterPosition.x == item.ox && characterPosition.y == item.oy && item.name == `Oven` && item.work == true) {
-                let itemCopy = item;
-                document.addEventListener(`keydown`, (key) => {
-                    if(key.key == "f" && characterPosition.x == itemCopy.ox && characterPosition.y == itemCopy.oy){
-                        document.getElementById("textContent").classList.toggle("displayNone");
-                        document.getElementById("textContent").innerHTML = `                  
-                        <div id="textLeft">
-                          <img src="sprites/CatFood.png" alt="">
-                        </div>
-                        <div id="textRight">
-                          <h2>Narrator</h2>
-                          <p>What item you want melt.</p>
-                          <img src="arrow.svg" alt="" id="imgSpark">             
-                        </div>`;
-                        document.getElementById("textRight").addEventListener(`click`, () => {
-                            // document.getElementById("textContent").innerHTML = `  
-                            // <h2 id="optionH2">Choose one option:</h2>             
-                            // <div id="textLeftO">
-                            // <p>Use Gasoline Container</p>
-                
-                            // </div>
-                            // <div id="textRightO">
-                            // <p>Leave</p>
-                            // </div>`;
-                        });
+                if(repForUseOven = true){
+                    repForUseOven = false;
 
-                    }
-
-                });
-
-            }
+                    let itemCopy = item;
+                    console.log(inventoryArray);
+    
+                    document.addEventListener(`keydown`, (key) => {
+                        if(key.key == "f" && characterPosition.x == itemCopy.ox && characterPosition.y == itemCopy.oy){
+                            console.log("matthew is gay");
+                            document.getElementById("textContent").classList.toggle("displayNone");
+                            document.getElementById("textContent").innerHTML = `                  
+                            <div id="textLeft">
+                              <img src="sprites/CatFood.png" alt="">
+                            </div>
+                            <div id="textRight">
+                              <h2>Narrator</h2>
+                              <p>What item you want melt.</p>
+                              <img src="arrow.svg" alt="" id="imgSpark">             
+                            </div>`;
+                            document.getElementById("textRight").addEventListener(`click`, () => {
+                                document.getElementById("textContent").innerHTML = `  
+                                <h2 id="optionH2">Choose one option:</h2>             
+                                <div id="textLeftO">
+                                <p>Melt key in ice</p>
+                    
+                                </div>
+                                <div id="textRightO">
+                                <p>Melt soup in ice</p>
+                                </div>`;
+    
+                                document.getElementById("textLeftO").addEventListener(`click`, () => {
+                                    for(item of inventoryArray){
+                                        if(item.img == 'sprites/KeyInIce.png'){
+                                            document.getElementById("textContent").innerHTML = `                  
+                                            <div id="textLeft">
+                                              <img src="sprites/CatFood.png" alt="">
+                                            </div>
+                                            <div id="textRight">
+                                              <h2>Narrator</h2>
+                                              <p>You finally got the key for this room. You grab the key.</p>
+                                              <img src="arrow.svg" alt="" id="imgSpark">             
+                                            </div>`;            
+                                            document.getElementById("textRight").addEventListener(`click`, () => {
+                                                deleteInventory("sprites/KeyInIce.png");
+                                                addInventory("sprites/BlueKey.png", "A key that was in ice. Now it can be used to open a door.");
+                                                UpdateInventory();
+                                                unlock("Blue Door")
+                                                document.getElementById("textContent").innerHTML = `                  
+                                                <div id="textLeft">
+                                                  <img src="sprites/CatFood.png" alt="">
+                                                </div>
+                                                <div id="textRight">
+                                                  <h2>Narrator</h2>
+                                                  <p>You finally got the key for this room. You grab the key.</p>
+                                                  <img src="arrow.svg" alt="" id="imgSpark">             
+                                                </div>`; 
+                                            });
+                                            document.getElementById("textRight").addEventListener(`click`, () => {
+                                                document.getElementById("textContent").classList.toggle("displayNone");
+                                            });
+                                            return
+                                        }
+                                    }
+                                    document.getElementById("textContent").innerHTML = `                  
+                                    <div id="textLeft">
+                                      <img src="sprites/CatFood.png" alt="">
+                                    </div>
+                                    <div id="textRight">
+                                      <h2>Narrator</h2>
+                                      <p>How you can melt an item that you don't have? DIE</p>
+                                      <img src="arrow.svg" alt="" id="imgSpark">             
+                                    </div>`;   
+                                    setTimeout(() => {
+                                        gameOver();
+                                    }, 5000);   
+                                    document.getElementById("textRight").addEventListener(`click`, () => {
+                                        document.getElementById("textContent").classList.toggle("displayNone");
+                                    });
+                   
+    
+                                });
+                                document.getElementById("textRightO").addEventListener(`click`, () => {
+                                    for(item of inventoryArray){
+                                        if(item.img == 'sprites/SoupInIce.png'){
+                                            document.getElementById("textContent").classList.toggle("displayNone");
+                                            deleteInventory("sprites/SoupInIce.png");
+                                            addInventory("sprites/Soup.png", "A beef stew . You can use it to recover stamina.", "Eat");
+                                            UpdateInventory();
+                                            return
+                                        }
+    
+                                    }
+                                    document.getElementById("textContent").innerHTML = `                  
+                                    <div id="textLeft">
+                                      <img src="sprites/CatFood.png" alt="">
+                                    </div>
+                                    <div id="textRight">
+                                      <h2>Narrator</h2>
+                                      <p>How you can melt an item that you don't have? DIE</p>
+                                      <img src="arrow.svg" alt="" id="imgSpark">             
+                                    </div>`;  
+                                    setTimeout(() => {
+                                        gameOver();
+                                    }, 5000);         
+                                    document.getElementById("textRight").addEventListener(`click`, () => {
+                                        document.getElementById("textContent").classList.toggle("displayNone");
+                                    });
+    
+                                });
+        
+                            });
+                        }
+                    });
+                }
+    
+                }
         }
     }
     let repForOven = true;
@@ -453,11 +545,13 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                           <img src="arrow.svg" alt="" id="imgSpark">             
                                         </div>`;
                                         document.getElementById("textRight").addEventListener(`click`, () => {
+                                            useOven();
                                             document.getElementById("textContent").classList.toggle("displayNone");
                                         });
     
                                     });
                                     document.getElementById("textRightO").addEventListener(`click`, () => {
+                                        useOven();
                                         document.getElementById("textContent").classList.toggle("displayNone");
                                     });
                                 }
@@ -470,6 +564,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     });
                     console.log(itemCopy.work);
                     item.work = itemCopy.work;
+                    useOven();
     
     
                 }
@@ -533,6 +628,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                         setTimeout(() => {
                                             gameOver();
                                         }, 5000);   
+                                        document.getElementById("textRight").addEventListener(`click`, () => {
+                                            document.getElementById("textContent").classList.toggle("displayNone");
+                                        });
                                     }
       
                                 });
@@ -714,7 +812,16 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             storageRoom();
                             changeCharacterPostion(2, 7);
                             updateCharacterPostion();
-
+                            break
+                        case "Dinning":
+                            dinningRoom();
+                            changeCharacterPostion(7, 2);
+                            updateCharacterPostion();
+                            break
+                        case "KitchenLeft":
+                            kitchenRoom();
+                            changeCharacterPostion(2, 2);
+                            updateCharacterPostion();
                     }
 
                 }
@@ -1187,6 +1294,18 @@ document.addEventListener(`DOMContentLoaded`, () => {
         room = itemOnRoomKitchen;
         sparkItem();
         roomIn = "Kitchen"
+        miniMap(roomIn);
+    }
+    function dinningRoom(){
+        positionsArray = [];
+        createPositionArray();
+        addMap("sprites/BlueDoor.png", 8, 2);
+        addMap("sprites/FrezerWalls.png", 4, 8);
+        updateMap();
+
+        room = itemOnRoomDinning;
+        sparkItem();
+        roomIn = "Dinning"
         miniMap(roomIn);
 
     }
