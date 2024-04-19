@@ -339,11 +339,24 @@ document.addEventListener(`DOMContentLoaded`, () => {
             this.next = next;
         }
     };
+
+    let itemOnRoomStairs = [
+        new DoorInRoom(4, 1, "Green Door", "DinningDonw", true)
+        // new DoorInRoom(4, 1, "Green", "KitchenUp", true)
+
+    ];
+
+    
     let itemOnRoomDinning = [
         new DoorInRoom(8, 2, "Blue Door", "KitchenLeft", true),
-
-
-    ]
+        new DoorInRoom(4, 8, "Green Door", "StairsFromDown", false),
+        new ItemInRoom(7,5, "Soup", "On the top of the table you see a soup. You grab it and keep it for later.","A beef stew . You can use it to recover stamina.","sprites/Soup.png", "Eat"),
+        new ItemInRoom(7,5, "Soup", "On the top of the table you see a soup. You grab it and keep it for later.","A beef stew . You can use it to recover stamina.","sprites/Soup.png", "Eat"),
+        { name: `Medical kit`, text: `You open the drawer and you find some Medical Equipment. Seems a little old, you keep it in your inventory.`, desc: `An old Medical Equipment that can be used to restore one point of health.`, x: 7, y: 8, img: "sprites/MedicalKit.png", there: true, use: "Healing" },
+        new ItemInRoom(3,5, "Soup", "On the top of the table you see a soup. You grab it and keep it for later.","A beef stew . You can use it to recover stamina.","sprites/Soup.png", "Eat"),
+        new ItemInRoom(3,4, "Soup", "On the top of the table you see a soup. You grab it and keep it for later.","A beef stew . You can use it to recover stamina.","sprites/Soup.png", "Eat"),
+        { name: `Green key`, text: `You find a green key under the plant.`, desc: `A green key that helps you to get to the stairs.`, x: 1, y: 7, img: "sprites/GreenKey.png", there: true, key: "Green Door" }
+    ];
 
     let itemOnRoomKitchen = [
         new DoorInRoom(2, 1, "Red Door", "StorageDownUp", true),
@@ -354,11 +367,12 @@ document.addEventListener(`DOMContentLoaded`, () => {
         { name: `Oven`, ox: 7, oy: 5, gasoline: false, text: "You find a oven. You need some gasoline to make it work.", work: false}, //need to be 6th
         new ItemInRoom(3,6, "Frozen soup", "In one part of the freezer you find a frozen soup you take thinking that probably will be useful.","A frozen soup. You can't eat it.","sprites/SoupInIce.png"),
         // new ItemInRoom(3,5, "", "","",""),
-    ]
+    ];
     let itemOnRoomStatue = [ //remeber all items is the place where the character is when we  interefer but forrr DOOR IS NOT LIKE THAT
         new DoorInRoom(8, 2, "Normal Door", "StorageDown", true),
         new DoorInRoom(8, 7, "Normal Door", "StorageUp", true)
-    ]
+        
+    ];
 
     
 
@@ -377,13 +391,13 @@ document.addEventListener(`DOMContentLoaded`, () => {
             }
         }
     }
-    let repForUseOven = true;
 
+    let repForUseOven2 = true;
     function useOven(){ //add rep
         for (item of room) {
             if (characterPosition.x == item.ox && characterPosition.y == item.oy && item.name == `Oven` && item.work == true) {
-                if(repForUseOven = true){
-                    repForUseOven = false;
+                if(repForUseOven2 = true){
+                    repForUseOven2 = false;
 
                     let itemCopy = item;
                     console.log(inventoryArray);
@@ -610,7 +624,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                     console.log(inventoryArray, inventoryArray[0].img == 'sprites/Catfood.png', inventoryArray[0].img);
                                     if(inventoryArray[0].img == 'sprites/Catfood.png'){
     
-                                        deleteInventory("sprites/CatFood.png"); 
+                                        deleteInventory('sprites/Catfood.png'); 
+                                        UpdateInventory();
                                         createHTMLForCat(itemCopy.textWithCatFood);
                                         startGameForCat();
                                         itemCopy.thereC = false;
@@ -732,6 +747,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                         }
                         if (Object.keys(itemCopy).includes("key")) {
                             unlock(itemCopy.key);
+                            console.log(itemCopy.key)
                         }
                         addInventory(itemCopy.img, itemCopy.desc, itemCopy.use);
                         UpdateInventory();
@@ -756,6 +772,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let galleryRep = true;
     let kitchenRep = true;
     let StorageUpRep = true;
+    let DinningRep = true;
+
     function enterDoor() {
         for (item of room) {
             if (characterPosition.x == item.dx && characterPosition.y == item.dy) {
@@ -817,11 +835,36 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             dinningRoom();
                             changeCharacterPostion(7, 2);
                             updateCharacterPostion();
+                            if (DinningRep == true) {
+                                console.log("cataaaas")
+                                movementAllowed = false;
+                                number = number + 1;
+                                updateText(number, story);
+                                document.getElementById("textContent").classList.toggle("displayNone");
+                                DinningRep = false;
+                            }
+
                             break
                         case "KitchenLeft":
                             kitchenRoom();
                             changeCharacterPostion(2, 2);
                             updateCharacterPostion();
+                            break
+                        case "StairsFromDown":
+                            console.log("STARISSS")
+                            stairsRoom();
+                            changeCharacterPostion(4, 2);
+                            updateCharacterPostion();
+                            addMap("sprites/StairsBlock.png", 4, 7);
+                            updateMap();
+                    
+                            break
+                        case "DinningDonw":
+                            dinningRoom();
+                            changeCharacterPostion(4, 7);
+                            updateCharacterPostion();
+                            break
+
                     }
 
                 }
@@ -860,6 +903,12 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 break
                 case "Kitchen":
                     itemOnRoomKitchen = room;
+                    break
+                case "Dinning":
+                    itemOnRoomDinning = room;
+                    break
+                case "Stairs":
+                    itemOnRoomStairs = room;
                     break
             }
         });
@@ -1068,7 +1117,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
     let storyStart = [{ who: "Narrator", text: "The sound of your alarm fills the room as you awake from your slumber." }, { who: "Narrator", text: "You attempt to stop your alarm failing to hit the button multiple times." }, { who: name, text: "If only I weren't blinded in that freak accident back in 1996." }, { who: "Your Phone", text: "Ring Ring." }, { who: name, text: "Hello, who is it?" }, { who: "Guy on the phone", text: "Hello. I am here to tell you about a case but to be sure you're really who you say you are, tell us your name." }, { who: name, text: "I’m your name you can proceed." }, { who: "Guy on the phone", text: "There's some suspicious activity in a mansion down south. We want you to go and be sure that all is okay." }, { who: name, text: "Sorry, I don't really like mansions, my grandma died there a few years ago." }, { who: "Ghost", text: "AAAwaAWWawAAAAA  awawwaaAaAaaAAaa, hellowooow." }, { who: name, text: "G-G-G-Grandma is that you?" }, { who: "Ghost Grandma", text: "OOOooOooOoOoo I am a ghoooooooost now." }, { option1: "AHHh A ghost *grab your axe and you attack your grandma.*", option2: "Grandma You’ve returned YESSSS.", code1: `addAxe`, code2: "" }, { who: "Grandma Ghost", text: "Don't be scared. I am here to help you. You need to accept the mission, that mansion, that mansion is where I died that day. HE IS THERE. YOU NEED TO GO." }, { who: name, text: "*You turn your attention back to the phone* Hello, are you still there?" }, { who: "Guy on the phone", text: "Yes sir, what is going on?" }, { who: name, text: "Nothing, nothing. I changed my mind, I am going there right now." }, { who: "Guy on the phone", text: "Good luck. Bye, bye." }, { who: name, text: "Bye, bye." }, { who: "Narrator", text: "You prepare yourself for the adventure, after talking with your grandma your enthusiasm increases and you want to get there as fast as you can." }, { who: "Narrator", text: "This is your most important mission in your life, you need to know what happened that day at the mansion." }, { who: name, text: "I should probably take something for my adventure ahead.", ifAxe: true }, { option1: "Cat food.", option2: "Flashlight.", code1: `addCatfood`, code2: "addFlashlight" }, { who: "Grandma", text: "Wait, how do you plan to get there?" }, { option1: "*You ask your grandma if she has any idea.*", option2: "*You take the bus*", option3: "*You get to your car*", code1: `Horse`, code2: "Fortuneteller", code3: "Car" }];
     let storyHorse = [{ who: name, text: "I don't know. Do you have an idea? " }, { who: "Grandma", text: "*Suddenly turns into horse*." }, { who: name, text: "Wow, Great idea gran gran." }, { who: "Narrator", text: "You hop on your grandma’s equine form and head to the mansion." }, { who: "Narrator", text: "As your horse grandma pulls into the driveway of the mansion you arrive and immediately rush through the front door with confidence." }, { who: "Narrator", text: "To your surprise no one is there." }, { who: "Narrator", text: "You look around the room and see a small desk in the corner and a small bookshelf to the north as well as a door to the east." }, { who: "Grandma", text: "We have arrived, go search for any clues relating to… suspicious activity. I recommend you to start in the right room. " }, { pause: true }]
-    let storyCar = [{ who: name, text: " I am going to take my car, come with me." }, { who: "Narrator", text: "You grab your car keys and start driving hysterically." }, { who: name, text: "Man if only I wasn't blind. Why did I choose the car?" }, { who: "Narrator", text: "You say as you crash into the side of a building. BUMMM!" }, { who: name, text: "Oh no not again I CAN'T GO BACK TO PRISON." }, { who: " Narrator", text: "As you step out of your car you start to realize the room around you. You are in the mansion." }, { who: "Narrator", text: "You seem to be in a room used for storing various foods and supplies and also your car that crashed into the eastern wall." }, { who: "Grandma", text: "Ohoohhh you must find a way out of this room. Rocketo is near. I can feel it." }, { who: name, text: "But grandma, what should I do?" }, { who: "Grandma", text: "Keep going. Find the key to get to the next room. Good luck." }, { pause: true }, { who: "Narrator", text: "You enter a large room with a statue in the middle. There is a bookshelf to the west and three doors." }, { who: "Grandma", text: "Ohoohhh The statue… this is HIM Rocketoo he is the one who started all of this. You must defeat him." }, { who: "Narrator", text: "The statue in front of you is of a tall man with glasses and short black hair. He lovingly holds a chicken in his arms." }, { who: "Grandma", text: "You must find it in the back of the mansion. Keep going." }, { pause: true }, { who: " Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { pause: true }, { who: "Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { who: "Grandma", text: "Ohhoohh I sense it somewhere in this room. There is a key to Rocketo, you must find it." }, { pause: true }]
+    let storyCar = [{ who: name, text: " I am going to take my car, come with me." }, { who: "Narrator", text: "You grab your car keys and start driving hysterically." }, { who: name, text: "Man if only I wasn't blind. Why did I choose the car?" }, { who: "Narrator", text: "You say as you crash into the side of a building. BUMMM!" }, { who: name, text: "Oh no not again I CAN'T GO BACK TO PRISON." }, { who: " Narrator", text: "As you step out of your car you start to realize the room around you. You are in the mansion." }, { who: "Narrator", text: "You seem to be in a room used for storing various foods and supplies and also your car that crashed into the eastern wall." }, { who: "Grandma", text: "Ohoohhh you must find a way out of this room. Rocketo is near. I can feel it." }, { who: name, text: "But grandma, what should I do?" }, { who: "Grandma", text: "Keep going. Find the key to get to the next room. Good luck." }, { pause: true }, { who: "Narrator", text: "You enter a large room with a statue in the middle. There is a bookshelf to the west and three doors." }, { who: "Grandma", text: "Ohoohhh The statue… this is HIM Rocketoo he is the one who started all of this. You must defeat him." }, { who: "Narrator", text: "The statue in front of you is of a tall man with glasses and short black hair. He lovingly holds a chicken in his arms." }, { who: "Grandma", text: "You must find it in the back of the mansion. Keep going." }, { pause: true }, { who: " Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { pause: true }, { who: "Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { who: "Grandma", text: "Ohhoohh I sense it somewhere in this room. There is a key to Rocketo, you must find it." }, { pause: true }, { who: "Narrator", text: "You enter the dining hall. A large table is set in the middle of the room." }, { who: "Grandma", text: "Ohoohh I can feel it, we are near. In the next room we will find Rocketo. Find a way to open the door." }, { pause: true }]
     let storyFortuneteller = [{ who: name, text: "I am going to take the bus, come with me." }, { who: "Narrator", text: "You run out of your home. You get to the bus station and take the first bus. On the bus, a fortune teller talks with you." }, { who: "Fortune teller", text: `Hello, ${name}.` }, { who: name, text: "Wait, how do you know my detective name?" }, { who: "Fortune teller", text: "I know many things about you. When you venture to this mansion you must go to the back entrance through the garden." }, { who: name, text: "Ok wait who are you" }, { who: "Fortune teller", text: "Rocketo is in the mansion you must find him to complete your gran gran’s mission. He is the one that started all of this." }, { who: "Narrator", text: "You look down for a brief moment  as you look back up the fortune teller is gone." }, { who: "Narrator", text: "As you leave the bus you take the strange lady's advice and hop the fence in the back." }, { who: "Naractor", text: "As you enter the garden you see a large tree in the middle with a window leading into the mansion." }, { who: "Grandma", text: "Maybe you can find a way to break the window." }, { pause: true }]
 
     let story = storyCar;
@@ -1300,7 +1349,20 @@ document.addEventListener(`DOMContentLoaded`, () => {
         positionsArray = [];
         createPositionArray();
         addMap("sprites/BlueDoor.png", 8, 2);
-        addMap("sprites/FrezerWalls.png", 4, 8);
+        addMap("sprites/Plant.png", 1, 1);
+        addMap("sprites/Plant.png", 8, 8);
+        addMap("sprites/Plant.png", 1, 8);
+        addMap("sprites/Plant.png", 8, 1);
+        addMap("sprites/Drawer.png", 8, 6);
+        addMap("sprites/Drawer.png", 8, 5);
+        addMap("sprites/Drawer.png", 8, 4);
+        addMap("sprites/Table.png", 4, 5);
+        addMap("sprites/Table.png", 5, 5, "an90");
+        addMap("sprites/Table.png", 5, 4, "an180");
+        addMap("sprites/Table.png", 4, 4, "an270");
+        addMap("sprites/Chair.png", 4, 6);
+        addMap("sprites/Chair.png", 5, 6);
+        addMap("sprites/GreenDoor.png", 4, 8);
         updateMap();
 
         room = itemOnRoomDinning;
@@ -1309,6 +1371,37 @@ document.addEventListener(`DOMContentLoaded`, () => {
         miniMap(roomIn);
 
     }
+    function stairsRoom(){
+        positionsArray = [];
+        createPositionArray();
+
+        addMap("sprites/GreenDoor.png", 4, 1);
+        addMap("sprites/StairsBlock.png", 3, 8);
+        addMap("sprites/StairsBlock.png", 4, 8);
+        addMap("sprites/StairsBlock.png", 5, 8);
+        addMap("sprites/StairsBlock.png", 6, 8);
+        addMap("sprites/StairsBlock.png", 3, 7);
+        addMap("sprites/StairsBlock.png", 4, 7);
+        addMap("sprites/StairsBlock.png", 5, 7);
+        addMap("sprites/StairsBlock.png", 6, 7);
+        addMap("sprites/StairsBlock.png", 6, 6);
+        addMap("sprites/StairsBlock.png", 6, 5);
+        addMap("sprites/StairsBlock.png", 3, 6);
+        addMap("sprites/StairsBlock.png", 3, 5);
+        addMap("sprites/Stairs.png", 4, 6);
+        addMap("sprites/Stairs.png", 5, 6);
+        addMap("sprites/Stairs.png", 4, 5);
+        addMap("sprites/Stairs.png", 5, 5);
+
+        updateMap();
+        console.log(positionsArray)
+        room = itemOnRoomStairs;
+        sparkItem();
+        roomIn = "Stairs"
+        miniMap(roomIn);
+
+    }
+
 
 });
 
