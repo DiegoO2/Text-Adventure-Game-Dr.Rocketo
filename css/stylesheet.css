@@ -55,6 +55,11 @@ header {
     height: 12.5%;
     background-color: rgb(0, 0, 0);
 }
+#gameContent div.Grass {
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url(/sprites/Grass.png);
+    background-size: contain;
+}
 
 #gameContent div img {
     width: 100%;
