@@ -9,6 +9,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
     let characterPosition = { x: 2, y: 2 }; // will change
 
+    let rocketoPosition = { x: 2, y: 2 }; // will change
+
     let lastPosition = { x: 1, y: 1 }; // hi
 
     // function delay(milliseconds){
@@ -1398,8 +1400,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let storyHorse = [{ who: name, text: "I don't know. Do you have an idea? " }, { who: "Grandma", text: "*Suddenly turns into horse*." }, { who: name, text: "Wow, Great idea gran gran." }, { who: "Narrator", text: "You hop on your grandma’s equine form and head to the mansion." }, { who: "Narrator", text: "As your horse grandma pulls into the driveway of the mansion you arrive and immediately rush through the front door with confidence." }, { who: "Narrator", text: "To your surprise no one is there." }, { who: "Narrator", text: "You look around the room and see a small desk in the corner and a small bookshelf to the north as well as a door to the east." }, { who: "Grandma", text: "We have arrived, go search for any clues relating to… suspicious activity. I recommend you to start in the right room." }, { pause: true }, { who: "Narrator", text: "You enter a large room with a statue in the middle and some bookshelves." }, { who: "Grandma", text: "Ohoohhh The statue… this is HIM Rocketoo he is the one who started all of this." }, { who: "Narrator", text: "The statue in front of you is of a tall man with glasses and short black hair. He lovingly holds a chicken in his arms." }, { who: "Grandma", text: "You must find it in the back of the mansion. Keep going." }, { pause: true }, { who: "Grandma", text: "Good job. Use the book as a key. Keep going and defeat Rocketo!" }, { pause: true }, { who: "Narrator", text: "You enter a large secret library with many books you feel and an uneasy presence." }, { who: "Grandma", text: "Ah I can feel ROCKETO’S wrath somewhere in the room move with caution." }, { pause: true }, { who: "Narrator", text: "As you enter the bedroom you see a large bed and a drawer to the side there is a door to the left." }, { who: "Grandma", text: "Ohohh this must be where ROCKETO sleeps mayhaps there will be something of value here." }, { pause: true }]
     let storyCar = [{ who: name, text: " I am going to take my car, come with me." }, { who: "Narrator", text: "You grab your car keys and start driving hysterically." }, { who: name, text: "Man if only I wasn't blind. Why did I choose the car?" }, { who: "Narrator", text: "You say as you crash into the side of a building. BUMMM!" }, { who: name, text: "Oh no not again I CAN'T GO BACK TO PRISON." }, { who: "Narrator", text: "As you step out of your car you start to realize the room around you. You are in the mansion." }, { who: "Narrator", text: "You seem to be in a room used for storing various foods and supplies and also your car that crashed into the eastern wall." }, { who: "Grandma", text: "Ohoohhh you must find a way out of this room. Rocketo is near. I can feel it." }, { who: name, text: "But grandma, what should I do?" }, { who: "Grandma", text: "Keep going. Find the key to get to the next room. Good luck." }, { pause: true }, { who: "Narrator", text: "You enter a large room with a statue in the middle. There is a bookshelf to the west and three doors." }, { who: "Grandma", text: "Ohoohhh The statue… this is HIM Rocketoo he is the one who started all of this. You must defeat him." }, { who: "Narrator", text: "The statue in front of you is of a tall man with glasses and short black hair. He lovingly holds a chicken in his arms." }, { who: "Grandma", text: "You must find it in the back of the mansion. Keep going." }, { pause: true }, { who: "Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { pause: true }, { who: "Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { who: "Grandma", text: "Ohhoohh I sense it somewhere in this room. There is a key to Rocketo, you must find it." }, { pause: true }, { who: "Narrator", text: "You enter the dining hall. A large table is set in the middle of the room." }, { who: "Grandma", text: "Ohoohh I can feel it, we are near. In the next room we will find Rocketo. Find a way to open the door." }, { pause: true }]
     let storyFortuneteller = [{ who: name, text: "I am going to take the bus, come with me." }, { who: "Narrator", text: "You run out of your home. You get to the bus station and take the first bus. On the bus, a fortune teller talks with you." }, { who: "Fortune teller", text: `Hello, ${name}.` }, { who: name, text: "Wait, how do you know my detective name?" }, { who: "Fortune teller", text: "I know many things about you. When you venture to this mansion you must go to the back entrance through the garden." }, { who: name, text: "Ok wait who are you" }, { who: "Fortune teller", text: "Rocketo is in the mansion you must find him to complete your gran gran’s mission. He is the one that started all of this." }, { who: "Narrator", text: "You look down for a brief moment  as you look back up the fortune teller is gone." }, { who: "Narrator", text: "As you leave the bus you take the strange lady's advice and hop the fence in the back." }, { who: "Narrator", text: "As you enter the garden you see a large tree in the middle with a window leading into the mansion." }, { who: "Grandma", text: "Maybe you can find a way to break the window." }, { pause: true }, { who: "Narrator", text: "You break the window with the hammer. PUMMM!" }, { who: "Narrator", text: "As you carefully make your way through the window you find yourself in a large kitchen." }, { who: "Grandma", text: "Ohhoohh I sense it somewhere in this room. There is a key to Rocketo, you must find it." }, { pause: true }, { who: "Narrator", text: "You enter the dining hall. A large table is set in the middle of the room." }, { who: "Grandma", text: "Ohoohh I can feel it, we are near. In the next room we will find Rocketo. Find a way to open the door." }, { pause: true }]
-    let storyEnd = [{who: "Narrator", text:"You enter the stairs."}, {who: "Grandma", text:"Here is where Rocketo lies."}, {who: name, text: "Gee thanks gran gran, boy I'm so glad to have a wise and knowledgeable mentor like you who was introduced so early in my travels."}, {who: "Grandma", text: "You are welcome :)"}, { pause: true }, {who: "Narrator", text: "You enter through the secret door in the stairs and find ROCKETO sitting menacingly in a chair, his fine hen sits in his lap."}, {who: "Rocketo", text: "Ah it is you I have been expecting your audience."}, {who: name, text: "Your evil ends here."}, {who: "Rocketo", text: "Wait, allow me to explain a few things."}, {who: name, text: "Alright I guess i'll hear you out."}, {who: "Rocketo", text: "Ahh for you see it, it all happened about 7 years ago. I needed people to experiment my ROCKETO’S BLINDING TONIC on."}, {who: "Rocketo", text: " I went down to the local park and staged a freak accident to trap someone."}, {who: "Rocketo", text: "You were the one who fell victim to it."}, {who: name, text: "WHAT THAT WAS YOU!"}, {who: "Rocketo", text: "OOOOOAHHAHAH. Yes and now I will end you."}, { pause : true }];
-    let story = storyHorse;
+    let storyEnd = [{who: "Narrator", text:"You enter the stairs."}, {who: "Grandma", text:"Here is where Rocketo lies."}, {who: name, text: "Gee thanks gran gran, boy I'm so glad to have a wise and knowledgeable mentor like you who was introduced so early in my travels."}, {who: "Grandma", text: "You are welcome :)"}, { pause: true }, {who: "Narrator", text: "You enter through the secret door in the stairs and find ROCKETO sitting menacingly in a chair, his fine hen sits in his lap."}, {who: "Rocketo", text: "Ah it is you I have been expecting your audience."}, {who: name, text: "Your evil ends here."}, {who: "Rocketo", text: "Wait, allow me to explain a few things."}, {who: name, text: "Alright I guess i'll hear you out."}, {who: "Rocketo", text: "Ahh for you see it, it all happened about 7 years ago. I needed people to experiment my ROCKETO’S BLINDING TONIC on."}, {who: "Rocketo", text: " I went down to the local park and staged a freak accident to trap someone."}, {who: "Rocketo", text: "You were the one who fell victim to it."}, {who: name, text: "WHAT THAT WAS YOU!"}, {who: "Rocketo", text: "OOOOOAHHAHAH. Yes and now I will end you."}, { fight : true }];
+    let story = storyStart;
 
     let axe = false;
 
@@ -1411,11 +1413,51 @@ document.addEventListener(`DOMContentLoaded`, () => {
     };
     let catX = 4;// cat position
     let catY = 1;
+    let endFight = false;
+
+    function endFightF(){
+        if(endFight == true){
+            clearInterval(fightTimer);
+        }
+    }
+    function rocketoRockAttack(){
+
+    }
+    function rocketoRockAttack(){
+        
+    }
+    function rocketoFight(){
+        rocketoFightRoom(); 
+        changeCharacterPostion(4, 2);
+        updateCharacterPostion();
+        // let fightTimer = setInterval(() => {
+        //     setTimeout(() => {
+                
+        //     }, 1000);
+
+        //     }, 1000);  
+
+    }
 
     let firstTime = true;
     function updateText(number, story) {
         console.log(number)
         switch (true) {
+            case Object.keys(story[number]).includes("fight"):
+                document.getElementById("textContent").classList.toggle("displayNone");
+                document.getElementById("header").classList.toggle("displayNone");
+                document.getElementById("main").classList.toggle("displayNone");
+                document.getElementById("start").classList.toggle("displayNone");
+                movementAllowed = false;
+                document.getElementById("start").innerHTML = `<img src="Images/gameOver.png">`        
+                setTimeout(() => {
+                    document.getElementById("header").classList.toggle("displayNone");
+                    document.getElementById("main").classList.toggle("displayNone");
+                    document.getElementById("start").classList.toggle("displayNone");
+                    movementAllowed = true;
+                }, 2000);  
+                rocketoFight(); 
+                break
             case Object.keys(story[number]).includes("pause"):
                 document.getElementById("textContent").classList.toggle("displayNone");
                 movementAllowed = true;
@@ -1936,10 +1978,53 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
         room = itemOnRoomRocketo;
         sparkItem();
-        roomIn = "Bedroom"
+        roomIn = "Stairs"
         miniMap(roomIn);
 
     }
+    function rocketoFightRoom(){
+        positionsArray = [];
+        createPositionArray();
+        addMap("sprites/Rocketo.png", 4, 7);
+
+        updateMap();
+        room = itemOnRoomRocketo;
+        sparkItem();
+        roomIn = "Stairs"
+        miniMap(roomIn);
+
+    }
+
+    // rocketoRoom();
+    // movementAllowed = false;
+    // changeCharacterPostion(4, 1);
+    // updateCharacterPostion();
+    // setTimeout(() => {
+    //     changeCharacterPostion(4, 1);
+    //     updateCharacterPostion();    
+    // }, 1000);   
+    // setTimeout(() => {
+    //     changeCharacterPostion(4, 2);
+    //     updateCharacterPostion();    
+    // }, 2000);  
+    // setTimeout(() => {
+    //     changeCharacterPostion(4, 3);
+    //     updateCharacterPostion();    
+    // }, 3000);  
+    // setTimeout(() => {
+    //     changeCharacterPostion(4, 4);
+    //     updateCharacterPostion();    
+    // }, 4000);  
+    // setTimeout(() => {
+    //     changeCharacterPostion(4, 5);
+    //     updateCharacterPostion();    
+    // }, 5000);  
+    // setTimeout(() => {
+    //     number = number + 1;
+    //     updateText(number, story);
+    //     document.getElementById("textContent").classList.toggle("displayNone");
+    //     }, 5500);  
+
 });
 
 
