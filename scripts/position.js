@@ -9,7 +9,10 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
     let characterPosition = { x: 2, y: 2 }; // will change
 
-    let rocketoPosition = { x: 2, y: 2 }; // will change
+    let rocketoPosition = { x: 2, y: 2 }; 
+     
+    let rocketoLastPosition = { x: 1, y: 1 }
+
 
     let lastPosition = { x: 1, y: 1 }; // hi
 
@@ -175,7 +178,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     let inventoryArrayImages = [];
                     for (i of inventoryArray) {
                         if (i.empty == false) {
-                            inventoryArrayImages.push({ img: i.img, desc: i.desc, use: i.use });
+                            inventoryArrayImages.push({ img: i.img, desc: i.desc, use: i.use, times: i.times});
                         }
                     }
                     inventoryArray = [];
@@ -185,9 +188,15 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             inventoryArray.push(new Item(e, i))
                         }
                     }
+                    let indexTimes = 0;
 
                     for (img of inventoryArrayImages) {
+
                         addInventory(img.img, img.desc, img.use); // yes both
+                        if(img.times > 1){
+                            inventoryArray[indexTimes].times = img.times;
+                        }
+                        indexTimes = indexTimes + 1;
                     }
                     UpdateInventory();
                 }
@@ -291,7 +300,6 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 deleteInventory(item.img);
                 healing();
                 updateHealth();
-
             }
             else if (item.use == "Eat") {
                 deleteInventory(item.img);
@@ -325,6 +333,31 @@ document.addEventListener(`DOMContentLoaded`, () => {
             }
         }
     }
+    function updateRocketoPostion() {
+        for (block of positionsArray) {
+            if (rocketoPosition.x == block.x && rocketoPosition.y == block.y) {
+                if (block.empty == false) {
+                    rocketoPosition.x = rocketoLastPosition.x;
+                    rocketoPosition.y = rocketoLastPosition.y;
+                    document.getElementById(`post${rocketoPosition.x}x-${rocketoPosition.y}y`).innerHTML = `<img src="sprites/Rocketo.png" alt="">`;
+                    break
+                }
+                else {
+                    document.getElementById(`post${rocketoLastPosition.x}x-${rocketoLastPosition.y}y`).innerHTML = ``;
+                    document.getElementById(`post${rocketoPosition.x}x-${rocketoPosition.y}y`).innerHTML = `<img src="sprites/Rocketo.png" alt="">`;
+                    rocketoLastPosition.x = rocketoPosition.x;
+                    rocketoLastPosition.y = rocketoPosition.y;
+                }
+            }
+        }
+    }
+    function changeCharacterPostion(xCordinate, yCordinate) {
+        characterPosition = { x: xCordinate, y: yCordinate };
+    }
+    function changeRocketoPostion(xCordinate, yCordinate) {
+        rocketoPosition = { x: xCordinate, y: yCordinate };
+    }
+
 
     let room = [];
     let roomIn = "";
@@ -392,11 +425,11 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
 
     let itemOnRoomStairs = [
-        // new DoorInRoom(4, 1, "Green", "KitchenUp", true)
+        new DoorInRoom(4, 7, "Stairs", "Rocketo", true),
+        new DoorInRoom(5, 7, "Stairs", "Rocketo", true),
         new ItemInRoom(2, 2, "Soup", "On the top of the drawer you see a soup. You grab it and keep it for later.", "A beef stew . You can use it to recover stamina.", "sprites/Soup.png", "Eat"),
         new ItemInRoom(6, 2, "Medical Equipment", "You open the drawer and you find some Medical Equipment. Seems a little old, you keep it in your inventory.", "An old Medical Equipment that can be used to restore one point of health.", "sprites/MedicalKit.png", "Healing"),
-        new DoorInRoom(4, 7, "Stairs", "Rocketo", true),
-        new DoorInRoom(5, 7, "Stairs", "Rocketo", true)
+        new DoorInRoom(4, 1, "Green Door", "DinningDown", true) // needs to be the 5th
 
     ];
 
@@ -971,14 +1004,12 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             changeCharacterPostion(7, 2);
                             updateCharacterPostion();
                             if (DinningRep == true) {
-                                console.log("cataaaas")
                                 movementAllowed = false;
                                 number = number + 1;
                                 updateText(number, story);
                                 document.getElementById("textContent").classList.toggle("displayNone");
                                 DinningRep = false;
                             }
-
                             break
                         case "KitchenLeft":
                             kitchenRoom();
@@ -991,6 +1022,13 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             updateCharacterPostion();
                             addMap("sprites/StairsBlock.png", 4, 7);//this also
                             updateMap();//this a prevention for the error
+                            document.getElementById("post4x-6y").classList.toggle("Stairs");
+                            document.getElementById("post5x-6y").classList.toggle("Stairs");
+                            document.getElementById("post4x-5y").classList.toggle("Stairs");
+                            document.getElementById("post5x-5y").classList.toggle("Stairs");
+                    
+                            document.getElementById("post4x-4y").classList.toggle("RedArrow");
+                            document.getElementById("post5x-4y").classList.toggle("RedArrow");                    
                             if (stairsRep == true) {
                                 story = storyEnd;
                                 movementAllowed = false;
@@ -1000,7 +1038,12 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                 stairsRep = false;
                             }
                             break
-                        case "DinningDonw":
+                        case "DinningDown":
+                            if(roomIn == "Rocketo"){
+                                console.log("rocketo no  a dinning")
+                                return
+                            }
+                            console.log("rocketo is also a dinning")
                             dinningRoom();
                             changeCharacterPostion(4, 7);
                             updateCharacterPostion();
@@ -1107,10 +1150,14 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             updateCharacterPostion();
                             break
                         case "Rocketo":
+                            console.log("going to rocketooo")
                             rocketoRoom();
                             movementAllowed = false;
                             changeCharacterPostion(4, 1);
                             updateCharacterPostion();
+                            changeRocketoPostion(4, 7);
+                            updateRocketoPostion();
+                    
                             setTimeout(() => {
                                 changeCharacterPostion(4, 1);
                                 updateCharacterPostion();    
@@ -1191,6 +1238,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 case "Bedroom":
                     itemOnRoomBedroom = room;
                     break
+                case "Rocketo":
+                    itemOnRoomRocketo = room;
+                    break
             }
         });
     };
@@ -1200,9 +1250,6 @@ document.addEventListener(`DOMContentLoaded`, () => {
             callMap(x, y);
         });
     };
-    function changeCharacterPostion(xCordinate, yCordinate) {
-        characterPosition = { x: xCordinate, y: yCordinate };
-    }
     function wall() {
         console.log("thats a wall")
     }
@@ -1401,7 +1448,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let storyCar = [{ who: name, text: " I am going to take my car, come with me." }, { who: "Narrator", text: "You grab your car keys and start driving hysterically." }, { who: name, text: "Man if only I wasn't blind. Why did I choose the car?" }, { who: "Narrator", text: "You say as you crash into the side of a building. BUMMM!" }, { who: name, text: "Oh no not again I CAN'T GO BACK TO PRISON." }, { who: "Narrator", text: "As you step out of your car you start to realize the room around you. You are in the mansion." }, { who: "Narrator", text: "You seem to be in a room used for storing various foods and supplies and also your car that crashed into the eastern wall." }, { who: "Grandma", text: "Ohoohhh you must find a way out of this room. Rocketo is near. I can feel it." }, { who: name, text: "But grandma, what should I do?" }, { who: "Grandma", text: "Keep going. Find the key to get to the next room. Good luck." }, { pause: true }, { who: "Narrator", text: "You enter a large room with a statue in the middle. There is a bookshelf to the west and three doors." }, { who: "Grandma", text: "Ohoohhh The statue… this is HIM Rocketoo he is the one who started all of this. You must defeat him." }, { who: "Narrator", text: "The statue in front of you is of a tall man with glasses and short black hair. He lovingly holds a chicken in his arms." }, { who: "Grandma", text: "You must find it in the back of the mansion. Keep going." }, { pause: true }, { who: "Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { pause: true }, { who: "Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { who: "Grandma", text: "Ohhoohh I sense it somewhere in this room. There is a key to Rocketo, you must find it." }, { pause: true }, { who: "Narrator", text: "You enter the dining hall. A large table is set in the middle of the room." }, { who: "Grandma", text: "Ohoohh I can feel it, we are near. In the next room we will find Rocketo. Find a way to open the door." }, { pause: true }]
     let storyFortuneteller = [{ who: name, text: "I am going to take the bus, come with me." }, { who: "Narrator", text: "You run out of your home. You get to the bus station and take the first bus. On the bus, a fortune teller talks with you." }, { who: "Fortune teller", text: `Hello, ${name}.` }, { who: name, text: "Wait, how do you know my detective name?" }, { who: "Fortune teller", text: "I know many things about you. When you venture to this mansion you must go to the back entrance through the garden." }, { who: name, text: "Ok wait who are you" }, { who: "Fortune teller", text: "Rocketo is in the mansion you must find him to complete your gran gran’s mission. He is the one that started all of this." }, { who: "Narrator", text: "You look down for a brief moment  as you look back up the fortune teller is gone." }, { who: "Narrator", text: "As you leave the bus you take the strange lady's advice and hop the fence in the back." }, { who: "Narrator", text: "As you enter the garden you see a large tree in the middle with a window leading into the mansion." }, { who: "Grandma", text: "Maybe you can find a way to break the window." }, { pause: true }, { who: "Narrator", text: "You break the window with the hammer. PUMMM!" }, { who: "Narrator", text: "As you carefully make your way through the window you find yourself in a large kitchen." }, { who: "Grandma", text: "Ohhoohh I sense it somewhere in this room. There is a key to Rocketo, you must find it." }, { pause: true }, { who: "Narrator", text: "You enter the dining hall. A large table is set in the middle of the room." }, { who: "Grandma", text: "Ohoohh I can feel it, we are near. In the next room we will find Rocketo. Find a way to open the door." }, { pause: true }]
     let storyEnd = [{who: "Narrator", text:"You enter the stairs."}, {who: "Grandma", text:"Here is where Rocketo lies."}, {who: name, text: "Gee thanks gran gran, boy I'm so glad to have a wise and knowledgeable mentor like you who was introduced so early in my travels."}, {who: "Grandma", text: "You are welcome :)"}, { pause: true }, {who: "Narrator", text: "You enter through the secret door in the stairs and find ROCKETO sitting menacingly in a chair, his fine hen sits in his lap."}, {who: "Rocketo", text: "Ah it is you I have been expecting your audience."}, {who: name, text: "Your evil ends here."}, {who: "Rocketo", text: "Wait, allow me to explain a few things."}, {who: name, text: "Alright I guess i'll hear you out."}, {who: "Rocketo", text: "Ahh for you see it, it all happened about 7 years ago. I needed people to experiment my ROCKETO’S BLINDING TONIC on."}, {who: "Rocketo", text: " I went down to the local park and staged a freak accident to trap someone."}, {who: "Rocketo", text: "You were the one who fell victim to it."}, {who: name, text: "WHAT THAT WAS YOU!"}, {who: "Rocketo", text: "OOOOOAHHAHAH. Yes and now I will end you."}, { fight : true }];
-    let story = storyStart;
+    let story = storyFortuneteller;
 
     let axe = false;
 
@@ -1421,10 +1468,10 @@ document.addEventListener(`DOMContentLoaded`, () => {
         }
     }
     function rocketoRockAttack(){
+        let x = rocketoPosition.x;
+        let y = rocketoPosition.x;
 
-    }
-    function rocketoRockAttack(){
-        
+
     }
     function rocketoFight(){
         rocketoFightRoom(); 
@@ -1472,6 +1519,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             catY = 6;
                             itemOnRoomGallery.push(new DoorInRoom(1, 4, "Normal Door", "EntranceLeft", true));
                             itemOnRoomStairs.push(new DoorInRoom(1, 5, "Orange Door", "BedroomLeft", true));
+                            itemOnRoomStairs[4].haveKey == false;
+
                             break
                         case storyCar:
                             changeCharacterPostion(6, 4);
@@ -1482,7 +1531,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             catY = 6;
                             itemOnRoomGallery.push(new DoorInRoom(8, 2, "Normal Door", "StorageDown", true));
                             itemOnRoomGallery.push(new DoorInRoom(8, 7, "Normal Door", "StorageUp", true));
-                            itemOnRoomStairs.push(new DoorInRoom(4, 1, "Green Door", "DinningDonw", true));
+                            // itemOnRoomStairs.push(new DoorInRoom(4, 1, "Green Door", "DinningDown", true)); 
 
                             break
                         case storyFortuneteller:
@@ -1496,7 +1545,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
             
                             itemOnRoomKitchen.push({ name: `Cat`, x: 4, y: 2, text: "You find a cat, it looks hungry. Do you want to feed him?", textWithCatFood: "You give the cat the cat food, he smiles and jumps into your back. Now he is your new friend.", textIgnore: "You ignore the hungry little cat.", textWithOutCatFood: "The cat attacks you, he doesn't like the food that you given it to him.", option1: "You feed the cat with Cat Food", option2: "You feed the cat with food", option3: "You ignore the cat", thereC: true });
                             itemOnRoomKitchen.push(new DoorInRoom(7, 8, "Window", "Garden", true));
-                            itemOnRoomStairs.push(new DoorInRoom(4, 1, "Green Door", "DinningDonw", true));
+                            // itemOnRoomStairs.push(new DoorInRoom(4, 1, "Green Door", "DinningDown", true));
 
                             firstTime = false;// the item top is for the cat in the kitchen for fortuneteller ending
                             break
@@ -1954,11 +2003,13 @@ document.addEventListener(`DOMContentLoaded`, () => {
     function rocketoRoom(){
         positionsArray = [];
         createPositionArray();
-        addMap("sprites/Rocketo.png", 4, 7);
 
 
 
         updateMap();
+        changeRocketoPostion(4, 7);
+        updateRocketoPostion();
+
         document.getElementById("post4x-1y").classList.toggle("RedRug");
         document.getElementById("post4x-2y").classList.toggle("RedRug");
         document.getElementById("post4x-3y").classList.toggle("RedRug");
@@ -1978,19 +2029,21 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
         room = itemOnRoomRocketo;
         sparkItem();
-        roomIn = "Stairs"
+        roomIn = "Rocketo"
         miniMap(roomIn);
 
     }
     function rocketoFightRoom(){
         positionsArray = [];
         createPositionArray();
-        addMap("sprites/Rocketo.png", 4, 7);
 
         updateMap();
+        changeRocketoPostion(4, 7);
+        updateRocketoPostion();
+
         room = itemOnRoomRocketo;
         sparkItem();
-        roomIn = "Stairs"
+        roomIn = "Rocketo"
         miniMap(roomIn);
 
     }
