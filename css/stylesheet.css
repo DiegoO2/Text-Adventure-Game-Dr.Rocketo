@@ -76,7 +76,10 @@ header {
     background-image: url(/sprites/RedRug.png);
     background-size: contain;
     transform: rotate(180deg);
-
+}
+#gameContent div.Rock {
+    background-image: url(/sprites/Rock.png);
+    background-size: contain;
 }
 
 #gameContent div img {

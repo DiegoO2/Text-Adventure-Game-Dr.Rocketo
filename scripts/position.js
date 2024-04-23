@@ -1448,7 +1448,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let storyCar = [{ who: name, text: " I am going to take my car, come with me." }, { who: "Narrator", text: "You grab your car keys and start driving hysterically." }, { who: name, text: "Man if only I wasn't blind. Why did I choose the car?" }, { who: "Narrator", text: "You say as you crash into the side of a building. BUMMM!" }, { who: name, text: "Oh no not again I CAN'T GO BACK TO PRISON." }, { who: "Narrator", text: "As you step out of your car you start to realize the room around you. You are in the mansion." }, { who: "Narrator", text: "You seem to be in a room used for storing various foods and supplies and also your car that crashed into the eastern wall." }, { who: "Grandma", text: "Ohoohhh you must find a way out of this room. Rocketo is near. I can feel it." }, { who: name, text: "But grandma, what should I do?" }, { who: "Grandma", text: "Keep going. Find the key to get to the next room. Good luck." }, { pause: true }, { who: "Narrator", text: "You enter a large room with a statue in the middle. There is a bookshelf to the west and three doors." }, { who: "Grandma", text: "Ohoohhh The statue… this is HIM Rocketoo he is the one who started all of this. You must defeat him." }, { who: "Narrator", text: "The statue in front of you is of a tall man with glasses and short black hair. He lovingly holds a chicken in his arms." }, { who: "Grandma", text: "You must find it in the back of the mansion. Keep going." }, { pause: true }, { who: "Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { pause: true }, { who: "Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { who: "Grandma", text: "Ohhoohh I sense it somewhere in this room. There is a key to Rocketo, you must find it." }, { pause: true }, { who: "Narrator", text: "You enter the dining hall. A large table is set in the middle of the room." }, { who: "Grandma", text: "Ohoohh I can feel it, we are near. In the next room we will find Rocketo. Find a way to open the door." }, { pause: true }]
     let storyFortuneteller = [{ who: name, text: "I am going to take the bus, come with me." }, { who: "Narrator", text: "You run out of your home. You get to the bus station and take the first bus. On the bus, a fortune teller talks with you." }, { who: "Fortune teller", text: `Hello, ${name}.` }, { who: name, text: "Wait, how do you know my detective name?" }, { who: "Fortune teller", text: "I know many things about you. When you venture to this mansion you must go to the back entrance through the garden." }, { who: name, text: "Ok wait who are you" }, { who: "Fortune teller", text: "Rocketo is in the mansion you must find him to complete your gran gran’s mission. He is the one that started all of this." }, { who: "Narrator", text: "You look down for a brief moment  as you look back up the fortune teller is gone." }, { who: "Narrator", text: "As you leave the bus you take the strange lady's advice and hop the fence in the back." }, { who: "Narrator", text: "As you enter the garden you see a large tree in the middle with a window leading into the mansion." }, { who: "Grandma", text: "Maybe you can find a way to break the window." }, { pause: true }, { who: "Narrator", text: "You break the window with the hammer. PUMMM!" }, { who: "Narrator", text: "As you carefully make your way through the window you find yourself in a large kitchen." }, { who: "Grandma", text: "Ohhoohh I sense it somewhere in this room. There is a key to Rocketo, you must find it." }, { pause: true }, { who: "Narrator", text: "You enter the dining hall. A large table is set in the middle of the room." }, { who: "Grandma", text: "Ohoohh I can feel it, we are near. In the next room we will find Rocketo. Find a way to open the door." }, { pause: true }]
     let storyEnd = [{who: "Narrator", text:"You enter the stairs."}, {who: "Grandma", text:"Here is where Rocketo lies."}, {who: name, text: "Gee thanks gran gran, boy I'm so glad to have a wise and knowledgeable mentor like you who was introduced so early in my travels."}, {who: "Grandma", text: "You are welcome :)"}, { pause: true }, {who: "Narrator", text: "You enter through the secret door in the stairs and find ROCKETO sitting menacingly in a chair, his fine hen sits in his lap."}, {who: "Rocketo", text: "Ah it is you I have been expecting your audience."}, {who: name, text: "Your evil ends here."}, {who: "Rocketo", text: "Wait, allow me to explain a few things."}, {who: name, text: "Alright I guess i'll hear you out."}, {who: "Rocketo", text: "Ahh for you see it, it all happened about 7 years ago. I needed people to experiment my ROCKETO’S BLINDING TONIC on."}, {who: "Rocketo", text: " I went down to the local park and staged a freak accident to trap someone."}, {who: "Rocketo", text: "You were the one who fell victim to it."}, {who: name, text: "WHAT THAT WAS YOU!"}, {who: "Rocketo", text: "OOOOOAHHAHAH. Yes and now I will end you."}, { fight : true }];
-    let story = storyFortuneteller;
+    let story = storyEnd;
 
     let axe = false;
 
@@ -1467,16 +1467,125 @@ document.addEventListener(`DOMContentLoaded`, () => {
             clearInterval(fightTimer);
         }
     }
-    function rocketoRockAttack(){
-        let x = rocketoPosition.x;
-        let y = rocketoPosition.x;
+    let rockPosition = [];
+    function rockTouchForRock(rock){
+        setTimeout(() => {
+            if(rock.x == characterPosition.x && rock.y == characterPosition.y){
+                console.log("hit")
+                damage();
+                updateHealth();
+                rockTouch();
+            }
+        }, 100);     
+    };
 
 
+    // function rockTouch(){
+    //     for(rock of rockPosition){
+    //         rockTouchForRock(rock);        
+    //     }
+    // }
+    function rockTouch(index){
+        setTimeout(() => {
+            if(rockPosition[index].x == characterPosition.x && rockPosition[index].y == characterPosition.y){
+                console.log("hit")
+                damage();
+                updateHealth();
+            }
+            if(clear == true){
+                return
+            }
+            rockTouch(index);
+        }, 500);     
     }
+    function rocketoRockAttack(xA , yA){
+        rockPosition.push({x: xA, y: yA });
+        const indexOfRockPosition = rockPosition.length - 1;
+        rockTouch(indexOfRockPosition);
+        // rockPosition.x = rocketoPosition.x;
+        // rockPosition.y = rocketoPosition.y;
+        const long = yA;
+        for(i = 0; i <= long - 1; i = i + 1){  
+            if(i == 0){
+                setTimeout(() => {
+                    rockPosition[indexOfRockPosition].y = rockPosition[indexOfRockPosition].y - 1; 
+                    document.getElementById(`post${rockPosition[indexOfRockPosition].x}x-${rockPosition[indexOfRockPosition].y}y`).classList.toggle("Rock");    
+                }, 500 * i); 
+            }
+            else if(i == (long - 1)){
+                setTimeout(() => {
+                    document.getElementById(`post${rockPosition[indexOfRockPosition].x}x-${rockPosition[indexOfRockPosition].y}y`).classList.toggle("Rock");
+                    rockPosition[indexOfRockPosition] = {};
+                }, 500 * i);
+            }
+            else{
+                setTimeout(() => {
+                    rockPosition[indexOfRockPosition].y = rockPosition[indexOfRockPosition].y - 1; 
+                    document.getElementById(`post${rockPosition[indexOfRockPosition].x}x-${rockPosition[indexOfRockPosition].y + 1}y`).classList.toggle("Rock");
+                    document.getElementById(`post${rockPosition[indexOfRockPosition].x}x-${rockPosition[indexOfRockPosition].y}y`).classList.toggle("Rock");        
+                }, 500 * i);
+            }
+
+        }
+    }
+    let clear = false;
+    function clearLag(){
+        rockPosition = [];
+        clear = true;
+        setTimeout(() => {
+            clear = false;
+        }, 600);
+    }
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+      }
+    function rocketoMovement(){
+        changeRocketoPostion(getRandomInt(8) + 1, getRandomInt(2) + 7);
+        updateRocketoPostion();
+        console.log(rocketoPosition);
+    }
+
     function rocketoFight(){
+
         rocketoFightRoom(); 
         changeCharacterPostion(4, 2);
         updateCharacterPostion();
+        setTimeout(() => {
+            rocketoRockAttack(1, 8);
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(3, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(5, 8);
+            rocketoRockAttack(6, 8);
+            rocketoRockAttack(8, 8);
+        }, 1000);
+        setTimeout(() => {
+            rocketoRockAttack(1, 8);
+            rocketoRockAttack(3, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(5, 8);
+            rocketoRockAttack(6, 8);
+            rocketoRockAttack(7, 8);
+            rocketoRockAttack(8, 8);
+        }, 3000);
+        setTimeout(() => {
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(3, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(5, 8);
+            rocketoRockAttack(6, 8);
+            rocketoRockAttack(7, 8);
+            rocketoRockAttack(8, 8);
+        }, 4000);
+
+        // setTimeout(() => {
+        //     // rocketoMovement();
+        // }, 2500);
+        // setTimeout(() => {
+        //     // rocketoRockAttack(rocketoPosition.x, rocketoPosition.y);
+        // }, 3000);
+        // rocketoRockAttack();
+
         // let fightTimer = setInterval(() => {
         //     setTimeout(() => {
                 
@@ -1496,14 +1605,16 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 document.getElementById("main").classList.toggle("displayNone");
                 document.getElementById("start").classList.toggle("displayNone");
                 movementAllowed = false;
-                document.getElementById("start").innerHTML = `<img src="Images/gameOver.png">`        
+                document.getElementById("start").innerHTML = `<img src="Images/Fight.png">`        
                 setTimeout(() => {
                     document.getElementById("header").classList.toggle("displayNone");
                     document.getElementById("main").classList.toggle("displayNone");
                     document.getElementById("start").classList.toggle("displayNone");
                     movementAllowed = true;
                 }, 2000);  
-                rocketoFight(); 
+                setTimeout(() => {
+                    rocketoFight(); 
+                }, 2500);
                 break
             case Object.keys(story[number]).includes("pause"):
                 document.getElementById("textContent").classList.toggle("displayNone");
@@ -2048,35 +2159,35 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
     }
 
-    // rocketoRoom();
-    // movementAllowed = false;
-    // changeCharacterPostion(4, 1);
-    // updateCharacterPostion();
-    // setTimeout(() => {
-    //     changeCharacterPostion(4, 1);
-    //     updateCharacterPostion();    
-    // }, 1000);   
-    // setTimeout(() => {
-    //     changeCharacterPostion(4, 2);
-    //     updateCharacterPostion();    
-    // }, 2000);  
-    // setTimeout(() => {
-    //     changeCharacterPostion(4, 3);
-    //     updateCharacterPostion();    
-    // }, 3000);  
-    // setTimeout(() => {
-    //     changeCharacterPostion(4, 4);
-    //     updateCharacterPostion();    
-    // }, 4000);  
-    // setTimeout(() => {
-    //     changeCharacterPostion(4, 5);
-    //     updateCharacterPostion();    
-    // }, 5000);  
-    // setTimeout(() => {
-    //     number = number + 1;
-    //     updateText(number, story);
-    //     document.getElementById("textContent").classList.toggle("displayNone");
-    //     }, 5500);  
+    rocketoRoom();
+    movementAllowed = false;
+    changeCharacterPostion(4, 1);
+    updateCharacterPostion();
+    setTimeout(() => {
+        changeCharacterPostion(4, 1);
+        updateCharacterPostion();    
+    }, 1000);   
+    setTimeout(() => {
+        changeCharacterPostion(4, 2);
+        updateCharacterPostion();    
+    }, 2000);  
+    setTimeout(() => {
+        changeCharacterPostion(4, 3);
+        updateCharacterPostion();    
+    }, 3000);  
+    setTimeout(() => {
+        changeCharacterPostion(4, 4);
+        updateCharacterPostion();    
+    }, 4000);  
+    setTimeout(() => {
+        changeCharacterPostion(4, 5);
+        updateCharacterPostion();    
+    }, 5000);  
+    setTimeout(() => {
+        number = number + 1;
+        updateText(number, story);
+        document.getElementById("textContent").classList.toggle("displayNone");
+        }, 5500);  
 
 });
 
