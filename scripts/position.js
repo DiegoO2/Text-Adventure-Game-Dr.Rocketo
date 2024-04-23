@@ -1474,7 +1474,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 console.log("hit")
                 damage();
                 updateHealth();
+
                 rockTouch();
+
             }
         }, 100);     
     };
@@ -1486,17 +1488,28 @@ document.addEventListener(`DOMContentLoaded`, () => {
     //     }
     // }
     function rockTouch(index){
+        let faste = 100;
+        if(rockPosition[index].x == characterPosition.x && rockPosition[index].y == characterPosition.y){
+            faste = 600;
+        }
         setTimeout(() => {
             if(rockPosition[index].x == characterPosition.x && rockPosition[index].y == characterPosition.y){
                 console.log("hit")
                 damage();
                 updateHealth();
+                document.getElementById("body").classList.add("fire");
+                document.querySelectorAll("#gameContent div").forEach((e) => e.classList.add("fire"));
+                setTimeout(() => {
+                    document.querySelectorAll("#gameContent div").forEach((e) => e.classList.remove("fire"));
+                    document.getElementById("body").classList.remove("fire");
+                }, 300);
+
             }
             if(clear == true){
                 return
             }
             rockTouch(index);
-        }, 500);     
+        }, faste);    
     }
     function rocketoRockAttack(xA , yA){
         rockPosition.push({x: xA, y: yA });
@@ -1528,6 +1541,70 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
         }
     }
+    let laserPosition = [];
+    function laserAttack(xA, yA){
+        laserPosition.push({x: xA, y: yA });
+        const indexOfLaserPosition = laserPosition.length - 1;
+        // laserTouch(indexOfLaserPosition);
+        const long = yA - 1;
+        setTimeout(() => {
+            for(i = 0; i <= long - 1; i = i + 1){ 
+                laserPosition[indexOfLaserPosition].y = laserPosition[indexOfLaserPosition].y - 1; 
+                document.getElementById(`post${laserPosition[indexOfLaserPosition].x}x-${laserPosition[indexOfLaserPosition].y}y`).classList.toggle("Alert");        
+            } 
+        }, 300);
+        setTimeout(() => {
+            laserPosition[indexOfLaserPosition].y = laserPosition[indexOfLaserPosition].y + long;
+            for(i = 0; i <= long - 1; i = i + 1){ 
+                laserPosition[indexOfLaserPosition].y = laserPosition[indexOfLaserPosition].y - 1; 
+                document.getElementById(`post${laserPosition[indexOfLaserPosition].x}x-${laserPosition[indexOfLaserPosition].y}y`).classList.toggle("Alert");        
+            } 
+        }, 600);
+
+        setTimeout(() => {
+            laserPosition[indexOfLaserPosition].y = laserPosition[indexOfLaserPosition].y + long;
+            for(i = 0; i <= long - 1; i = i + 1){ 
+                setTimeout(() => {
+                    laserTouch(indexOfLaserPosition);
+                    laserPosition[indexOfLaserPosition].y = laserPosition[indexOfLaserPosition].y - 1; 
+                    document.getElementById(`post${laserPosition[indexOfLaserPosition].x}x-${laserPosition[indexOfLaserPosition].y}y`).classList.toggle("Laser");        
+                }, 50 * i);
+            } 
+            setTimeout(() => {
+                laserPosition[indexOfLaserPosition].y = laserPosition[indexOfLaserPosition].y + long;
+                for(i = 0; i <= long - 1; i = i + 1){ 
+                    laserPosition[indexOfLaserPosition].y = laserPosition[indexOfLaserPosition].y - 1; 
+                    document.getElementById(`post${laserPosition[indexOfLaserPosition].x}x-${laserPosition[indexOfLaserPosition].y}y`).classList.toggle("Laser");        
+                } 
+            }, 50 * long + 100);    
+        }, 700);
+    function laserTouch(index){
+        let faste = 100;
+        if(laserPosition[index].x == characterPosition.x && laserPosition[index].y == characterPosition.y){
+            faste = 600;
+        }
+        setTimeout(() => {
+            if(laserPosition[index].x == characterPosition.x && laserPosition[index].y == characterPosition.y){
+                console.log("hit")
+                damage();
+                updateHealth();
+                document.getElementById("body").classList.add("fire");
+                document.querySelectorAll("#gameContent div").forEach((e) => e.classList.add("fire"));
+                setTimeout(() => {
+                    document.querySelectorAll("#gameContent div").forEach((e) => e.classList.remove("fire"));
+                    document.getElementById("body").classList.remove("fire");
+                }, 300);
+
+            }
+            if(clear == true){
+                return
+            }
+            laserTouch(index);
+        }, faste);    
+    }
+
+
+    }
     let clear = false;
     function clearLag(){
         rockPosition = [];
@@ -1540,9 +1617,12 @@ document.addEventListener(`DOMContentLoaded`, () => {
         return Math.floor(Math.random() * max);
       }
     function rocketoMovement(){
-        changeRocketoPostion(getRandomInt(8) + 1, getRandomInt(2) + 7);
-        updateRocketoPostion();
-        console.log(rocketoPosition);
+        setTimeout(() => {
+            changeRocketoPostion(getRandomInt(8) + 1, 8);
+            updateRocketoPostion();
+            console.log(rocketoPosition);
+            rocketoMovement()    
+        }, 2000);
     }
 
     function rocketoFight(){
@@ -1550,6 +1630,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
         rocketoFightRoom(); 
         changeCharacterPostion(4, 2);
         updateCharacterPostion();
+        rocketoMovement();
         setTimeout(() => {
             rocketoRockAttack(1, 8);
             rocketoRockAttack(2, 8);
@@ -1577,6 +1658,161 @@ document.addEventListener(`DOMContentLoaded`, () => {
             rocketoRockAttack(7, 8);
             rocketoRockAttack(8, 8);
         }, 4000);
+        setTimeout(() => {
+            rocketoRockAttack(1, 8);
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(3, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(5, 8);
+            rocketoRockAttack(7, 8);
+            rocketoRockAttack(8, 8);
+        }, 5500);
+        setTimeout(() => {
+            rocketoRockAttack(1, 8);
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(3, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(5, 8);
+            rocketoRockAttack(7, 8);
+            rocketoRockAttack(8, 8);
+        }, 6000);
+        setTimeout(() => {
+            rocketoRockAttack(1, 8);
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(5, 8);
+            rocketoRockAttack(6, 8);
+            rocketoRockAttack(7, 8);
+            rocketoRockAttack(8, 8);
+        }, 7000);
+        setTimeout(() => {
+            rocketoRockAttack(1, 8);
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(3, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(6, 8);
+            rocketoRockAttack(7, 8);
+            rocketoRockAttack(8, 8);
+        }, 8500);
+        setTimeout(() => {
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(3, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(5, 8);
+            rocketoRockAttack(6, 8);
+            rocketoRockAttack(7, 8);
+            rocketoRockAttack(8, 8);
+        }, 10000);
+        setTimeout(() => {
+            rocketoRockAttack(1, 8);
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(3, 8);
+            rocketoRockAttack(5, 8);
+            rocketoRockAttack(6, 8);
+            rocketoRockAttack(7, 8);
+            rocketoRockAttack(8, 8);
+        }, 12000);
+        setTimeout(() => {
+            laserAttack(1, 8);
+            laserAttack(2, 8);
+            laserAttack(3, 8);
+            laserAttack(4, 8);
+            laserAttack(6, 8);
+            laserAttack(7, 8);
+            laserAttack(8, 8);
+        }, 16000);
+        setTimeout(() => {
+            laserAttack(1, 8);
+            laserAttack(2, 8);
+            laserAttack(4, 8);
+            laserAttack(5, 8);
+            laserAttack(6, 8);
+            laserAttack(8, 8);
+        }, 18000);
+        setTimeout(() => {
+            laserAttack(2, 8);
+            laserAttack(4, 8);
+            laserAttack(6, 8);
+            laserAttack(8, 8);
+        }, 20000);
+        setTimeout(() => {
+            laserAttack(1, 8);
+            laserAttack(3, 8);
+            laserAttack(5, 8);
+            laserAttack(7, 8);
+        }, 22000);
+        setTimeout(() => {
+            laserAttack(2, 8);
+            laserAttack(4, 8);
+            laserAttack(6, 8);
+            laserAttack(8, 8);
+        }, 24000);
+        setTimeout(() => {
+            laserAttack(1, 8);
+            laserAttack(3, 8);
+            laserAttack(5, 8);
+            laserAttack(7, 8);
+        }, 25000);
+        setTimeout(() => {
+            laserAttack(1, 8);
+        }, 26500);
+        setTimeout(() => {
+            laserAttack(2, 8);
+        }, 27000);
+        setTimeout(() => {
+            laserAttack(3, 8);
+        }, 27500);
+        setTimeout(() => {
+            laserAttack(4, 8);
+        }, 28000);
+        setTimeout(() => {
+            laserAttack(5, 8);
+        }, 28500);
+        setTimeout(() => {
+            laserAttack(6, 8);
+        }, 29000);
+        setTimeout(() => {
+            laserAttack(7, 8);
+        }, 29500);
+        setTimeout(() => {
+            laserAttack(8, 8);
+        }, 30000);
+        setTimeout(() => {
+            laserAttack(8, 8);
+        }, 30500);
+        setTimeout(() => {
+            laserAttack(7, 8);
+        }, 31500);
+        setTimeout(() => {
+            laserAttack(6, 8);
+        }, 32000);
+        setTimeout(() => {
+            laserAttack(5, 8);
+        }, 32500);
+        setTimeout(() => {
+            laserAttack(4, 8);
+        }, 33000);
+        setTimeout(() => {
+            laserAttack(3, 8);
+        }, 33500);
+        setTimeout(() => {
+            laserAttack(2, 8);
+        }, 34000);
+        setTimeout(() => {
+            laserAttack(1, 8);
+        }, 34500);
+        setTimeout(() => {
+            laserAttack(1, 8);
+            laserAttack(2, 8);
+            laserAttack(4, 8);
+            laserAttack(5, 8);
+            laserAttack(6, 8);
+            laserAttack(8, 8);
+        }, 35000);
+        // add more here 
+
+
+
 
         // setTimeout(() => {
         //     // rocketoMovement();

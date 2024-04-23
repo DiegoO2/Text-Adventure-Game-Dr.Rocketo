@@ -81,6 +81,15 @@ header {
     background-image: url(/sprites/Rock.png);
     background-size: contain;
 }
+#gameContent div.Alert {
+    background-image: url(/sprites/Alert.png);
+    background-size: contain;
+}
+#gameContent div.Laser {
+    background-image: url(/sprites/Laser.png);
+    background-size: contain;
+}
+
 
 #gameContent div img {
     width: 100%;
