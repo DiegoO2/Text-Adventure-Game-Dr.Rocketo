@@ -1259,7 +1259,6 @@ document.addEventListener(`DOMContentLoaded`, () => {
     updateStamina();
     function consume() {
         stamina = stamina - 1;
-
         //do something
     }
     function increaseStamina() {
@@ -1384,6 +1383,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
             case "o":
                 healing();
                 updateHealth();
+                stamina = stamina + 1;
+                updateStamina();
                 break
 
             case "c":
@@ -1565,7 +1566,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
             laserPosition[indexOfLaserPosition].y = laserPosition[indexOfLaserPosition].y + long;
             for(i = 0; i <= long - 1; i = i + 1){ 
                 setTimeout(() => {
-                    laserTouch(indexOfLaserPosition);
+                    laserTouch(indexOfLaserPosition, false);
                     laserPosition[indexOfLaserPosition].y = laserPosition[indexOfLaserPosition].y - 1; 
                     document.getElementById(`post${laserPosition[indexOfLaserPosition].x}x-${laserPosition[indexOfLaserPosition].y}y`).classList.toggle("Laser");        
                 }, 50 * i);
@@ -1578,13 +1579,15 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 } 
             }, 50 * long + 100);    
         }, 700);
-    function laserTouch(index){
-        let faste = 100;
+    function laserTouch(index, work){
+        let faste = 49;
+        let working = work;
         if(laserPosition[index].x == characterPosition.x && laserPosition[index].y == characterPosition.y){
-            faste = 600;
+            faste = 1000;
         }
+        console.log(faste)
         setTimeout(() => {
-            if(laserPosition[index].x == characterPosition.x && laserPosition[index].y == characterPosition.y){
+            if(laserPosition[index].x == characterPosition.x && laserPosition[index].y == characterPosition.y && working == false){
                 console.log("hit")
                 damage();
                 updateHealth();
@@ -1594,12 +1597,12 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     document.querySelectorAll("#gameContent div").forEach((e) => e.classList.remove("fire"));
                     document.getElementById("body").classList.remove("fire");
                 }, 300);
-
             }
             if(clear == true){
                 return
             }
-            laserTouch(index);
+            working = true;
+            laserTouch(index, working);
         }, faste);    
     }
 
@@ -1622,7 +1625,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
             updateRocketoPostion();
             console.log(rocketoPosition);
             rocketoMovement()    
-        }, 2000);
+        }, 1000);
     }
 
     function rocketoFight(){
@@ -1631,6 +1634,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
         changeCharacterPostion(4, 2);
         updateCharacterPostion();
         rocketoMovement();
+        attackTouchRocketo();
         setTimeout(() => {
             rocketoRockAttack(1, 8);
             rocketoRockAttack(2, 8);
@@ -1809,6 +1813,180 @@ document.addEventListener(`DOMContentLoaded`, () => {
             laserAttack(6, 8);
             laserAttack(8, 8);
         }, 35000);
+        setTimeout(() => {
+            positionsArray = [];
+            createPositionArray();    
+            addMap("sprites/Fire.png", 3, 1);
+            addMap("sprites/Fire.png", 3, 2);
+            addMap("sprites/Fire.png", 3, 3);
+            addMap("sprites/Fire.png", 3, 4);
+            addMap("sprites/Fire.png", 3, 5);
+            addMap("sprites/Fire.png", 3, 6);
+            addMap("sprites/Fire.png", 3, 7);
+            updateMap();
+            updateCharacterPostion();
+        }, 37000);
+        setTimeout(() => {
+            rocketoRockAttack(1, 8);
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(6, 8);
+            rocketoRockAttack(8, 8);
+        }, 38000);
+        setTimeout(() => {
+            positionsArray = [];
+            createPositionArray();    
+            laserAttack(1, 8);
+            laserAttack(2, 8);
+            laserAttack(4, 8);
+            laserAttack(5, 8);
+            laserAttack(6, 8);
+            laserAttack(8, 8);
+        }, 40000);
+        setTimeout(() => {
+            updateMap();
+            updateCharacterPostion();
+        }, 43000);
+        setTimeout(() => {
+            updateMap();
+            updateCharacterPostion();
+        }, 47000);
+        setTimeout(() => {
+            laserAttack(1, 8);
+            laserAttack(3, 8);
+            laserAttack(4, 8);
+            laserAttack(5, 8);
+            laserAttack(6, 8);
+            laserAttack(7, 8);
+            laserAttack(8, 8);
+        }, 48500);
+        setTimeout(() => {
+            laserAttack(1, 8);
+            laserAttack(2, 8);
+            laserAttack(3, 8);
+            laserAttack(4, 8);
+            laserAttack(6, 8);
+            laserAttack(7, 8);
+            laserAttack(8, 8);
+        }, 50000);
+        setTimeout(() => {
+            laserAttack(1, 8);
+            laserAttack(2, 8);
+            laserAttack(3, 8);
+            laserAttack(4, 8);
+            laserAttack(5, 8);
+            laserAttack(6, 8);
+            laserAttack(8, 8);
+        }, 52000);
+        setTimeout(() => {
+            laserAttack(1, 8);
+            laserAttack(3, 8);
+            laserAttack(4, 8);
+            laserAttack(5, 8);
+            laserAttack(6, 8);
+            laserAttack(7, 8);
+            laserAttack(8, 8);
+        }, 53500);
+        setTimeout(() => {
+            laserAttack(1, 8);
+            laserAttack(2, 8);
+            laserAttack(3, 8);
+            laserAttack(4, 8);
+            laserAttack(5, 8);
+            laserAttack(6, 8);
+            laserAttack(7, 8);
+            laserAttack(8, 8);
+        }, 55000);
+        setTimeout(() => {
+            laserAttack(1, 8);
+            laserAttack(2, 8);
+            laserAttack(3, 8);
+            laserAttack(4, 8);
+            laserAttack(5, 8);
+            laserAttack(6, 8);
+            laserAttack(7, 8);
+            laserAttack(8, 8);
+        }, 57500);
+        setTimeout(() => {
+            laserAttack(1, 8);
+            laserAttack(2, 8);
+            laserAttack(3, 8);
+            laserAttack(4, 8);
+            laserAttack(5, 8);
+            laserAttack(6, 8);
+            laserAttack(7, 8);
+            laserAttack(8, 8);
+        }, 59000);
+        setTimeout(() => {
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(3, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(5, 8);
+            rocketoRockAttack(6, 8);
+            rocketoRockAttack(7, 8);
+            rocketoRockAttack(8, 8);
+        }, 62000);
+        setTimeout(() => {
+            rocketoRockAttack(1, 8);
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(3, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(5, 8);
+            rocketoRockAttack(6, 8);
+            rocketoRockAttack(7, 8);
+        }, 63000);
+        setTimeout(() => {
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(3, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(5, 8);
+            rocketoRockAttack(6, 8);
+            rocketoRockAttack(7, 8);
+            rocketoRockAttack(8, 8);
+        }, 64000);
+        setTimeout(() => {
+            rocketoRockAttack(1, 8);
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(3, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(5, 8);
+            rocketoRockAttack(6, 8);
+            rocketoRockAttack(7, 8);
+            rocketoRockAttack(8, 8);
+        }, 65000);
+        setTimeout(() => {
+            rocketoRockAttack(1, 8);
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(3, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(5, 8);
+            rocketoRockAttack(6, 8);
+            rocketoRockAttack(7, 8);
+            rocketoRockAttack(8, 8);
+        }, 66000);
+        setTimeout(() => {
+            rocketoRockAttack(1, 8);
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(3, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(5, 8);
+            rocketoRockAttack(6, 8);
+            rocketoRockAttack(7, 8);
+            rocketoRockAttack(8, 8);
+        }, 67000);
+        setTimeout(() => {
+            rocketoRockAttack(1, 8);
+            rocketoRockAttack(2, 8);
+            rocketoRockAttack(3, 8);
+            rocketoRockAttack(4, 8);
+            rocketoRockAttack(5, 8);
+            rocketoRockAttack(6, 8);
+            rocketoRockAttack(7, 8);
+            rocketoRockAttack(8, 8);
+        }, 68000);
+
+
+
         // add more here 
 
 
@@ -1830,6 +2008,66 @@ document.addEventListener(`DOMContentLoaded`, () => {
         //     }, 1000);  
 
     }
+    characterAttack();
+    let kunaiPosition = {};
+    let attaking = false;
+    function characterAttack(){
+        document.addEventListener(`keydown`, (key) => {
+            if(key.key == "f" && attaking == false && stamina > 0){
+                consume();
+                updateStamina();
+                attaking = true;
+                kunaiPosition = {x : characterPosition.x, y : characterPosition.y};
+                const long = 9 - characterPosition.y;
+                for(i = 0; i <= long - 1; i = i + 1){  
+                    if(i == 0){
+                        setTimeout(() => {
+                            kunaiPosition.y = kunaiPosition.y + 1; 
+                            document.getElementById(`post${kunaiPosition.x}x-${kunaiPosition.y}y`).classList.toggle("Kunai");    
+                        }, 100 * i); 
+                    }
+                    else if(i == (long - 1)){
+                        setTimeout(() => {
+                            document.getElementById(`post${kunaiPosition.x}x-${kunaiPosition.y}y`).classList.toggle("Kunai");
+                            kunaiPosition = {};
+                            attaking = false;
+                        }, 100 * i);
+                    }
+                    else{
+                        setTimeout(() => {
+                            kunaiPosition.y = kunaiPosition.y + 1; 
+                            document.getElementById(`post${kunaiPosition.x}x-${kunaiPosition.y - 1}y`).classList.toggle("Kunai");
+                            document.getElementById(`post${kunaiPosition.x}x-${kunaiPosition.y}y`).classList.toggle("Kunai");        
+                        }, 100 * i);
+                    }
+        
+                }
+            }
+        });
+    }
+
+    let rocketoLife = 4;
+    function attackTouchRocketo(){
+        setTimeout(() => {
+            if(rocketoPosition.x == kunaiPosition.x && rocketoPosition.y == kunaiPosition.y){
+                console.log("ROCKETO AAAAAAAAAAAAAA")
+                document.getElementById("body").classList.add("yellow");
+                document.querySelectorAll("#gameContent div").forEach((e) => e.classList.add("yellow"));
+                setTimeout(() => {
+                    document.querySelectorAll("#gameContent div").forEach((e) => e.classList.remove("yellow"));
+                    document.getElementById("body").classList.remove("yellow");
+                }, 300);
+                rocketoLife = rocketoLife - 1;
+                if(rocketoLife == 0){
+                    console.log("winnn gameeeeeeeeeeeeeeeeee")
+                }
+            }
+            attackTouchRocketo();
+        }, 100);    
+
+    }
+  
+
 
     let firstTime = true;
     function updateText(number, story) {
