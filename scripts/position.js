@@ -121,13 +121,13 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 document.getElementById(`mapPost3x-2y`).innerHTML = `<img src="sprites/detective.png" alt="">`;
                 break
             case "Dinning":
-                document.getElementById(`mapPost2x-2y`).innerHTML = `<img src="detective.psprites/detective.pngng" alt="">`;
+                document.getElementById(`mapPost2x-2y`).innerHTML = `<img src="sprites/detective.png" alt="">`;
                 break
             case "Stairs":
                 document.getElementById(`mapPost2x-3y`).innerHTML = `<img src="sprites/detective.png" alt="">`;
                 break
             case "Garden":
-                document.getElementById(`mapPost3x-3y`).innerHTML = `<img src="detective.psprites/detective.pngg" alt="">`;
+                document.getElementById(`mapPost3x-3y`).innerHTML = `<img src="sprites/detective.png" alt="">`;
                 break
             case "Entrance":
                 document.getElementById(`mapPost1x-1y`).innerHTML = `<img src="sprites/detective.png" alt="">`;
@@ -386,7 +386,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
     let itemOnRoomRocketo = [
 
-    ]
+    ];
     let itemOnRoomBedroom = [
         new DoorInRoom(4, 1, "Purple Door", "LibraryDown", true),
         new DoorInRoom(8, 5, "Orange Door", "StairsLeft", false),
@@ -508,7 +508,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     console.log(inventoryArray);
 
                     document.addEventListener(`keydown`, (key) => {
-                        if (key.key == "f" && characterPosition.x == itemCopy.ox && characterPosition.y == itemCopy.oy) {
+                        if (key.key == "f" && characterPosition.x == itemCopy.ox && characterPosition.y == itemCopy.oy && roomIn == "Kitchen") {
                             console.log("matthew is gay");
                             document.getElementById("textContent").classList.toggle("displayNone");
                             document.getElementById("textContent").innerHTML = `                  
@@ -679,8 +679,6 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     console.log(itemCopy.work);
                     item.work = itemCopy.work;
                     useOven();
-
-
                 }
             }
 
@@ -696,7 +694,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 if (repForCat == true) {
                     repForCat = false;
                     document.addEventListener(`keydown`, (key) => {
-                        if (key.key == "f" && characterPosition.x == itemCopy.x && characterPosition.y == itemCopy.y && CATTTTT == true) {
+                        if (key.key == "f" && characterPosition.x == itemCopy.x && characterPosition.y == itemCopy.y && CATTTTT == true && roomIn != "Rocketo" && roomIn != "Stairs" && roomIn != "Dinning" && roomIn != "Bedroom") {
                             document.getElementById("textContent").classList.toggle("displayNone");
                             document.getElementById("textContent").innerHTML = `                  
                             <div id="textLeft">
@@ -722,7 +720,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
                                 document.getElementById("text1").addEventListener(`click`, () => {
                                     console.log(inventoryArray, inventoryArray[0].img == 'sprites/Narrator.png', inventoryArray[0].img);
-                                    if (inventoryArray[0].img == 'sprites/Narrator.png') {
+                                    if (haveCatFood == true) {
 
                                         deleteInventory('sprites/Catfood.png');
                                         UpdateInventory();
@@ -865,65 +863,77 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
                 document.addEventListener(`keydown`, (key) => {
                     if (key.key == "f" && itemCopy.there == true && characterPosition.x == itemCopy.x && characterPosition.y == itemCopy.y) {
-                        if (itemCopy.name == "Gasoline container") {
-                            room[5].gasoline = true;
-                        }
-                        // if (Object.keys(itemCopy).includes("haveKey") && itemCopy.haveKey == false) {
-                        //     document.getElementById("textContent").innerHTML = `                  
-                        //     <div id="textLeft">
-                        //       <img src="${itemCopy.img}" alt="">
-                        //     </div>
-                        //     <div id="textRight">
-                        //       <h2>Narrator</h2>
-                        //       <p>${itemCopy.textWithOutKey}</p>
-                        //       <img src="arrow.svg" alt="" id="imgSpark">             
-                        //     </div>`;
-                        //     document.getElementById("textContent").classList.toggle("displayNone");
-                        //     startGameForItem();
-                        //     return
-                        // }
-                        if (Object.keys(itemCopy).includes("haveKey") && itemCopy.haveKey == false) {
-                            return
+                        for (item of room) {
+                            if (itemCopy.x == item.x && itemCopy.y == item.y && item.img == itemCopy.img ){
+
+                                if (itemCopy.name == "Gasoline container") {
+                                    room[5].gasoline = true;
+                                }
+                                // if (Object.keys(itemCopy).includes("haveKey") && itemCopy.haveKey == false) {
+                                //     document.getElementById("textContent").innerHTML = `                  
+                                //     <div id="textLeft">
+                                //       <img src="${itemCopy.img}" alt="">
+                                //     </div>
+                                //     <div id="textRight">
+                                //       <h2>Narrator</h2>
+                                //       <p>${itemCopy.textWithOutKey}</p>
+                                //       <img src="arrow.svg" alt="" id="imgSpark">             
+                                //     </div>`;
+                                //     document.getElementById("textContent").classList.toggle("displayNone");
+                                //     startGameForItem();
+                                //     return
+                                // }
+                                if (Object.keys(itemCopy).includes("haveKey") && itemCopy.haveKey == false) {
+                                    return
+                                }
+        
+                                if (Object.keys(itemCopy).includes("push")) {
+                                    addMap("sprites/Bookshelf.png", 1, 4);
+                                    itemsOnRoomCar[1].haveKey = true;
+                                    addMap("sprites/NormalDoor.png", 1, 2);
+                                    updateMap();
+                                    updateCharacterPostion();
+                                    document.getElementById("textContent").innerHTML = `                  
+                                    <div id="textLeft">
+                                      <img src="sprites/Narrator.png" alt="">
+                                    </div>
+                                    <div id="textRight">
+                                      <h2>Narrator</h2>
+                                      <p>${itemCopy.text}</p>
+                                      <img src="arrow.svg" alt="" id="imgSpark">             
+                                    </div>`;
+                                    document.getElementById("textContent").classList.toggle("displayNone");
+                                    startGameForItem();
+                                    room[index].there = false;
+                                    return
+                                }
+                                if (Object.keys(itemCopy).includes("key")) {
+                                    unlock(itemCopy.key);
+                                    console.log(itemCopy.key)
+                                }
+                                addInventory(itemCopy.img, itemCopy.desc, itemCopy.use);
+                                UpdateInventory();
+                                console.log(itemCopy.img, "repeat");
+                                document.getElementById("textContent").innerHTML = `                  
+                                <div id="textLeft">
+                                  <img src="${itemCopy.img}" alt="">
+                                </div>
+                                <div id="textRight">
+                                  <h2>Narrator</h2>
+                                  <p>${itemCopy.text}</p>
+                                  <img src="arrow.svg" alt="" id="imgSpark">             
+                                </div>`;
+                                document.getElementById("textContent").classList.toggle("displayNone");
+                                itemCopy.there = false;
+                                room[index].there = false;
+                                startGameForItem();
+        
+
+                            }
+
+
                         }
 
-                        if (Object.keys(itemCopy).includes("push")) {
-                            addMap("sprites/Bookshelf.png", 1, 4);
-                            itemsOnRoomCar[1].haveKey = true;
-                            addMap("sprites/NormalDoor.png", 1, 2);
-                            updateMap();
-                            updateCharacterPostion();
-                            document.getElementById("textContent").innerHTML = `                  
-                            <div id="textLeft">
-                              <img src="sprites/Narrator.png" alt="">
-                            </div>
-                            <div id="textRight">
-                              <h2>Narrator</h2>
-                              <p>${itemCopy.text}</p>
-                              <img src="arrow.svg" alt="" id="imgSpark">             
-                            </div>`;
-                            document.getElementById("textContent").classList.toggle("displayNone");
-                            startGameForItem();
-                            room[index].there = false;
-                            return
-                        }
-                        if (Object.keys(itemCopy).includes("key")) {
-                            unlock(itemCopy.key);
-                            console.log(itemCopy.key)
-                        }
-                        addInventory(itemCopy.img, itemCopy.desc, itemCopy.use);
-                        UpdateInventory();
-                        document.getElementById("textContent").innerHTML = `                  
-                        <div id="textLeft">
-                          <img src="${itemCopy.img}" alt="">
-                        </div>
-                        <div id="textRight">
-                          <h2>Narrator</h2>
-                          <p>${itemCopy.text}</p>
-                          <img src="arrow.svg" alt="" id="imgSpark">             
-                        </div>`;
-                        document.getElementById("textContent").classList.toggle("displayNone");
-                        room[index].there = false;
-                        startGameForItem();
                     }
                 });
             }
@@ -1337,7 +1347,11 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     break
                 }
                 characterPosition.y = characterPosition.y + 1;
-                if (characterPosition.y == 9) {
+                let a = 9;
+                if(fighting == true){
+                    a = 8;
+                }
+                if (characterPosition.y == a) {
                     characterPosition.y = characterPosition.y - 1;
                     wall();
                 }
@@ -1453,7 +1467,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let number = 0;
 
 
-    let storyStart = [{ who: "Narrator", text: "The sound of your alarm fills the room as you awake from your slumber." }, { who: "Narrator", text: "You attempt to stop your alarm failing to hit the button multiple times." }, { who: name, text: "If only I weren't blinded in that freak accident back in 1996." }, { who: "Your Phone", text: "Ring Ring." }, { who: name, text: "Hello, who is it?" }, { who: "Guy on the phone", text: "Hello. I am here to tell you about a case but to be sure you're really who you say you are, tell us your name." }, { who: name, text: "I’m your name you can proceed." }, { who: "Guy on the phone", text: "There's some suspicious activity in a mansion down south. We want you to go and be sure that all is okay." }, { who: name, text: "Sorry, I don't really like mansions, my grandma died there a few years ago." }, { who: "Ghost", text: "AAAwaAWWawAAAAA  awawwaaAaAaaAAaa, hellowooow." }, { who: name, text: "G-G-G-Grandma is that you?" }, { who: "Ghost Grandma", text: "OOOooOooOoOoo I am a ghoooooooost now." }, { option1: "AHHh A ghost *grab your axe and you attack your grandma.*", option2: "Grandma You’ve returned YESSSS.", code1: `addAxe`, code2: "" }, { who: "Grandma Ghost", text: "Don't be scared. I am here to help you. You need to accept the mission, that mansion, that mansion is where I died that day. HE IS THERE. YOU NEED TO GO." }, { who: name, text: "*You turn your attention back to the phone* Hello, are you still there?" }, { who: "Guy on the phone", text: "Yes sir, what is going on?" }, { who: name, text: "Nothing, nothing. I changed my mind, I am going there right now." }, { who: "Guy on the phone", text: "Good luck. Bye, bye." }, { who: name, text: "Bye, bye." }, { who: "Narrator", text: "You prepare yourself for the adventure, after talking with your grandma your enthusiasm increases and you want to get there as fast as you can." }, { who: "Narrator", text: "This is your most important mission in your life, you need to know what happened that day at the mansion." }, { who: name, text: "I should probably take something for my adventure ahead.", ifAxe: true }, { option1: "Cat food.", option2: "Flashlight.", code1: `addCatfood`, code2: "addFlashlight" }, { who: "Grandma", text: "Wait, how do you plan to get there?" }, { option1: "*You ask your grandma if she has any idea.*", option2: "*You take the bus*", option3: "*You get to your car*", code1: `Horse`, code2: "Fortuneteller", code3: "Car" }];
+    let storyStart = [{ who: "Narrator", text: "The sound of your alarm fills the room as you awake from your slumber." }, { who: "Narrator", text: "You attempt to stop your alarm failing to hit the button multiple times." }, { who: name, text: "If only I weren't blinded in that freak accident back in 1996." }, { who: "Your Phone", text: "Ring Ring." }, { who: name, text: "Hello, who is it?" }, { who: "Guy on the phone", text: "Hello. I am here to tell you about a case but to be sure you're really who you say you are, tell us your name." }, { who: name, text: "I’m your name you can proceed." }, { who: "Guy on the phone", text: "There's some suspicious activity in a mansion down south. We want you to go and be sure that all is okay." }, { who: name, text: "Sorry, I don't really like mansions, my grandma died there a few years ago." }, { who: "Ghost", text: "AAAwaAWWawAAAAA  awawwaaAaAaaAAaa, hellowooow." }, { who: name, text: "G-G-G-Grandma is that you?" }, { who: "Ghost Grandma", text: "OOOooOooOoOoo I am a ghoooooooost now." }, { option1: "AHHh A ghost *grab your axe and you attack your grandma.*", option2: "Grandma You’ve returned YESSSS.", code1: `addAxe`, code2: "" }, { who: "Ghost Grandma", text: "Don't be scared. I am here to help you. You need to accept the mission, that mansion, that mansion is where I died that day. HE IS THERE. YOU NEED TO GO." }, { who: name, text: "*You turn your attention back to the phone* Hello, are you still there?" }, { who: "Guy on the phone", text: "Yes sir, what is going on?" }, { who: name, text: "Nothing, nothing. I changed my mind, I am going there right now." }, { who: "Guy on the phone", text: "Good luck. Bye, bye." }, { who: name, text: "Bye, bye." }, { who: "Narrator", text: "You prepare yourself for the adventure, after talking with your grandma your enthusiasm increases and you want to get there as fast as you can." }, { who: "Narrator", text: "This is your most important mission in your life, you need to know what happened that day at the mansion." }, { who: name, text: "I should probably take something for my adventure ahead.", ifAxe: true }, { option1: "Cat food.", option2: "Flashlight.", code1: `addCatfood`, code2: "addFlashlight" }, { who: "Grandma", text: "Wait, how do you plan to get there?" }, { option1: "*You ask your grandma if she has any idea.*", option2: "*You take the bus*", option3: "*You get to your car*", code1: `Horse`, code2: "Fortuneteller", code3: "Car" }];
     let storyHorse = [{ who: name, text: "I don't know. Do you have an idea? " }, { who: "Grandma", text: "*Suddenly turns into horse*." }, { who: name, text: "Wow, Great idea gran gran." }, { who: "Narrator", text: "You hop on your grandma’s equine form and head to the mansion." }, { who: "Narrator", text: "As your horse grandma pulls into the driveway of the mansion you arrive and immediately rush through the front door with confidence." }, { who: "Narrator", text: "To your surprise no one is there." }, { who: "Narrator", text: "You look around the room and see a small desk in the corner and a small bookshelf to the north as well as a door to the east." }, { who: "Grandma", text: "We have arrived, go search for any clues relating to… suspicious activity. I recommend you to start in the right room." }, { pause: true }, { who: "Narrator", text: "You enter a large room with a statue in the middle and some bookshelves." }, { who: "Grandma", text: "Ohoohhh The statue… this is HIM Rocketoo he is the one who started all of this." }, { who: "Narrator", text: "The statue in front of you is of a tall man with glasses and short black hair. He lovingly holds a chicken in his arms." }, { who: "Grandma", text: "You must find it in the back of the mansion. Keep going." }, { pause: true }, { who: "Grandma", text: "Good job. Use the book as a key. Keep going and defeat Rocketo!" }, { pause: true }, { who: "Narrator", text: "You enter a large secret library with many books you feel and an uneasy presence." }, { who: "Grandma", text: "Ah I can feel ROCKETO’S wrath somewhere in the room move with caution." }, { pause: true }, { who: "Narrator", text: "As you enter the bedroom you see a large bed and a drawer to the side there is a door to the left." }, { who: "Grandma", text: "Ohohh this must be where ROCKETO sleeps mayhaps there will be something of value here." }, { pause: true }]
     let storyCar = [{ who: name, text: " I am going to take my car, come with me." }, { who: "Narrator", text: "You grab your car keys and start driving hysterically." }, { who: name, text: "Man if only I wasn't blind. Why did I choose the car?" }, { who: "Narrator", text: "You say as you crash into the side of a building. BUMMM!" }, { who: name, text: "Oh no not again I CAN'T GO BACK TO PRISON." }, { who: "Narrator", text: "As you step out of your car you start to realize the room around you. You are in the mansion." }, { who: "Narrator", text: "You seem to be in a room used for storing various foods and supplies and also your car that crashed into the eastern wall." }, { who: "Grandma", text: "Ohoohhh you must find a way out of this room. Rocketo is near. I can feel it." }, { who: name, text: "But grandma, what should I do?" }, { who: "Grandma", text: "Keep going. Find the key to get to the next room. Good luck." }, { pause: true }, { who: "Narrator", text: "You enter a large room with a statue in the middle. There is a bookshelf to the west and three doors." }, { who: "Grandma", text: "Ohoohhh The statue… this is HIM Rocketoo he is the one who started all of this. You must defeat him." }, { who: "Narrator", text: "The statue in front of you is of a tall man with glasses and short black hair. He lovingly holds a chicken in his arms." }, { who: "Grandma", text: "You must find it in the back of the mansion. Keep going." }, { pause: true }, { who: "Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { pause: true }, { who: "Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { who: "Grandma", text: "Ohhoohh I sense it somewhere in this room. There is a key to Rocketo, you must find it." }, { pause: true }, { who: "Narrator", text: "You enter the dining hall. A large table is set in the middle of the room." }, { who: "Grandma", text: "Ohoohh I can feel it, we are near. In the next room we will find Rocketo. Find a way to open the door." }, { pause: true }]
     let storyFortuneteller = [{ who: name, text: "I am going to take the bus, come with me." }, { who: "Narrator", text: "You run out of your home. You get to the bus station and take the first bus. On the bus, a fortune teller talks with you." }, { who: "Fortune teller", text: `Hello, ${name}.` }, { who: name, text: "Wait, how do you know my detective name?" }, { who: "Fortune teller", text: "I know many things about you. When you venture to this mansion you must go to the back entrance through the garden." }, { who: name, text: "Ok wait who are you" }, { who: "Fortune teller", text: "Rocketo is in the mansion you must find him to complete your gran gran’s mission. He is the one that started all of this." }, { who: "Narrator", text: "You look down for a brief moment  as you look back up the fortune teller is gone." }, { who: "Narrator", text: "As you leave the bus you take the strange lady's advice and hop the fence in the back." }, { who: "Narrator", text: "As you enter the garden you see a large tree in the middle with a window leading into the mansion." }, { who: "Grandma", text: "Maybe you can find a way to break the window." }, { pause: true }, { who: "Narrator", text: "You break the window with the hammer. PUMMM!" }, { who: "Narrator", text: "As you carefully make your way through the window you find yourself in a large kitchen." }, { who: "Grandma", text: "Ohhoohh I sense it somewhere in this room. There is a key to Rocketo, you must find it." }, { pause: true }, { who: "Narrator", text: "You enter the dining hall. A large table is set in the middle of the room." }, { who: "Grandma", text: "Ohoohh I can feel it, we are near. In the next room we will find Rocketo. Find a way to open the door." }, { pause: true }]
@@ -1636,12 +1650,14 @@ document.addEventListener(`DOMContentLoaded`, () => {
     }
     let fighting = false;
     function rocketoFight(){
+        console.log(room, "before")
         fighting = true;
         rocketoFightRoom(); 
         changeCharacterPostion(4, 2);
         updateCharacterPostion();
         rocketoMovement();
         attackTouchRocketo();
+        console.log(room, "after")
         setTimeout(() => {
             rocketoRockAttack(1, 8);
             rocketoRockAttack(2, 8);
@@ -1821,7 +1837,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
             laserAttack(8, 8);
         }, 35000);
         setTimeout(() => {
+            console.log("out side if 37000")
             if(fighting == false){
+                console.log("inside if 37000")
                 return
             }
             positionsArray = [];
@@ -1844,7 +1862,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
             rocketoRockAttack(8, 8);
         }, 38000);
         setTimeout(() => {
+            console.log("out side if 40000")
             if(fighting == false){
+                console.log("inside if 40000")
                 return
             }
             positionsArray = [];
@@ -2082,14 +2102,16 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 document.getElementById("start").classList.toggle("displayNone");
                 movementAllowed = true;
             }, 3950);  
-        setTimeout(() => {
+            setTimeout(() => {
                 positionsArray = [];
                 createPositionArray();
                 addMap("sprites/DeadRocketo.png", 4, 5);
                 addMap("sprites/EndingDoor.png", 4, 8);
                 updateMap();
                 itemOnRoomRocketo = [new DoorInRoom(4, 8, "Ending Door", "End", true)]
+                console.log(itemOnRoomRocketo, "rocketo");
                 room = itemOnRoomRocketo;
+                console.log(room, "room");
                 changeCharacterPostion(4, 1);
                 updateCharacterPostion();
 
@@ -2102,6 +2124,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             story = horseEnding;
                             updateText(number, story);
                             document.getElementById("textContent").classList.toggle("displayNone");   
+                            console.log(room, "room");
                         }
                         return
                         break
@@ -2113,6 +2136,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             story = fortunetellerEnding;
                             updateText(number, story);
                             document.getElementById("textContent").classList.toggle("displayNone");
+                            console.log(room, "room");
                         }
                         return
                         break
@@ -2270,7 +2294,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 else {
                     document.getElementById("textContent").innerHTML = `                  
                     <div id="textLeft">
-                      <img src="sprites/Apple.png" alt="">
+                      <img src="sprites/Detective.png" alt="">
                     </div>
                     <div id="textRight">
                       <h2>${story[number].who}</h2>
@@ -2297,7 +2321,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 else if(story[number].who == "Fortune teller"){
                     document.getElementById("textContent").innerHTML = `                  
                     <div id="textLeft">
-                      <img src="sprites/detective.png" alt="">
+                      <img src="sprites/FortuneTeller.png" alt="">
                     </div>
                     <div id="textRight">
                       <h2>${story[number].who}</h2>
@@ -2309,7 +2333,19 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 else if(story[number].who == "Your Phone"){
                     document.getElementById("textContent").innerHTML = `                  
                     <div id="textLeft">
-                      <img src="sprites/detective.png" alt="">
+                      <img src="sprites/Phone.png" alt="">
+                    </div>
+                    <div id="textRight">
+                      <h2>${story[number].who}</h2>
+                      <p>${story[number].text}</p>
+                      <img src="arrow.svg" alt="" id="imgSpark">             
+                      </div>`;
+                    startGame();
+                }
+                else if(story[number].who == "Ghost"){
+                    document.getElementById("textContent").innerHTML = `                  
+                    <div id="textLeft">
+                      <img src="sprites/Grandma.png" alt="">
                     </div>
                     <div id="textRight">
                       <h2>${story[number].who}</h2>
@@ -2321,7 +2357,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 else if(story[number].who == "Guy on the phone"){
                     document.getElementById("textContent").innerHTML = `                  
                     <div id="textLeft">
-                      <img src="sprites/detective.png" alt="">
+                      <img src="sprites/Phone.png" alt="">
                     </div>
                     <div id="textRight">
                       <h2>${story[number].who}</h2>
@@ -2330,10 +2366,10 @@ document.addEventListener(`DOMContentLoaded`, () => {
                       </div>`;
                     startGame();
                 }
-                else if(story[number].who == "Grandma Ghost"){
+                else if(story[number].who == "Ghost Grandma"){
                     document.getElementById("textContent").innerHTML = `                  
                     <div id="textLeft">
-                      <img src="sprites/detective.png" alt="">
+                      <img src="sprites/Grandma.png" alt="">
                     </div>
                     <div id="textRight">
                       <h2>${story[number].who}</h2>
@@ -2375,7 +2411,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 <h2 id="optionH2">Choose one option:</h2>             
                 <div id="textLeftO">
                 <p>${story[number].option1}</p>
-    
+                
                 </div>
                 <div id="textRightO">
                 <p>${story[number].option2}</p>
@@ -2384,7 +2420,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 break
         }
     };
-
+    let haveCatFood = false;
     function optionLoader2(code1, code2) {
         document.getElementById("textLeftO").addEventListener(`click`, () => {
 
@@ -2396,6 +2432,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
             else if (code1 == "addCatfood") {
                 addInventory("sprites/Catfood.png", "Description");// no use
                 UpdateInventory();
+                haveCatFood = true;
             }
             number = number + 1;
             updateText(number, story);
