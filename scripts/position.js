@@ -1461,7 +1461,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let carEnding = [{who: "Narrator", text: "After defeating rocketo you begin to notice that the mansion is burning down."}, {who: "Grandma", text: "Ah yeah we maybe should have put that out."}, {who: "Narrator", text: "You try to find an exit but then you realize that the door is blocked."}, {who: "Narrator", text: "As you wake up you see your grandma in front of you."}, {who: name, text: "HelloOOoooo"}, {who: "Grandma", text: "Greeting grandson welcome to the world of the dead."}, {who: name, text: "Oh well, at least we get to spend more time together now."}, {who: "Grandma", text: "Yes indeed."}, { pause: true}];
     let horseEnding = [{who: "Narrator", text: "After a long and strenuous fight. You defeat Rocketo."}, {who: "Grandma", text: "Ah, finally ROCKETO has been defeated. Now I may rest in peace."}, {who: name, text: "Grandma don’t go. Please don’t leave me here."}, {who: "Grandma", text: "Sorry. But I can’t stay here any longer. Bye. Thank you for all your efforts."}, {who: name, text: "NOOOO GRANDMAAAA!"}, { pause: true}];
     let fortunetellerEnding = [{who: "Narrator", text: "After a long and strenuous fight. You defeat Rocketo."}, {who: "Narrator", text: "You remember one thing that the fortune teller told you. You grab Rocketo’s jacket and find a suspicious drink."}, {who: "Narrator", text: "You drink it and then you give it to your Grandma to try it too."}, {who: "Narrator", text: "You see your Grandma. You run and hug her."}, {who: name, text: "Gran gran I can see you and you are not a ghost."}, {who: "Grandma", text: "Yes, you did it, we are finally together."}, { pause: true }];    
-    let story = storyCar;
+    let story = storyStart;
 
     let axe = false;
 
