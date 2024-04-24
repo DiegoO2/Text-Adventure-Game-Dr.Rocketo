@@ -1838,21 +1838,24 @@ document.addEventListener(`DOMContentLoaded`, () => {
         }, 35000);
         setTimeout(() => {
             console.log("out side if 37000")
+            console.log(fighting);
             if(fighting == false){
                 console.log("inside if 37000")
                 return
             }
-            positionsArray = [];
-            createPositionArray();    
-            addMap("sprites/Fire.png", 3, 1);
-            addMap("sprites/Fire.png", 3, 2);
-            addMap("sprites/Fire.png", 3, 3);
-            addMap("sprites/Fire.png", 3, 4);
-            addMap("sprites/Fire.png", 3, 5);
-            addMap("sprites/Fire.png", 3, 6);
-            addMap("sprites/Fire.png", 3, 7);
-            updateMap();
-            updateCharacterPostion();
+            else{
+                positionsArray = [];
+                createPositionArray();    
+                addMap("sprites/Fire.png", 3, 1);
+                addMap("sprites/Fire.png", 3, 2);
+                addMap("sprites/Fire.png", 3, 3);
+                addMap("sprites/Fire.png", 3, 4);
+                addMap("sprites/Fire.png", 3, 5);
+                addMap("sprites/Fire.png", 3, 6);
+                addMap("sprites/Fire.png", 3, 7);
+                updateMap();
+                updateCharacterPostion();    
+            }
         }, 37000);
         setTimeout(() => {
             rocketoRockAttack(1, 8);
@@ -1867,23 +1870,36 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 console.log("inside if 40000")
                 return
             }
-            positionsArray = [];
-            createPositionArray();    
-            laserAttack(1, 8);
-            laserAttack(2, 8);
-            laserAttack(4, 8);
-            laserAttack(5, 8);
-            laserAttack(6, 8);
-            laserAttack(8, 8);
+            else{
+                positionsArray = [];
+                createPositionArray();    
+                laserAttack(1, 8);
+                laserAttack(2, 8);
+                laserAttack(4, 8);
+                laserAttack(5, 8);
+                laserAttack(6, 8);
+                laserAttack(8, 8);    
+            }
         }, 40000);
         setTimeout(() => {
-            updateMap();
-            updateCharacterPostion();
+            if(fighting == false){
+                console.log("inside if 40000")
+                return
+            }
+            else{
+                updateMap();
+                updateCharacterPostion();    
+            }
         }, 43000);
         setTimeout(() => {
-            updateMap();
-            updateCharacterPostion();
-        }, 47000);
+            if(fighting == false){
+                console.log("inside if 40000")
+                return
+            }
+            else{
+                updateMap();
+                updateCharacterPostion();    
+            }        }, 47000);
         setTimeout(() => {
             laserAttack(1, 8);
             laserAttack(3, 8);
@@ -2195,6 +2211,10 @@ document.addEventListener(`DOMContentLoaded`, () => {
         if(fighting == false){
             return
         }
+        let fastes = 100;
+        if(rocketoPosition.x == kunaiPosition.x && rocketoPosition.y == kunaiPosition.y){
+            fastes = 1000;
+        }
         setTimeout(() => {
             if(fighting == false){
                 return
@@ -2211,7 +2231,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 checkRocketosLife();
             }
             attackTouchRocketo();
-        }, 100);    
+        }, fastes);    
 
     }
   
@@ -2426,11 +2446,11 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
             if (code1 == "addAxe") {
                 axe = true;
-                addInventory("sprites/Axe.png", "Description");// no use
+                addInventory("sprites/Axe.png", "A strong axe maybe can be useful.");// no use
                 UpdateInventory();
             }
             else if (code1 == "addCatfood") {
-                addInventory("sprites/Catfood.png", "Description");// no use
+                addInventory("sprites/Catfood.png", "Cat food, you can feed cats with food.");// no use
                 UpdateInventory();
                 haveCatFood = true;
             }
@@ -2440,7 +2460,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
         document.getElementById("textRightO").addEventListener(`click`, () => {
 
             if (code2 == "addFlashlight") {
-                addInventory("sprites/Flashlight.png", "Description");// no use
+                addInventory("sprites/Flashlight.png", "Did you choose a flashlight while being blind?");// no use
                 UpdateInventory();
             }
             number = number + 1;
@@ -2797,7 +2817,6 @@ document.addEventListener(`DOMContentLoaded`, () => {
         sparkItem();
         roomIn = "Rocketo"
         miniMap(roomIn);
-
     }
 
     // rocketoRoom();

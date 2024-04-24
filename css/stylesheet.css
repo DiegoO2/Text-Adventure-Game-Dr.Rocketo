@@ -556,7 +556,7 @@ img.an270{
     }
 }
 
-@media only screen and (max-width: 1200px) {
+    @media only screen and (max-width: 1200px) {
     main {
         flex-flow: column nowrap;
         width: 90%;
@@ -591,7 +591,17 @@ img.an270{
         width: 90%;
     }    
 }
+@media only screen and (max-height: 770px) {
 
+    #gameContent,
+    #map,
+    #inventory {
+        width: 500px;
+        height: 500px;
+    }
+
+
+}
 
 @media only screen and (max-width: 700px) {
     h1{
