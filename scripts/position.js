@@ -4,7 +4,6 @@ document.addEventListener(`DOMContentLoaded`, () => {
     const mapContent = document.getElementById("map");
     const inventoryContent = document.getElementById("inventory");
 
-
     let positionsArray = [];
 
     let characterPosition = { x: 2, y: 2 }; // will change
@@ -113,31 +112,31 @@ document.addEventListener(`DOMContentLoaded`, () => {
         miniMapCreate();
         switch (roomIn) {
             case "Storage":
-                document.getElementById(`mapPost3x-1y`).innerHTML = `<img src="detective.png" alt="">`;
+                document.getElementById(`mapPost3x-1y`).innerHTML = `<img src="sprites/detective.png" alt="">`;
                 break
             case "Gallery":
-                document.getElementById(`mapPost2x-1y`).innerHTML = `<img src="detective.png" alt="">`;
+                document.getElementById(`mapPost2x-1y`).innerHTML = `<img src="sprites/detective.png" alt="">`;
                 break
             case "Kitchen":
-                document.getElementById(`mapPost3x-2y`).innerHTML = `<img src="detective.png" alt="">`;
+                document.getElementById(`mapPost3x-2y`).innerHTML = `<img src="sprites/detective.png" alt="">`;
                 break
             case "Dinning":
-                document.getElementById(`mapPost2x-2y`).innerHTML = `<img src="detective.png" alt="">`;
+                document.getElementById(`mapPost2x-2y`).innerHTML = `<img src="detective.psprites/detective.pngng" alt="">`;
                 break
             case "Stairs":
-                document.getElementById(`mapPost2x-3y`).innerHTML = `<img src="detective.png" alt="">`;
+                document.getElementById(`mapPost2x-3y`).innerHTML = `<img src="sprites/detective.png" alt="">`;
                 break
             case "Garden":
-                document.getElementById(`mapPost3x-3y`).innerHTML = `<img src="detective.png" alt="">`;
+                document.getElementById(`mapPost3x-3y`).innerHTML = `<img src="detective.psprites/detective.pngg" alt="">`;
                 break
             case "Entrance":
-                document.getElementById(`mapPost1x-1y`).innerHTML = `<img src="detective.png" alt="">`;
+                document.getElementById(`mapPost1x-1y`).innerHTML = `<img src="sprites/detective.png" alt="">`;
                 break
             case "Library":
-                document.getElementById(`mapPost1x-2y`).innerHTML = `<img src="detective.png" alt="">`;
+                document.getElementById(`mapPost1x-2y`).innerHTML = `<img src="sprites/detective.png" alt="">`;
                 break
             case "Bedroom":
-                document.getElementById(`mapPost1x-3y`).innerHTML = `<img src="detective.png" alt="">`;
+                document.getElementById(`mapPost1x-3y`).innerHTML = `<img src="sprites/detective.png" alt="">`;
                 break
 
         }
@@ -320,13 +319,13 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     touchFire();
                     characterPosition.x = lastPosition.x;
                     characterPosition.y = lastPosition.y;
-                    document.getElementById(`post${characterPosition.x}x-${characterPosition.y}y`).innerHTML = `<img src="detective.png" alt="">`;
+                    document.getElementById(`post${characterPosition.x}x-${characterPosition.y}y`).innerHTML = `<img src="sprites/detective.png" alt="">`;
                     break
                 }
                 else {
                     document.getElementById(`post${lastPosition.x}x-${lastPosition.y}y`).innerHTML = ``;
                     sparkItem();
-                    document.getElementById(`post${characterPosition.x}x-${characterPosition.y}y`).innerHTML = `<img src="detective.png" alt="">`;
+                    document.getElementById(`post${characterPosition.x}x-${characterPosition.y}y`).innerHTML = `<img src="sprites/detective.png" alt="">`;
                     lastPosition.x = characterPosition.x;
                     lastPosition.y = characterPosition.y;
                 }
@@ -514,7 +513,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             document.getElementById("textContent").classList.toggle("displayNone");
                             document.getElementById("textContent").innerHTML = `                  
                             <div id="textLeft">
-                              <img src="sprites/CatFood.png" alt="">
+                              <img src="sprites/Narrator.png" alt="">
                             </div>
                             <div id="textRight">
                               <h2>Narrator</h2>
@@ -537,7 +536,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                         if (item.img == 'sprites/KeyInIce.png') {
                                             document.getElementById("textContent").innerHTML = `                  
                                             <div id="textLeft">
-                                              <img src="sprites/CatFood.png" alt="">
+                                              <img src="sprites/Narrator.png" alt="">
                                             </div>
                                             <div id="textRight">
                                               <h2>Narrator</h2>
@@ -551,7 +550,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                                 unlock("Blue Door")
                                                 document.getElementById("textContent").innerHTML = `                  
                                                 <div id="textLeft">
-                                                  <img src="sprites/CatFood.png" alt="">
+                                                  <img src="sprites/Narrator.png" alt="">
                                                 </div>
                                                 <div id="textRight">
                                                   <h2>Narrator</h2>
@@ -568,7 +567,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                     }
                                     document.getElementById("textContent").innerHTML = `                  
                                     <div id="textLeft">
-                                      <img src="sprites/CatFood.png" alt="">
+                                      <img src="sprites/Narrator.png" alt="">
                                     </div>
                                     <div id="textRight">
                                       <h2>Narrator</h2>
@@ -594,7 +593,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                     }
                                     document.getElementById("textContent").innerHTML = `                  
                                     <div id="textLeft">
-                                      <img src="sprites/CatFood.png" alt="">
+                                      <img src="sprites/Narrator.png" alt="">
                                     </div>
                                     <div id="textRight">
                                       <h2>Narrator</h2>
@@ -628,7 +627,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             document.getElementById("textContent").classList.toggle("displayNone");
                             document.getElementById("textContent").innerHTML = `                  
                             <div id="textLeft">
-                              <img src="sprites/CatFood.png" alt="">
+                              <img src="sprites/Narrator.png" alt="">
                             </div>
                             <div id="textRight">
                               <h2>Narrator</h2>
@@ -652,7 +651,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                         itemCopy.work = true;
                                         document.getElementById("textContent").innerHTML = `                  
                                         <div id="textLeft">
-                                          <img src="sprites/CatFood.png" alt="">
+                                          <img src="sprites/Narrator.png" alt="">
                                         </div>
                                         <div id="textRight">
                                           <h2>Narrator</h2>
@@ -701,7 +700,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             document.getElementById("textContent").classList.toggle("displayNone");
                             document.getElementById("textContent").innerHTML = `                  
                             <div id="textLeft">
-                              <img src="sprites/CatFood.png" alt="">
+                              <img src="sprites/Narrator.png" alt="">
                             </div>
                             <div id="textRight">
                               <h2>Narrator</h2>
@@ -722,8 +721,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                 </div>`;
 
                                 document.getElementById("text1").addEventListener(`click`, () => {
-                                    console.log(inventoryArray, inventoryArray[0].img == 'sprites/Catfood.png', inventoryArray[0].img);
-                                    if (inventoryArray[0].img == 'sprites/Catfood.png') {
+                                    console.log(inventoryArray, inventoryArray[0].img == 'sprites/Narrator.png', inventoryArray[0].img);
+                                    if (inventoryArray[0].img == 'sprites/Narrator.png') {
 
                                         deleteInventory('sprites/Catfood.png');
                                         UpdateInventory();
@@ -736,7 +735,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
                                         document.getElementById("textContent").innerHTML = `                  
                                         <div id="textLeft">
-                                          <img src="sprites/CatFood.png" alt="">
+                                          <img src="sprites/Narrator.png" alt="">
                                         </div>
                                         <div id="textRight">
                                           <h2>Narrator</h2>
@@ -755,7 +754,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                     CATTTTT = false;
                                     document.getElementById("textContent").innerHTML = `                  
                                     <div id="textLeft">
-                                      <img src="sprites/CatFood.png" alt="">
+                                      <img src="sprites/Narrator.png" alt="">
                                     </div>
                                     <div id="textRight">
                                       <h2>Narrator</h2>
@@ -790,7 +789,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
     function createHTMLForCat(cat) {
         document.getElementById("textContent").innerHTML = `                  
         <div id="textLeft">
-          <img src="sprites/CatFood.png" alt="">
+          <img src="sprites/Narrator.png" alt="">
         </div>
         <div id="textRight">
           <h2>Narrator</h2>
@@ -895,7 +894,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             updateCharacterPostion();
                             document.getElementById("textContent").innerHTML = `                  
                             <div id="textLeft">
-                              <img src="${itemCopy.img}" alt="">
+                              <img src="sprites/Narrator.png" alt="">
                             </div>
                             <div id="textRight">
                               <h2>Narrator</h2>
@@ -1185,6 +1184,14 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                 }, 5500);  
 
                             break
+                        case "End":
+                            document.getElementById("textContent").classList.toggle("displayNone");
+                            document.getElementById("header").classList.toggle("displayNone");
+                            document.getElementById("main").classList.toggle("displayNone");
+                            document.getElementById("start").classList.toggle("displayNone");
+                            movementAllowed = false;
+                            document.getElementById("start").innerHTML = `<img src="Images/End.png">`        
+                            break
                     }
                 }
             }
@@ -1286,12 +1293,13 @@ document.addEventListener(`DOMContentLoaded`, () => {
     function updateHealth() {
         document.getElementById("health").innerHTML = "";
         for (heart of health) {
-            document.getElementById("health").innerHTML = document.getElementById("health").innerHTML + `<img src="e.png">`
+            document.getElementById("health").innerHTML = document.getElementById("health").innerHTML + `<img src="sprites/Heart.png">`
         }
     }
     //game over
 
     function gameOver() {
+        fighting = false;
         document.getElementById("header").classList.toggle("displayNone");
         document.getElementById("main").classList.toggle("displayNone");
         document.getElementById("start").classList.toggle("displayNone");
@@ -1440,6 +1448,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
     // }
     // await waitUntil(() => gameStart === true)
     let name = "Diego";
+    document.getElementById("userName").innerText = name;
 
     let number = 0;
 
@@ -1449,7 +1458,10 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let storyCar = [{ who: name, text: " I am going to take my car, come with me." }, { who: "Narrator", text: "You grab your car keys and start driving hysterically." }, { who: name, text: "Man if only I wasn't blind. Why did I choose the car?" }, { who: "Narrator", text: "You say as you crash into the side of a building. BUMMM!" }, { who: name, text: "Oh no not again I CAN'T GO BACK TO PRISON." }, { who: "Narrator", text: "As you step out of your car you start to realize the room around you. You are in the mansion." }, { who: "Narrator", text: "You seem to be in a room used for storing various foods and supplies and also your car that crashed into the eastern wall." }, { who: "Grandma", text: "Ohoohhh you must find a way out of this room. Rocketo is near. I can feel it." }, { who: name, text: "But grandma, what should I do?" }, { who: "Grandma", text: "Keep going. Find the key to get to the next room. Good luck." }, { pause: true }, { who: "Narrator", text: "You enter a large room with a statue in the middle. There is a bookshelf to the west and three doors." }, { who: "Grandma", text: "Ohoohhh The statue… this is HIM Rocketoo he is the one who started all of this. You must defeat him." }, { who: "Narrator", text: "The statue in front of you is of a tall man with glasses and short black hair. He lovingly holds a chicken in his arms." }, { who: "Grandma", text: "You must find it in the back of the mansion. Keep going." }, { pause: true }, { who: "Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { pause: true }, { who: "Narrator", text: "You enter back into the storage room through the back door and notice a cat sitting on the floor." }, { who: "Grandma", text: "Ohhoohh I sense it somewhere in this room. There is a key to Rocketo, you must find it." }, { pause: true }, { who: "Narrator", text: "You enter the dining hall. A large table is set in the middle of the room." }, { who: "Grandma", text: "Ohoohh I can feel it, we are near. In the next room we will find Rocketo. Find a way to open the door." }, { pause: true }]
     let storyFortuneteller = [{ who: name, text: "I am going to take the bus, come with me." }, { who: "Narrator", text: "You run out of your home. You get to the bus station and take the first bus. On the bus, a fortune teller talks with you." }, { who: "Fortune teller", text: `Hello, ${name}.` }, { who: name, text: "Wait, how do you know my detective name?" }, { who: "Fortune teller", text: "I know many things about you. When you venture to this mansion you must go to the back entrance through the garden." }, { who: name, text: "Ok wait who are you" }, { who: "Fortune teller", text: "Rocketo is in the mansion you must find him to complete your gran gran’s mission. He is the one that started all of this." }, { who: "Narrator", text: "You look down for a brief moment  as you look back up the fortune teller is gone." }, { who: "Narrator", text: "As you leave the bus you take the strange lady's advice and hop the fence in the back." }, { who: "Narrator", text: "As you enter the garden you see a large tree in the middle with a window leading into the mansion." }, { who: "Grandma", text: "Maybe you can find a way to break the window." }, { pause: true }, { who: "Narrator", text: "You break the window with the hammer. PUMMM!" }, { who: "Narrator", text: "As you carefully make your way through the window you find yourself in a large kitchen." }, { who: "Grandma", text: "Ohhoohh I sense it somewhere in this room. There is a key to Rocketo, you must find it." }, { pause: true }, { who: "Narrator", text: "You enter the dining hall. A large table is set in the middle of the room." }, { who: "Grandma", text: "Ohoohh I can feel it, we are near. In the next room we will find Rocketo. Find a way to open the door." }, { pause: true }]
     let storyEnd = [{who: "Narrator", text:"You enter the stairs."}, {who: "Grandma", text:"Here is where Rocketo lies."}, {who: name, text: "Gee thanks gran gran, boy I'm so glad to have a wise and knowledgeable mentor like you who was introduced so early in my travels."}, {who: "Grandma", text: "You are welcome :)"}, { pause: true }, {who: "Narrator", text: "You enter through the secret door in the stairs and find ROCKETO sitting menacingly in a chair, his fine hen sits in his lap."}, {who: "Rocketo", text: "Ah it is you I have been expecting your audience."}, {who: name, text: "Your evil ends here."}, {who: "Rocketo", text: "Wait, allow me to explain a few things."}, {who: name, text: "Alright I guess i'll hear you out."}, {who: "Rocketo", text: "Ahh for you see it, it all happened about 7 years ago. I needed people to experiment my ROCKETO’S BLINDING TONIC on."}, {who: "Rocketo", text: " I went down to the local park and staged a freak accident to trap someone."}, {who: "Rocketo", text: "You were the one who fell victim to it."}, {who: name, text: "WHAT THAT WAS YOU!"}, {who: "Rocketo", text: "OOOOOAHHAHAH. Yes and now I will end you."}, { fight : true }];
-    let story = storyEnd;
+    let carEnding = [{who: "Narrator", text: "After defeating rocketo you begin to notice that the mansion is burning down."}, {who: "Grandma", text: "Ah yeah we maybe should have put that out."}, {who: "Narrator", text: "You try to find an exit but then you realize that the door is blocked."}, {who: "Narrator", text: "As you wake up you see your grandma in front of you."}, {who: name, text: "HelloOOoooo"}, {who: "Grandma", text: "Greeting grandson welcome to the world of the dead."}, {who: name, text: "Oh well, at least we get to spend more time together now."}, {who: "Grandma", text: "Yes indeed."}, { pause: true}];
+    let horseEnding = [{who: "Narrator", text: "After a long and strenuous fight. You defeat Rocketo."}, {who: "Grandma", text: "Ah, finally ROCKETO has been defeated. Now I may rest in peace."}, {who: name, text: "Grandma don’t go. Please don’t leave me here."}, {who: "Grandma", text: "Sorry. But I can’t stay here any longer. Bye. Thank you for all your efforts."}, {who: name, text: "NOOOO GRANDMAAAA!"}, { pause: true}];
+    let fortunetellerEnding = [{who: "Narrator", text: "After a long and strenuous fight. You defeat Rocketo."}, {who: "Narrator", text: "You remember one thing that the fortune teller told you. You grab Rocketo’s jacket and find a suspicious drink."}, {who: "Narrator", text: "You drink it and then you give it to your Grandma to try it too."}, {who: "Narrator", text: "You see your Grandma. You run and hug her."}, {who: name, text: "Gran gran I can see you and you are not a ghost."}, {who: "Grandma", text: "Yes, you did it, we are finally together."}, { pause: true }];    
+    let story = storyCar;
 
     let axe = false;
 
@@ -1469,25 +1481,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
         }
     }
     let rockPosition = [];
-    function rockTouchForRock(rock){
-        setTimeout(() => {
-            if(rock.x == characterPosition.x && rock.y == characterPosition.y){
-                console.log("hit")
-                damage();
-                updateHealth();
-
-                rockTouch();
-
-            }
-        }, 100);     
-    };
 
 
-    // function rockTouch(){
-    //     for(rock of rockPosition){
-    //         rockTouchForRock(rock);        
-    //     }
-    // }
     function rockTouch(index){
         let faste = 100;
         if(rockPosition[index].x == characterPosition.x && rockPosition[index].y == characterPosition.y){
@@ -1513,6 +1508,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
         }, faste);    
     }
     function rocketoRockAttack(xA , yA){
+        if(fighting == false){
+            return
+        }
         rockPosition.push({x: xA, y: yA });
         const indexOfRockPosition = rockPosition.length - 1;
         rockTouch(indexOfRockPosition);
@@ -1544,6 +1542,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
     }
     let laserPosition = [];
     function laserAttack(xA, yA){
+        if(fighting == false){
+            return
+        }
         laserPosition.push({x: xA, y: yA });
         const indexOfLaserPosition = laserPosition.length - 1;
         // laserTouch(indexOfLaserPosition);
@@ -1580,6 +1581,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
             }, 50 * long + 100);    
         }, 700);
     function laserTouch(index, work){
+        if(fighting == false){
+            return
+        }
         let faste = 49;
         let working = work;
         if(laserPosition[index].x == characterPosition.x && laserPosition[index].y == characterPosition.y){
@@ -1620,6 +1624,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
         return Math.floor(Math.random() * max);
       }
     function rocketoMovement(){
+        if(fighting == false){
+            return
+        }
         setTimeout(() => {
             changeRocketoPostion(getRandomInt(8) + 1, 8);
             updateRocketoPostion();
@@ -1627,9 +1634,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
             rocketoMovement()    
         }, 1000);
     }
-
+    let fighting = false;
     function rocketoFight(){
-
+        fighting = true;
         rocketoFightRoom(); 
         changeCharacterPostion(4, 2);
         updateCharacterPostion();
@@ -1814,6 +1821,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
             laserAttack(8, 8);
         }, 35000);
         setTimeout(() => {
+            if(fighting == false){
+                return
+            }
             positionsArray = [];
             createPositionArray();    
             addMap("sprites/Fire.png", 3, 1);
@@ -1834,6 +1844,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
             rocketoRockAttack(8, 8);
         }, 38000);
         setTimeout(() => {
+            if(fighting == false){
+                return
+            }
             positionsArray = [];
             createPositionArray();    
             laserAttack(1, 8);
@@ -2012,7 +2025,11 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let kunaiPosition = {};
     let attaking = false;
     function characterAttack(){
+        
         document.addEventListener(`keydown`, (key) => {
+            if(fighting == false){
+                return
+            }
             if(key.key == "f" && attaking == false && stamina > 0){
                 consume();
                 updateStamina();
@@ -2045,10 +2062,119 @@ document.addEventListener(`DOMContentLoaded`, () => {
             }
         });
     }
-
+    let endingStoryDid = false;
     let rocketoLife = 4;
-    function attackTouchRocketo(){
+    function checkRocketosLife(){
+        if(fighting == false){
+            return
+        }
+        if(rocketoLife == 0 && fighting == true){
+            fighting = false;
+            document.getElementById("textContent").classList.toggle("displayNone");
+            document.getElementById("header").classList.toggle("displayNone");
+            document.getElementById("main").classList.toggle("displayNone");
+            document.getElementById("start").classList.toggle("displayNone");
+            movementAllowed = false;
+            document.getElementById("start").innerHTML = `<img src="Images/RocketoHasLost.png">`        
+            setTimeout(() => {
+                document.getElementById("header").classList.toggle("displayNone");
+                document.getElementById("main").classList.toggle("displayNone");
+                document.getElementById("start").classList.toggle("displayNone");
+                movementAllowed = true;
+            }, 3950);  
         setTimeout(() => {
+                positionsArray = [];
+                createPositionArray();
+                addMap("sprites/DeadRocketo.png", 4, 5);
+                addMap("sprites/EndingDoor.png", 4, 8);
+                updateMap();
+                itemOnRoomRocketo = [new DoorInRoom(4, 8, "Ending Door", "End", true)]
+                room = itemOnRoomRocketo;
+                changeCharacterPostion(4, 1);
+                updateCharacterPostion();
+
+                switch (storyIn) {
+                    case "Horse":
+                        if(endingStoryDid == false){
+                            endingStoryDid = true;
+                            console.log("HORSEEEE"); 
+                            number = 0;
+                            story = horseEnding;
+                            updateText(number, story);
+                            document.getElementById("textContent").classList.toggle("displayNone");   
+                        }
+                        return
+                        break
+                    case "Fortuneteller":
+                        if(endingStoryDid == false){
+                            endingStoryDid = true;
+                            console.log("FORUTNEEE"); 
+                            number = 0;
+                            story = fortunetellerEnding;
+                            updateText(number, story);
+                            document.getElementById("textContent").classList.toggle("displayNone");
+                        }
+                        return
+                        break
+                    case "Car":
+                        if(endingStoryDid == false){
+                            endingStoryDid = true;
+                            positionsArray = [];
+                            createPositionArray();        
+                            addMap("sprites/DeadRocketo.png", 4, 5);
+                            addMap("sprites/EndingDoor.png", 4, 8);
+                            addMap("sprites/Fire.png", 1, 1);
+                            addMap("sprites/Fire.png", 1, 3);
+                            addMap("sprites/Fire.png", 1, 4);
+                            addMap("sprites/Fire.png", 1, 6);
+                            addMap("sprites/Fire.png", 2, 1);
+                            addMap("sprites/Fire.png", 2, 2);
+                            addMap("sprites/Fire.png", 2, 5);
+                            addMap("sprites/Fire.png", 2, 7);
+                            addMap("sprites/Fire.png", 2, 8);
+                            addMap("sprites/Fire.png", 3, 1);
+                            addMap("sprites/Fire.png", 3, 2);
+                            addMap("sprites/Fire.png", 3, 4);
+                            addMap("sprites/Fire.png", 3, 5);
+                            addMap("sprites/Fire.png", 3, 7);
+                            addMap("sprites/Fire.png", 6, 1);
+                            addMap("sprites/Fire.png", 6, 3);
+                            addMap("sprites/Fire.png", 6, 4);
+                            addMap("sprites/Fire.png", 6, 6);
+                            addMap("sprites/Fire.png", 7, 1);
+                            addMap("sprites/Fire.png", 7, 2);
+                            addMap("sprites/Fire.png", 7, 5);
+                            addMap("sprites/Fire.png", 7, 7);
+                            addMap("sprites/Fire.png", 7, 8);
+                            addMap("sprites/Fire.png", 8, 1);
+                            addMap("sprites/Fire.png", 8, 2);
+                            addMap("sprites/Fire.png", 8, 4);
+                            addMap("sprites/Fire.png", 8, 5);
+                            addMap("sprites/Fire.png", 8, 7);
+                            updateMap();
+                            changeCharacterPostion(4, 1);
+                            updateCharacterPostion();
+                            number = 0;
+                            story = carEnding;
+                            updateText(number, story);
+                            document.getElementById("textContent").classList.toggle("displayNone");    
+                        }
+                        return
+
+                        break
+                }
+            }, 4000);
+        }
+
+    }
+    function attackTouchRocketo(){
+        if(fighting == false){
+            return
+        }
+        setTimeout(() => {
+            if(fighting == false){
+                return
+            }
             if(rocketoPosition.x == kunaiPosition.x && rocketoPosition.y == kunaiPosition.y){
                 console.log("ROCKETO AAAAAAAAAAAAAA")
                 document.getElementById("body").classList.add("yellow");
@@ -2058,9 +2184,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     document.getElementById("body").classList.remove("yellow");
                 }, 300);
                 rocketoLife = rocketoLife - 1;
-                if(rocketoLife == 0){
-                    console.log("winnn gameeeeeeeeeeeeeeeeee")
-                }
+                checkRocketosLife();
             }
             attackTouchRocketo();
         }, 100);    
@@ -2157,10 +2281,11 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 }
                 break
             case Object.keys(story[number]).includes("who"):
+                console.log(story)
                 if(story[number].who == name){
                     document.getElementById("textContent").innerHTML = `                  
                     <div id="textLeft">
-                      <img src="sprites/Rocketo.png" alt="">
+                      <img src="sprites/detective.png" alt="">
                     </div>
                     <div id="textRight">
                       <h2>${story[number].who}</h2>
@@ -2172,7 +2297,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 else if(story[number].who == "Fortune teller"){
                     document.getElementById("textContent").innerHTML = `                  
                     <div id="textLeft">
-                      <img src="detective.png" alt="">
+                      <img src="sprites/detective.png" alt="">
                     </div>
                     <div id="textRight">
                       <h2>${story[number].who}</h2>
@@ -2184,7 +2309,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 else if(story[number].who == "Your Phone"){
                     document.getElementById("textContent").innerHTML = `                  
                     <div id="textLeft">
-                      <img src="detective.png" alt="">
+                      <img src="sprites/detective.png" alt="">
                     </div>
                     <div id="textRight">
                       <h2>${story[number].who}</h2>
@@ -2196,7 +2321,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 else if(story[number].who == "Guy on the phone"){
                     document.getElementById("textContent").innerHTML = `                  
                     <div id="textLeft">
-                      <img src="detective.png" alt="">
+                      <img src="sprites/detective.png" alt="">
                     </div>
                     <div id="textRight">
                       <h2>${story[number].who}</h2>
@@ -2208,7 +2333,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 else if(story[number].who == "Grandma Ghost"){
                     document.getElementById("textContent").innerHTML = `                  
                     <div id="textLeft">
-                      <img src="detective.png" alt="">
+                      <img src="sprites/detective.png" alt="">
                     </div>
                     <div id="textRight">
                       <h2>${story[number].who}</h2>
@@ -2286,20 +2411,25 @@ document.addEventListener(`DOMContentLoaded`, () => {
         });
 
     };
+    let storyIn = "";
     function optionLoader3(code1, code2, code3) {
         document.getElementById("text1").addEventListener(`click`, () => {
             number = 0;
             story = storyHorse;
+            storyIn = "Horse";
             updateText(number, story);
         });
         document.getElementById("text2").addEventListener(`click`, () => {
             number = 0;
             story = storyFortuneteller;
+            storyIn = "Fortuneteller";
+
             updateText(number, story);
         });
         document.getElementById("text3").addEventListener(`click`, () => {
             number = 0;
             story = storyCar;
+            storyIn = "Car";
             updateText(number, story);
         });
     }
@@ -2633,35 +2763,35 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
     }
 
-    rocketoRoom();
-    movementAllowed = false;
-    changeCharacterPostion(4, 1);
-    updateCharacterPostion();
-    setTimeout(() => {
-        changeCharacterPostion(4, 1);
-        updateCharacterPostion();    
-    }, 1000);   
-    setTimeout(() => {
-        changeCharacterPostion(4, 2);
-        updateCharacterPostion();    
-    }, 2000);  
-    setTimeout(() => {
-        changeCharacterPostion(4, 3);
-        updateCharacterPostion();    
-    }, 3000);  
-    setTimeout(() => {
-        changeCharacterPostion(4, 4);
-        updateCharacterPostion();    
-    }, 4000);  
-    setTimeout(() => {
-        changeCharacterPostion(4, 5);
-        updateCharacterPostion();    
-    }, 5000);  
-    setTimeout(() => {
-        number = number + 1;
-        updateText(number, story);
-        document.getElementById("textContent").classList.toggle("displayNone");
-        }, 5500);  
+    // rocketoRoom();
+    // movementAllowed = false;
+    // changeCharacterPostion(4, 1);
+    // updateCharacterPostion();
+    // setTimeout(() => {
+    //     changeCharacterPostion(4, 1);
+    //     updateCharacterPostion();    
+    // }, 1000);   
+    // setTimeout(() => {
+    //     changeCharacterPostion(4, 2);
+    //     updateCharacterPostion();    
+    // }, 2000);  
+    // setTimeout(() => {
+    //     changeCharacterPostion(4, 3);
+    //     updateCharacterPostion();    
+    // }, 3000);  
+    // setTimeout(() => {
+    //     changeCharacterPostion(4, 4);
+    //     updateCharacterPostion();    
+    // }, 4000);  
+    // setTimeout(() => {
+    //     changeCharacterPostion(4, 5);
+    //     updateCharacterPostion();    
+    // }, 5000);  
+    // setTimeout(() => {
+    //     number = number + 1;
+    //     updateText(number, story);
+    //     document.getElementById("textContent").classList.toggle("displayNone");
+    //     }, 5500);  
 
 });
 
