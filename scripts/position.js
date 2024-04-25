@@ -1905,7 +1905,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
         let faste = 100;
         if (rockPosition[index].x == characterPosition.x && rockPosition[index].y == characterPosition.y) {
             faste = 600;
-
+        }
             setTimeout(() => {
                 if (rockPosition[index].x == characterPosition.x && rockPosition[index].y == characterPosition.y && fighting == true) {
                     console.log("hit")
@@ -1919,17 +1919,14 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     }, 300);
 
                 }
-                if (clear == true) {
-                    return
-                }
                 rockTouch(index);
             }, faste);
-        }
+       
     }
     function rocketoRockAttack(xA, yA) {
-        if (fighting == true) {
-
-
+            if (fighting == false){
+                return
+            }
             rockPosition.push({ x: xA, y: yA });
             const indexOfRockPosition = rockPosition.length - 1;
             rockTouch(indexOfRockPosition);
@@ -1958,7 +1955,6 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 }
 
             }
-        }
     }
     let laserPosition = [];
     function laserAttack(xA, yA) {
