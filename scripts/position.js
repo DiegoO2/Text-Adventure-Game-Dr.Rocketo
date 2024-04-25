@@ -1852,7 +1852,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let story = storyStart;
 
     document.getElementById("startButton").addEventListener(`click`, () => {
-        if (document.getElementById("textName").value == "" || document.getElementById("textName").value.length < 3) {
+        if (document.getElementById("textName").value == "" || document.getElementById("textName").value.length < 3 || document.getElementById("textName").value.length > 12)  {
             document.getElementById("textAlert").innerHTML = "Use a valid name";
         }
         else {
