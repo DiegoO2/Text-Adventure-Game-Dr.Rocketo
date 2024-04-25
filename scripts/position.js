@@ -1907,7 +1907,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
             faste = 600;
 
             setTimeout(() => {
-                if (rockPosition[index].x == characterPosition.x && rockPosition[index].y == characterPosition.y) {
+                if (rockPosition[index].x == characterPosition.x && rockPosition[index].y == characterPosition.y && fighting == true) {
                     console.log("hit")
                     damage();
                     updateHealth();
@@ -2010,7 +2010,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
             }
             console.log(faste)
             setTimeout(() => {
-                if (laserPosition[index].x == characterPosition.x && laserPosition[index].y == characterPosition.y && working == false) {
+                if (laserPosition[index].x == characterPosition.x && laserPosition[index].y == characterPosition.y && working == false && fighting == true) {
                     console.log("hit")
                     damage();
                     updateHealth();
