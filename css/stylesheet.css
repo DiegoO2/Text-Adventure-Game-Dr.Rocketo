@@ -538,11 +538,10 @@ img.an270{
 }
 
 
-
 #mobileControls section div{
     color: white;
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -660,6 +659,13 @@ img.an270{
 }
 
 @media only screen and (max-width: 700px) {
+    #gameBar h2{
+        margin: .5rem;
+    }
+    #gameBar>div{
+        margin: 0 .5rem .5rem .5rem;
+    }
+    
     #mobileControls section{
         display: flex;
     }
@@ -741,7 +747,7 @@ img.an270{
         align-items: flex-start;
     }
     #health img{
-        height: 28px;
+        height: 24px;
         margin-bottom: 5px;
     }
     #gameBar>div p{
