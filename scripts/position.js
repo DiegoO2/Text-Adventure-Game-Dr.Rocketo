@@ -432,8 +432,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
         new DoorInRoom(4, 7, "Stairs", "Rocketo", true),
         new DoorInRoom(5, 7, "Stairs", "Rocketo", true),
         new ItemInRoom(2, 2, "Soup", "On the top of the drawer you see a soup. You grab it and keep it for later.", "A beef stew . You can use it to recover stamina.", "sprites/Soup.png", "Eat"),
-        new ItemInRoom(6, 2, "Medical Equipment", "You open the drawer and you find some Medical Equipment. Seems a little old, you keep it in your inventory.", "An old Medical Equipment that can be used to restore one point of health.", "sprites/MedicalKit.png", "Healing"),
-        new DoorInRoom(4, 1, "Green Door", "DinningDown", true) // needs to be the 5th
+        new ItemInRoom(6, 2, "Medical Equipment", "You open the drawer and you find some Medical Equipment. Seems a little old, you keep it in your inventory.", "An old Medical Equipment that can be used to restore one point of health.", "sprites/MedicalKit.png", "Healing")
 
     ];
 
@@ -1296,12 +1295,15 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             storageRoom();
                             changeCharacterPostion(2, 2);
                             updateCharacterPostion();
-
+                            addMap("sprites/CarFront2.png", 7, 2);
+                            updateMap();
                             break
                         case "StorageUp":
                             storageRoom();
                             changeCharacterPostion(2, 7);
                             updateCharacterPostion();
+                            addMap("sprites/CarFront2.png", 7, 2);
+                            updateMap();
                             if (StorageUpRep == true) {
                                 movementAllowed = false;
                                 number = number + 1;
@@ -1309,6 +1311,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                 document.getElementById("textContent").classList.toggle("displayNone");
                                 StorageUpRep = false;
                             }
+
                             break
                         case "Kitchen":
                             kitchenRoom();
@@ -2690,7 +2693,6 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             catY = 6;
                             itemOnRoomGallery.push(new DoorInRoom(1, 4, "Normal Door", "EntranceLeft", true));
                             itemOnRoomStairs.push(new DoorInRoom(1, 5, "Orange Door", "BedroomLeft", true));
-                            itemOnRoomStairs[4].haveKey == false;
 
                             break
                         case storyCar:
@@ -2702,7 +2704,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                             catY = 6;
                             itemOnRoomGallery.push(new DoorInRoom(8, 2, "Normal Door", "StorageDown", true));
                             itemOnRoomGallery.push(new DoorInRoom(8, 7, "Normal Door", "StorageUp", true));
-                            // itemOnRoomStairs.push(new DoorInRoom(4, 1, "Green Door", "DinningDown", true)); 
+                            itemOnRoomStairs.push(new DoorInRoom(4, 1, "Green Door", "DinningDown", true)); 
 
                             break
                         case storyFortuneteller:
@@ -2716,7 +2718,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
                             itemOnRoomKitchen.push({ name: `Cat`, x: 4, y: 2, text: "You find a cat, it looks hungry. Do you want to feed him?", textWithCatFood: "You give the cat the cat food, he smiles and jumps into your back. Now he is your new friend.", textIgnore: "You ignore the hungry little cat.", textWithOutCatFood: "The cat attacks you, he doesn't like the food that you given it to him.", option1: "You feed the cat with Cat Food", option2: "You feed the cat with food", option3: "You ignore the cat", thereC: true });
                             itemOnRoomKitchen.push(new DoorInRoom(7, 8, "Window", "Garden", true));
-                            // itemOnRoomStairs.push(new DoorInRoom(4, 1, "Green Door", "DinningDown", true));
+                            itemOnRoomStairs.push(new DoorInRoom(4, 1, "Green Door", "DinningDown", true));
 
                             firstTime = false;// the item top is for the cat in the kitchen for fortuneteller ending
                             break
