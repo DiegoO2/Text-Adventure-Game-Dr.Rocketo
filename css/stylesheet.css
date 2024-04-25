@@ -116,7 +116,10 @@ header {
     width: 100%;
     color: white;
 }
-
+#textAlert{
+    margin-bottom: 1rem;
+    color: rgb(210, 35, 35);
+}
 #gameBar>div {
     margin: 0 1rem;
     margin-bottom: 1rem;
@@ -333,7 +336,7 @@ footer {
     width: 35%;
 }
 
-#start div {
+#start #divStart {
     background-color: white;
     text-decoration: none;
     border-radius: 1rem;
@@ -555,8 +558,20 @@ img.an270{
     background-color: #aa1616;
     border-radius: 3rem;
 }
-
-
+#divText {
+    width: 100%;
+}
+#textName {
+    margin: auto;
+    margin-bottom: 1rem;
+    padding: .5rem;
+    border-radius: .5rem;
+    border: none;
+    font-family: "Reddit Mono", monospace;
+}
+#textName:focus {
+    outline: none;
+}
 @keyframes shine {
 
     0% {
@@ -739,6 +754,10 @@ img.an270{
         height: 6rem;
         width: 12rem;
     }
+    #start #divText {
+        width: 100%;
+        height: auto;
+    }
     #start img {
         width: 80%;
     }    
@@ -787,7 +806,10 @@ img.an270{
     #textContent #textLeft{
         width: 50px;
         height: 50px;
- 
     }
+    #mobileControls section div{
+        width: 75px;
+        height: 75px;
+    }    
 }
 
