@@ -1322,6 +1322,87 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
     let movementAllowed = false;
 
+    //for mobile
+    document.getElementById("moveUp").addEventListener(`click`, () =>{
+        if (movementAllowed == false) {
+            
+        }
+        else{
+            characterPosition.y = characterPosition.y + 1;
+            let a = 9;
+            if(fighting == true){
+                a = 8;
+            }
+            if (characterPosition.y == a) {
+                characterPosition.y = characterPosition.y - 1;
+                wall();
+            }
+            else {
+                updateCharacterPostion();
+                searchItems();
+                catSearch();
+                oven();
+                useOven();
+            }
+    }
+    });
+    document.getElementById("moveDown").addEventListener(`click`, () =>{
+        if (movementAllowed == false) {
+            
+        }
+        else{
+            characterPosition.y = characterPosition.y - 1;
+            if (characterPosition.y == 0) {
+                characterPosition.y = characterPosition.y + 1;
+                wall();
+            }
+            else {
+                updateCharacterPostion();
+                searchItems();
+                catSearch();
+                oven();
+                useOven();
+            }    
+        }
+    });
+    document.getElementById("moveLeft").addEventListener(`click`, () =>{
+        if (movementAllowed == false) {
+            
+        }
+        else{
+            characterPosition.x = characterPosition.x - 1;
+            if (characterPosition.x == 0) {
+                characterPosition.x = characterPosition.x + 1;
+                wall();
+            }
+            else {
+                updateCharacterPostion();
+                searchItems();
+                catSearch();
+                oven();
+                useOven();
+            }
+    }
+    });
+    document.getElementById("moveRight").addEventListener(`mousedown`, () =>{
+        if (movementAllowed == false) {
+            
+        }
+        else{
+            characterPosition.x = characterPosition.x + 1;
+            if (characterPosition.x == 9) {
+                characterPosition.x = characterPosition.x - 1;
+                wall();
+            }
+            else {
+                updateCharacterPostion();
+                searchItems();
+                catSearch();
+                oven();
+                useOven();
+            }
+    }
+    });
 
     document.addEventListener(`keydown`, (key) => {
         switch (key.key) {
@@ -2450,7 +2531,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                 UpdateInventory();
             }
             else if (code1 == "addCatfood") {
-                addInventory("sprites/Catfood.png", "Cat food, you can feed cats with food.");// no use
+                addInventory("sprites/Catfood.png", "Cat food, you can feed cats with this.");// no use
                 UpdateInventory();
                 haveCatFood = true;
             }
@@ -2541,6 +2622,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
         addMap("sprites/NormalDoor.png", 1, 4);
         addMap("sprites/Bookshelf.png", 1, 2);
         addMap("sprites/Bookshelf.png", 1, 3);
+        addMap("sprites/StatueTop.png", 5, 5);
+        addMap("sprites/StatueBottom.png", 5, 4);
 
         addMap("sprites/Bookshelf.png", 2, 8);
         addMap("sprites/Bookshelf.png", 3, 8);

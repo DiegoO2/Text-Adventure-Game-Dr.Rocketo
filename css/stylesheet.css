@@ -523,7 +523,39 @@ img.an180{
 img.an270{
     transform: rotate(270deg);
 }
+#mobileControls{
+    width: 90%;
+    margin: auto;
+    margin-top: 1rem;
+}
+#upControls {
+    margin-bottom: 1rem;
+}
+#mobileControls section{
+    display: none;
+    justify-content: space-between;
+    width: 100%;;
+}
 
+
+
+#mobileControls section div{
+    color: white;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+#moveUp, #moveLeft, #moveDown, #moveRight{
+    background-color: #7b7b7b;
+    border-radius: .5rem;
+}
+#interract {
+    background-color: #aa1616;
+    border-radius: 3rem;
+}
 
 
 @keyframes shine {
@@ -599,11 +631,38 @@ img.an270{
         width: 500px;
         height: 500px;
     }
+    #leftContent {
+        width: 500px;
+     }
+     #start div {
+        font-size: 2rem;
+        height: 6rem;
+        width: 12rem;
+    }
+    #start img {
+        width: 30%;
+    }
+   
 
+}
+@media only screen and (max-height: 650px) {
+
+    #gameContent,
+    #map,
+    #inventory {
+        width: 400px;
+        height: 400px;
+    }
+    #leftContent {
+        width: 400px;
+    }
 
 }
 
 @media only screen and (max-width: 700px) {
+    #mobileControls section{
+        display: flex;
+    }
     h1{
         width: 300px;
         margin: auto;
@@ -618,37 +677,36 @@ img.an270{
     #gameContent,
     #map,
     #inventory {
-        width: 300px;
-        height: 300px;
+        width: 380px;
+        height: 380px;
     }
-
+    
     #map {
         margin-right: 0;
     }
-
+    
     #leftContent {
-        width: 300px;
+        width: 380px;
     }
-
+    
     #history {
         width: 300px;
     }
-
+    
     #rightContent {
         flex-flow: column wrap;
         width: 100%;
     }
     #gameContent #textContent {
-        width: 260px;
-        height: 130px;
+        width: 350px;
+        height: 100px;
         margin-bottom: 10px;
-    
     }
     #textContent #textLeftO, #textContent #textRightO {
-        height: 91px;
+        height: 70px;
     }
     #textContent #textLeft, #textContent #textRight {
-        height: 130px;
+        height: 100px;
     }
     #textContent #textLeft {
         width: 50px;
@@ -668,7 +726,7 @@ img.an270{
     }
     #textContent #text1,#textContent #text2,#textContent #text3{
         padding: .3rem;
-        height: 91px;
+        height: 70px;
     }
     #start div {
         font-size: 2rem;
@@ -678,4 +736,52 @@ img.an270{
     #start img {
         width: 80%;
     }    
+    #gameBar>div {
+        flex-flow: column;
+        align-items: flex-start;
+    }
+    #health img{
+        height: 28px;
+        margin-bottom: 5px;
+    }
+    #gameBar>div p{
+        font-size: 1rem;
+    }
+
 }
+
+
+@media only screen and (max-width: 385px) {
+
+    #gameContent,
+    #map,
+    #inventory {
+        width: 300px;
+        height: 300px;
+    }
+    #leftContent {
+        width: 300px;
+    }
+    #history {
+        width: 300px;
+    }
+    #gameContent #textContent {
+        width: 260px;
+        height: 130px;
+    }
+    #textContent #textLeftO, #textContent #textRightO {
+        height: 91px;
+    }
+    #textContent #textLeft, #textContent #textRight {
+        height: 130px;
+    }
+    #textContent #text1,#textContent #text2,#textContent #text3{
+        height: 91px;
+    }
+    #textContent #textLeft{
+        width: 50px;
+        height: 50px;
+ 
+    }
+}
+
