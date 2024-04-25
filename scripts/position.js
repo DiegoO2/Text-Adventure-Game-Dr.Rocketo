@@ -1927,7 +1927,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
         }
     }
     function rocketoRockAttack(xA, yA) {
-        if (fighting == false) {
+        if (fighting == true) {
 
 
             rockPosition.push({ x: xA, y: yA });
