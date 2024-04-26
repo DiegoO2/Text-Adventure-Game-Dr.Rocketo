@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 
@@ -8,13 +7,14 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    user-select: none; 
+    user-select: none;
 }
 
 body {
     background-color: black;
     color: white;
     font-family: "Reddit Mono", monospace;
+    overflow: hidden;
 }
 
 main {
@@ -56,40 +56,49 @@ header {
     height: 12.5%;
     background-color: rgb(0, 0, 0);
 }
+
 #gameContent div.Grass {
     background-color: rgba(255, 255, 255, 0);
     background-image: url(/sprites/Grass.png);
     background-size: contain;
 }
+
 #gameContent div.Stairs {
     background-image: url(/sprites/Stairs.png);
     background-size: contain;
 }
+
 #gameContent div.RedArrow {
     background-image: url(/sprites/RedArrow.png);
     background-size: contain;
 }
+
 #gameContent div.RedRug {
     background-image: url(/sprites/RedRug.png);
     background-size: contain;
 }
+
 #gameContent div.RedRug2 {
     background-image: url(/sprites/RedRug.png);
     background-size: contain;
     transform: rotate(180deg);
 }
+
 #gameContent div.Rock {
     background-image: url(/sprites/Rock.png);
     background-size: contain;
 }
+
 #gameContent div.Alert {
     background-image: url(/sprites/Alert.png);
     background-size: contain;
 }
+
 #gameContent div.Laser {
     background-image: url(/sprites/Laser.png);
     background-size: contain;
 }
+
 #gameContent div.Kunai {
     background-image: url(/sprites/Kunai.png);
     background-size: contain;
@@ -116,10 +125,12 @@ header {
     width: 100%;
     color: white;
 }
-#textAlert{
+
+#textAlert {
     margin-bottom: 1rem;
     color: rgb(210, 35, 35);
 }
+
 #gameBar>div {
     margin: 0 1rem;
     margin-bottom: 1rem;
@@ -212,6 +223,7 @@ header {
     width: 100%;
     height: 100%;
 }
+
 #inventory .itemDesc {
     position: absolute;
     top: -73px;
@@ -223,7 +235,8 @@ header {
     font-size: .8rem;
 
 }
-#inventory .itemDesc div{
+
+#inventory .itemDesc div {
     border: none;
     background-color: rgb(55, 55, 55);
     width: auto;
@@ -232,7 +245,8 @@ header {
     z-index: 1;
     border-radius: 1rem;
 }
-#inventory  a.itemUse{
+
+#inventory a.itemUse {
     background-color: green;
     position: absolute;
     top: 25px;
@@ -244,7 +258,8 @@ header {
     border: none;
     border-radius: 5px;
 }
-#inventory a.itemUse:hover{
+
+#inventory a.itemUse:hover {
     background-color: rgb(255, 255, 255);
     color: green;
 }
@@ -267,9 +282,33 @@ header {
 
 #history {
     display: flex;
+    flex-flow: column;
+    overflow: auto;
+    overflow-x: hidden;
     border: 5px white solid;
     width: 300px;
     height: 600px;
+}
+
+#history p {
+    margin: 1rem .5rem;
+    font-size: .9rem;
+}
+
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #a7a7a7;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #4f4f4f;
 }
 
 #inputDiv {
@@ -351,23 +390,27 @@ footer {
     font-family: "Pixelify Sans", sans-serif;
 
 }
-#start div.fire{
+
+#start div.fire {
     animation: fire 1s;
     animation-iteration-count: 1;
 
 }
-.fire{
+
+.fire {
     /* background-color: rgb(255, 0, 0) !important; */
     animation: fire 1s;
     /* animation-iteration-count: 1; */
 
 }
-#start div.yellow{
+
+#start div.yellow {
     animation: yellow 1s;
     animation-iteration-count: 1;
 
 }
-.yellow{
+
+.yellow {
     /* background-color: rgb(255, 0, 0) !important; */
     animation: yellow 1s;
     /* animation-iteration-count: 1; */
@@ -375,15 +418,25 @@ footer {
 }
 
 @-webkit-keyframes yellow {
-    100% {background-color: rgb(0, 0, 0);}
-    0% {background-color: rgb(229, 255, 0);}
-} 
+    100% {
+        background-color: rgb(0, 0, 0);
+    }
+
+    0% {
+        background-color: rgb(229, 255, 0);
+    }
+}
 
 
 @-webkit-keyframes fire {
-    100% {background-color: rgb(0, 0, 0);}
-    0% {background-color: rgb(255, 0, 0);}
-} 
+    100% {
+        background-color: rgb(0, 0, 0);
+    }
+
+    0% {
+        background-color: rgb(255, 0, 0);
+    }
+}
 
 
 
@@ -398,6 +451,7 @@ footer {
     -webkit-text-size-adjust: none;
     white-space: nowrap;
 }
+
 #gameContent #textContent {
     position: absolute;
     width: 560px;
@@ -411,11 +465,13 @@ footer {
     align-items: center;
 
 }
+
 #textContent p {
     width: 100%;
     height: 70%;
     padding-right: 1rem;
 }
+
 #textContent h2 {
     width: 100%;
     height: 30%;
@@ -423,9 +479,10 @@ footer {
     align-items: center;
 }
 
-#textContent img{
+#textContent img {
     border: none;
 }
+
 #textContent #textLeft {
     width: auto;
     height: 150px;
@@ -433,12 +490,14 @@ footer {
     border: none;
 
 }
+
 #textContent #textRight {
     flex-grow: 1;
     height: 150px;
     border: none;
     position: relative;
 }
+
 #gameContent #imgSpark {
     position: absolute;
     animation: textSpark .5s infinite 100ms;
@@ -450,20 +509,38 @@ footer {
     color: white;
     background-color: white;
 }
-[src="sprites/Spark.png"]{
+
+[src="sprites/Spark.png"] {
     animation: spark .4s infinite 100ms;
 }
+
 @-webkit-keyframes textSpark {
-    100% {opacity: 1;}
-    50% {opacity: 0;}
-    0% {opacity: 0;}
-} 
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    0% {
+        opacity: 0;
+    }
+}
 
 @-webkit-keyframes spark {
-    100% {opacity: 1;}
-    50% {opacity: .85;}
-    0% {opacity: .6;}
-} 
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .85;
+    }
+
+    0% {
+        opacity: .6;
+    }
+}
 
 /* @keyframes fade {
     from {opacity: 1;}
@@ -477,6 +554,7 @@ footer {
     align-items: center;
     justify-content: center;
 }
+
 #textContent #textRightO {
     flex-grow: 1;
     height: 100px;
@@ -485,31 +563,42 @@ footer {
     align-items: center;
     justify-content: center;
 }
-#textContent #textRightO p, #textContent #textLeftO p {
+
+#textContent #textRightO p,
+#textContent #textLeftO p {
     display: flex;
     align-items: flex-start;
     justify-content: center;
     padding: 1rem;
     height: 100%;
 }
-#textContent #textRightO:hover, #textContent #textLeftO:hover {
-    background-color: #3c3c3c;
-}
-#textContent #text1:hover, #text2:hover , #text3:hover{
+
+#textContent #textRightO:hover,
+#textContent #textLeftO:hover {
     background-color: #3c3c3c;
 }
 
-#optionH2{
+#textContent #text1:hover,
+#text2:hover,
+#text3:hover {
+    background-color: #3c3c3c;
+}
+
+#optionH2 {
     width: 100%;
     height: 30px;
     padding: 1rem;
 }
-#textContent #text1,#textContent #text2,#textContent #text3{
+
+#textContent #text1,
+#textContent #text2,
+#textContent #text3 {
     width: 33%;
     height: 100px;
     border: none;
     padding: 1rem;
 }
+
 p.counter {
     position: absolute;
     right: 2px;
@@ -517,31 +606,38 @@ p.counter {
     background-color: #ffffffa1;
     color: black;
 }
-img.an90{
+
+img.an90 {
     transform: rotate(90deg);
 }
-img.an180{
+
+img.an180 {
     transform: rotate(180deg);
 }
-img.an270{
+
+img.an270 {
     transform: rotate(270deg);
 }
-#mobileControls{
+
+#mobileControls {
     width: 90%;
     margin: auto;
     margin-top: 1rem;
 }
+
 #upControls {
     margin-bottom: 1rem;
 }
-#mobileControls section{
+
+#mobileControls section {
     display: none;
     justify-content: space-between;
-    width: 100%;;
+    width: 100%;
+    ;
 }
 
 
-#mobileControls section div{
+#mobileControls section div {
     color: white;
     width: 90px;
     height: 90px;
@@ -550,17 +646,24 @@ img.an270{
     align-items: center;
     font-size: 2rem;
 }
-#moveUp, #moveLeft, #moveDown, #moveRight{
+
+#moveUp,
+#moveLeft,
+#moveDown,
+#moveRight {
     background-color: #7b7b7b;
     border-radius: .5rem;
 }
+
 #interract {
     background-color: #aa1616;
     border-radius: 3rem;
 }
+
 #divText {
     width: 100%;
 }
+
 #textName {
     margin: auto;
     margin-bottom: 1rem;
@@ -569,9 +672,11 @@ img.an270{
     border: none;
     font-family: "Reddit Mono", monospace;
 }
+
 #textName:focus {
     outline: none;
 }
+
 @keyframes shine {
 
     0% {
@@ -597,12 +702,13 @@ img.an270{
     main {
         width: 80%;
     }
+
     #start h1 {
         margin: 6rem 0;
     }
 }
 
-    @media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1200px) {
     main {
         flex-flow: column nowrap;
         width: 90%;
@@ -633,10 +739,12 @@ img.an270{
     #gameButton {
         width: 100%;
     }
+
     #start img {
         width: 40%;
-    }    
+    }
 }
+
 @media only screen and (max-height: 770px) {
 
     #gameContent,
@@ -645,20 +753,24 @@ img.an270{
         width: 500px;
         height: 500px;
     }
+
     #leftContent {
         width: 500px;
-     }
-     #start div {
+    }
+
+    #start div {
         font-size: 2rem;
         height: 6rem;
         width: 12rem;
     }
+
     #start img {
         width: 30%;
     }
-   
+
 
 }
+
 @media only screen and (max-height: 650px) {
 
     #gameContent,
@@ -667,6 +779,7 @@ img.an270{
         width: 400px;
         height: 400px;
     }
+
     #leftContent {
         width: 400px;
     }
@@ -674,102 +787,125 @@ img.an270{
 }
 
 @media only screen and (max-width: 700px) {
-    #gameBar h2{
+    #gameBar h2 {
         margin: .5rem;
     }
-    #gameBar>div{
+
+    #gameBar>div {
         margin: 0 .5rem .5rem .5rem;
     }
-    
-    #mobileControls section{
+
+    #mobileControls section {
         display: flex;
     }
-    h1{
+
+    h1 {
         width: 300px;
         margin: auto;
     }
+
     main {
         flex-flow: column nowrap;
         width: 100%;
     }
+
     header {
-        margin: 2rem 0  ;
+        margin: 2rem 0;
     }
+
     #gameContent,
     #map,
     #inventory {
         width: 380px;
         height: 380px;
     }
-    
+
     #map {
         margin-right: 0;
     }
-    
+
     #leftContent {
         width: 380px;
     }
-    
+
     #history {
         width: 300px;
     }
-    
+
     #rightContent {
         flex-flow: column wrap;
         width: 100%;
     }
+
     #gameContent #textContent {
         width: 350px;
         height: 100px;
         margin-bottom: 10px;
     }
-    #textContent #textLeftO, #textContent #textRightO {
+
+    #textContent #textLeftO,
+    #textContent #textRightO {
         height: 70px;
     }
-    #textContent #textLeft, #textContent #textRight {
+
+    #textContent #textLeft,
+    #textContent #textRight {
         height: 100px;
     }
+
     #textContent #textLeft {
         width: 50px;
         height: 50px;
         margin: 0 10px;
     }
+
     #textContent p {
         padding-right: .5rem;
         font-size: .7rem;
     }
+
     #textContent h2 {
         font-size: 1rem;
     }
-    #optionH2{
+
+    #optionH2 {
         height: 30px;
         padding: 1rem;
     }
-    #textContent #text1,#textContent #text2,#textContent #text3{
+
+    #textContent #text1,
+    #textContent #text2,
+    #textContent #text3 {
         padding: .3rem;
         height: 70px;
     }
+
     #start div {
         font-size: 2rem;
         height: 6rem;
         width: 12rem;
     }
+
     #start #divText {
         width: 100%;
         height: auto;
     }
+
     #start img {
         width: 80%;
-    }    
+    }
+
     #gameBar>div {
         flex-flow: column;
         align-items: flex-start;
     }
-    #health img{
+
+    #health img {
         height: 24px;
         margin-bottom: 5px;
     }
-    #gameBar>div p{
+
+    #gameBar>div p {
         font-size: 1rem;
     }
 
@@ -784,32 +920,43 @@ img.an270{
         width: 300px;
         height: 300px;
     }
+
     #leftContent {
         width: 300px;
     }
+
     #history {
         width: 300px;
     }
+
     #gameContent #textContent {
         width: 260px;
         height: 130px;
     }
-    #textContent #textLeftO, #textContent #textRightO {
+
+    #textContent #textLeftO,
+    #textContent #textRightO {
         height: 91px;
     }
-    #textContent #textLeft, #textContent #textRight {
+
+    #textContent #textLeft,
+    #textContent #textRight {
         height: 130px;
     }
-    #textContent #text1,#textContent #text2,#textContent #text3{
+
+    #textContent #text1,
+    #textContent #text2,
+    #textContent #text3 {
         height: 91px;
     }
-    #textContent #textLeft{
+
+    #textContent #textLeft {
         width: 50px;
         height: 50px;
     }
-    #mobileControls section div{
+
+    #mobileControls section div {
         width: 75px;
         height: 75px;
-    }    
+    }
 }
-
