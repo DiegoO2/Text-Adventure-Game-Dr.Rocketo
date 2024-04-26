@@ -880,11 +880,11 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                 </div>`;
 
                                 document.getElementById("text1").addEventListener(`click`, () => {
-                                    console.log(inventoryArray, inventoryArray[0].img == 'sprites/Narrator.png', inventoryArray[0].img);
                                     if (haveCatFood == true) {
 
                                         deleteInventory('sprites/Catfood.png');
                                         UpdateInventory();
+                                        adminImmortality = true;
                                         createHTMLForCat(itemCopy.textWithCatFood);
                                         startGameForCat(catX, catY);
                                         CATTTTT = false;
@@ -1823,6 +1823,11 @@ document.addEventListener(`DOMContentLoaded`, () => {
                     stamina = stamina + 999;
                     updateStamina();
                     break
+                }
+            case "b":
+                if (adminMode == true) {
+                        rocketoFight();
+                        break
                 }
         }
     });
@@ -3294,7 +3299,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
             document.getElementById("main").classList.toggle("displayNone");
             document.getElementById("start").classList.toggle("displayNone");
             movementAllowed = false;
-            document.getElementById("start").innerHTML = `<input type="text" id="textName" placeholder="Your name">`
+            document.getElementById("start").innerHTML = `<input type="text" id="textName" placeholder="Password">`
             document.getElementById("textName").addEventListener("change", () => {
                 if (document.getElementById("textName").value == "Rocketo24") {
                     adminMode = true;
