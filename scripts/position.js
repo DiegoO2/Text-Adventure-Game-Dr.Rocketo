@@ -883,6 +883,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                     if (haveCatFood == true) {
 
                                         deleteInventory('sprites/Catfood.png');
+                                        addInventory("sprites/Cat.png", "You have a cat no one would dare hurt the cat (Immortality).");
                                         UpdateInventory();
                                         adminImmortality = true;
                                         createHTMLForCat(itemCopy.textWithCatFood);
@@ -962,6 +963,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
                                     if (haveCatFood == true) {
 
                                         deleteInventory('sprites/Catfood.png');
+                                        addInventory();
                                         UpdateInventory();
                                         createHTMLForCat(itemCopy.textWithCatFood);
                                         startGameForCat(catX, catY);
@@ -2445,6 +2447,28 @@ document.addEventListener(`DOMContentLoaded`, () => {
             rocketoRockAttack(7, 8);
             rocketoRockAttack(8, 8);
         }, 68000);
+        setTimeout(() => {
+            if (fighting == false) {
+                return
+            }
+            else {
+                movementAllowed = false;
+                document.getElementById("textContent").classList.toggle("displayNone");
+                document.getElementById("textContent").innerHTML = `                  
+                <div id="textLeft">
+                  <img src="sprites/Narrator.png" alt="">
+                </div>
+                <div id="textRight">
+                  <h2>Narrator</h2>
+                  <p>Hello, if you did this without the power of the cat you are insane. Now die!</p>
+                  <img src="Images/arrow.svg" alt="" id="imgSpark">             
+                </div>`;
+                document.getElementById("textRight").addEventListener(`click`, () => {
+                    gameOver();
+                });
+                }
+            }, 70000);
+
         // is possible to add more things here to make the battle longer
 
     }
@@ -3303,6 +3327,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
             document.getElementById("textName").addEventListener("change", () => {
                 if (document.getElementById("textName").value == "Rocketo24") {
                     adminMode = true;
+                    console.log("Admin Mode true :D");
                 }
                 document.getElementById("textContent").classList.toggle("displayNone");
                 document.getElementById("header").classList.toggle("displayNone");
